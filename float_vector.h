@@ -5,9 +5,9 @@ FloatVector *create(int tam);
 void destroy(FloatVector **ref_vector);
 int size(const FloatVector *vector); //retorna o tamanho do vetor
 int capacity(const FloatVector *vector); //retorna a capacidade
-float at(const FloatVector *vector, int pos);
-float get(const FloatVector *vector);
-void append(FloatVector *vector, float n); //nserir algo dentro do vetor
+float at(const FloatVector *vector, int pos); // retorna o valor de uma posição dentro do vetor
+float get(const FloatVector *vector, int index);
+void append(FloatVector *vector, float n); //inserir algo dentro do vetor
 void print(const FloatVector *vector);
 
 /*
