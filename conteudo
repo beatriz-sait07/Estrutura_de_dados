@@ -1,0 +1,47 @@
+                    25/07/2022
+
+LIVROS
+estrytyra de dados com jogos(knouth)
+introdução a estrutura de ddos com técnicas de programação em c(renato)
+alg em estrutura de dados em c/c++ (MELHOR OPÇÃO)
+
+CONTEUDO
+melhor caso do bobble é quando o vetor já está ordenado
+
+
+------------observação-----------
+sempre que criar tem que destruir, assim como, quando alcoar tem que desalocar
+
+cortar/dividir tads podeacaber perdendo referencias
+
+mexer com compare, join, split precisa do tamanho
+
+especificações sao os dados(funções)
+
+calloc/ malloc - qual a melhor escolha ? (calloc zera as variaveiz enquanto malloc utiliza o lixo de memoria, porem o callo é menos perfomavel)
+
+em dedstroy estou limpando o ponteiro e depois a estrutura inteira, pois se eu destruir apenas a estrutura ficara casas as quais não serão desalocadas
+
+a função bool inicia-se com : bool isNOME
+
+        01/08/2022 - aula 03
+
+todos os TADS precisa de um contador para redução de custos, ou seja, aumento de eficiencia
+
+nome de funções não ideia
+-size
+-at
+-get
+
+***busca de pesquisa***
+bobble sort
+quiok 
+
+
+
+---------entregar trabalhos-----------
+usando tads/objetos
+
+###### HORÁRIO DE PERMANENCIA #####
+seg 13:00
+quar 14h
