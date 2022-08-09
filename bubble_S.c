@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#define T 8
-#define TM 50
-#define TAM 10
+#define test 50
+#define T 100000
+#define TM 500000
+#define TAM 1000000
 
 
 int main (int argc, char const *argv[])
@@ -12,11 +13,23 @@ int main (int argc, char const *argv[])
     double tp_ex = 0.0;
     clock_t begin = clock();
 
-    int vector[T] = {7,3,0,1,3,8,2,9};
+    int vector[T];
+    for(int i = 0; i < T; i++){
+        vector[i] = rand()%T;
+    }
 
     bubble(vector,T);
     print_novo_vetor(vector, T);
-    /*int n;
+
+    clock_t end = clock();
+    tp_ex += (double)(end - begin)/ CLOCKS_PER_SEC;
+
+    printf("tempo de execucao: %fs",tp_ex);
+   
+    return 0;
+}
+
+  /*int n;
 
     
     printf("escolha as opções a serem rodadas:");
@@ -48,11 +61,3 @@ int main (int argc, char const *argv[])
     
     default: printf("digite um numero valido!");
     }*/
-
-    clock_t end = clock();
-    tp_ex += (double)(end - begin)/ CLOCKS_PER_SEC;
-
-    printf("tempo de execusao foi de %fs\n", tp_ex);
-
-    return 0;
-}
