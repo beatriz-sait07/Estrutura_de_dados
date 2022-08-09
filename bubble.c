@@ -33,27 +33,15 @@ void bubble(int vector[], int size)
 }
 
 
-int print_novo_vetor(const int *vector, int size)
-{
-    for(int i=0; i<size; i++){
-        printf("|%d", vector[i]);
-    }
-    printf("\no vetor foi analisado: %d\n", (cont_varredura - 1));
-    printf("ocorreu: %d trocas dentro do vetor ate ele se organizar\n", cont_trocas);
-    printf("quantidade de comparacoes: %d\n", cont_comp);
-}
-
-
-
-/*int print_novo_vetor(const int *vector, int size)
+void print_arq(double tempo)
 {
     FILE *file = fopen("dados bubble_sort.txt", "w");
 
     if(file == NULL)printf("nao foi possivel criar um arquivo!");
-    for(int i=0; i<size; i++){
-        fprintf(file,"|%d", vector[i]);
-    }
-    fprintf(file, "\n\n\no vetor foi analisado: %d\n", (cont_varredura - 1));
+
+    fprintf(file, "o vetor foi analisado: %d\n", (cont_varredura - 1));
     fprintf(file,"nocorreu: %d trocas dentro do vetor ate ele se organizar\n", cont_trocas);
     fprintf(file,"quantidade de comparacoes: %d\n", cont_comp);
-}*/
+    fprintf(file, "o tempo gasto eh de: %f", tempo);
+    fclose(file);
+}

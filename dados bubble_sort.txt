@@ -1,0 +1,4 @@
+o vetor foi analisado: -1413344960
+nocorreu: 5098778 trocas dentro do vetor ate ele se organizar
+quantidade de comparacoes: 1370978298
+o tempo gasto eh de: 28.277044
