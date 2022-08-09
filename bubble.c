@@ -5,6 +5,7 @@
 
 int cont_varredura = 0;
 int cont_trocas = 0;
+int cont_comp = 0;
 
 void swap(int *a, int *b)
 {
@@ -37,5 +38,6 @@ int print_novo_vetor(const int *vector, int size)
         printf("|%d", vector[i]);
     }
     printf("\no vetor foi analisado: %d\n", cont_varredura);
-    printf("\nocorreu: %d trocas dentro do vetor ate ele se organizar\n", cont_trocas);
+    printf("nocorreu: %d trocas dentro do vetor ate ele se organizar\n", cont_trocas);
+    printf("quantidade de comparacoes: %d\n", cont_comp);
 }
