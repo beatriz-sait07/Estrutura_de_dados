@@ -2,27 +2,52 @@
 #include<stdlib.h>
 #include<time.h>
 #include"select.h"
-#define T 4
+
+void tempo(int *vector, int size);
 
 int main()
 {
-    int vector[T];
-    double tempo_ex = 0.0;
-    clock_t begin = clock();
+    int T = 100000;
+    int * vector;
 
     srand(time(NULL));
 
-    //vector[T] = (int*)calloc( T, sizeof(int));
-    for(int i =0;i<T; i++)
+    vector = (int*)malloc( T * sizeof(int));
+    if (vector == NULL)
     {
-        vector[i] = rand()%T;
-        printf("|%d|", vector[i]);
+        printf("erro de alocacao!\n");
+        exit(1);
     }
+    tempo(vector,T);
 
-    printf("\n\n");
-    selection(vector,T);
-    print_vector(vector,T);
 
-    //free(vector);
+    T = 500000;
+    vector = (int*)realloc( vector, T * sizeof(int));
+    tempo(vector,T);
+
+    T = 1000000;
+    vector = (int*)realloc( vector, T * sizeof(int));
+    tempo(vector,T);
+
+    free(vector);
     return 0;
+}
+
+void tempo(int *vector, int size)
+{
+    double tempo_execucao = 0.0;
+
+    clock_t  begin = clock();
+
+    srand(time(NULL));
+
+    for(int i = 0; i < size; i++)
+    {
+        vector[i] = rand()%size;
+    }
+    selection(vector, size);
+
+    clock_t end = clock();
+    tempo_execucao += (double)(end - begin) / CLOCKS_PER_SEC;
+    salva_dados(size, tempo_execucao);
 }

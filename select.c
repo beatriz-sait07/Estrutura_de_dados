@@ -24,9 +24,9 @@ void selection(int vector[],int size)
             {
                 menor = j;
             }
-            // pode ser progressão ??
+
             if(menor == j || menor != j)cont_comp += 1;
-            //cont_comp += 1;
+
             
         }
         if(i != menor)
@@ -40,13 +40,15 @@ void selection(int vector[],int size)
     }
 }
 
-int print_vector(const int *vector, int size)
+int salva_dados(int size, double tempo)
 {
-    for(int i = 0; i < size; i++)
-    {
-        printf("|%d|", vector[i]);
-    }
-    printf("\n\nnumero de trocas %d", cont_troca);
-    printf("\n\nnumero de varedura do vetor: %d", (cont_var - 1));
-    printf("\n\nnumero de comparacoes: %d\n", cont_comp);
+    FILE *file = fopen("dados_selection_sort.txt", "a");
+    if(file == NULL)printf("\n\nnao foi possivel criar arquivo!\n\n");
+
+    fprintf(file, "dados do vetor de %d",size);
+    fprintf(file, "\nnumero de trocas %d", cont_troca);
+    fprintf(file, "\nnumero de varedura do vetor: %d", (cont_var - 1));
+    fprintf(file, "\nnumero de comparacoes: %d", cont_comp);
+    fprintf(file, "\no tempo de execucao foi de: %.2f", tempo);
+    fprintf(file, "\n\n------------------------------\n");
 }
