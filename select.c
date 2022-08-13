@@ -1,7 +1,11 @@
 #include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
 #include"select.h"
-#define TAM 8
 
+int cont_troca = 0;
+int cont_var = 0;
+int cont_comp = 0;
 void swap (int *a, int *b)
 {
     int aux = *a;
@@ -9,29 +13,40 @@ void swap (int *a, int *b)
     *b = aux;
 }
 
-
-void selection(int vector[])
+void selection(int vector[],int size)
 {
-    for(int i = 0; i < TAM; i++)
+    for(int i = 0; i < size; i++)
     {
         int menor = i;
-        for(int j = i; j < TAM; j++)
+        for(int j = i; j < size; j++)
         {
             if(vector[j] < vector[menor])
             {
                 menor = j;
             }
+            // pode ser progressão ??
+            if(menor == j || menor != j)cont_comp += 1;
+            //cont_comp += 1;
+            
         }
-        swap(&vector[i], &vector[menor]);
+        if(i != menor)
+        {
+            swap(&vector[i], &vector[menor]);
+            cont_troca += 1;
+        }
+    
+    cont_var += 1;
+        
     }
 }
 
-int print_vector(const int *vector)
+int print_vector(const int *vector, int size)
 {
-    for(int i = 0; i < TAM; i++)
+    for(int i = 0; i < size; i++)
     {
-        printf("\n");
         printf("|%d|", vector[i]);
-        printf("\n");
     }
+    printf("\n\nnumero de trocas %d", cont_troca);
+    printf("\n\nnumero de varedura do vetor: %d", (cont_var - 1));
+    printf("\n\nnumero de comparacoes: %d\n", cont_comp);
 }

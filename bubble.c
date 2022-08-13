@@ -22,7 +22,6 @@ void bubble(int vector[], int size)
             if(vector[j] > vector[j+1]){
 
                 swap(&vector[j], &vector[j+1]);
-                cont_varredura = vector[j];
                 if (cont_varredura == vector[j - 1]) break;
                 cont_trocas += 1;
             }
@@ -32,6 +31,12 @@ void bubble(int vector[], int size)
     }
 }
 
+int print_novo_vetor(const int *vector, int size)
+{
+    for(int i=0; i<size; i++){
+        printf("|%d", vector[i]);
+    }
+}
 
 void print_arq(double tempo)
 {
@@ -40,8 +45,9 @@ void print_arq(double tempo)
     if(file == NULL)printf("nao foi possivel criar um arquivo!");
 
     fprintf(file, "o vetor foi analisado: %d\n", (cont_varredura - 1));
-    fprintf(file,"nocorreu: %d trocas dentro do vetor ate ele se organizar\n", cont_trocas);
+    fprintf(file,"ocorreu: %d trocas dentro do vetor ate ele se organizar\n", cont_trocas);
     fprintf(file,"quantidade de comparacoes: %d\n", cont_comp);
-    fprintf(file, "o tempo gasto eh de: %f", tempo);
+    fprintf(file, "o tempo gasto eh de: %f\n\n", tempo);
     fclose(file);
 }
+
