@@ -25,7 +25,7 @@ void selection(int vector[],int size)
                 menor = j;
             }
 
-            if(menor == j || menor != j)cont_comp += 1;
+            cont_comp += 1;
 
             
         }

@@ -1,0 +1,21 @@
+dados do vetor de 1000000
+numero de trocas 1599953
+numero de varedura do vetor: 1599999
+numero de comparacoes: 1359392512
+o tempo de execucao foi de: 1481.29
+
+------------------------------
+dados do vetor de 500000
+numero de trocas 599974
+numero de varedura do vetor: 599999
+numero de comparacoes: 1151281120
+o tempo de execucao foi de: 364.20
+
+------------------------------
+dados do vetor de 100000
+numero de trocas 99988
+numero de varedura do vetor: 99999
+numero de comparacoes: 705082704
+o tempo de execucao foi de: 15.98
+
+------------------------------
