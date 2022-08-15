@@ -28,7 +28,26 @@ a função bool inicia-se com : bool isNOME
 
 todos os TADS precisa de um contador para redução de custos, ou seja, aumento de eficiencia
 
-nome de funções não ideia
+        15/08/2022
+em modulo é sempre melhor para estábilidade do vetor
+
+algoritmo quadraticos sao simples, mas são melhores em alguma ocasioes e outras não.
+saiba o porque!!
+
+mergi -> dividir para conquistar, use recursividade
+ele divide o vetor até ter uma unica casa nele, ex:
+vetor inicial = [3 0 7 1 5 2 4 6] -> fase da divisao ainda dentro da recursao
+1 subvetores = [3 0 7 1] [5 2 4 6]
+2 subvetor = [3 0] [7 1] [5 2] [4 6]
+vetor final = [3] [0] [7] [1] [5] [2] [4] [6]
+
+vetor inicial = [0 3] [ 1 7] [2 5] [4 6] -> fase conquista, ainda dentro da recursao
+subvetor = [0 1 3 7] [2 4 5 6]
+vetor dinalizado = [0 1 2 3 4 5 6 7]
+
+
+######################## OBSERVAÇÕES ############################
+nome de funções não ideiais
 -size
 -at
 -get
@@ -36,6 +55,17 @@ nome de funções não ideia
 ***busca de pesquisa***
 bobble sort
 quiok 
+
+
+##### trabalho de agosto #####
+quantidade de comparaçoes
+quaantidade de varredura
+quantidade de trocas
+tempo
+explicar qual foi o melhor dos algoritimos
+colocar as especificaçoes do pc
+analise curta sobre os alg de ordenação usado, dizer qual seria o melhor alg a ser usado naquele vetor.
+conclusao final 
 
 
 

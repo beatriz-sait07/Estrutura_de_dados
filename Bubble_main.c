@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
-#include"select.h"
+#include"Bubble.h"
 
 void tempo(int *vector, int size);
 
@@ -49,5 +49,5 @@ void tempo(int *vector, int size)
 
     clock_t end = clock();
     tempo_execucao += (double)(end - begin) / CLOCKS_PER_SEC;
-    int print_arq(size,tempo_execucao);
+    print_arq(size,tempo_execucao);
 }

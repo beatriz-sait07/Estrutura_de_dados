@@ -17,20 +17,23 @@ void insertion(int*vector, int size)
     int i, j, atual;
     //comparando o valor de uma posicao com os antecessores
     for(i=1; i<size; i++){ 
-        //Desloca os valores pra esquerda e insere:
-        /*atual = vector[i];
-        for(j=i; j>0; j--){
-            if((j>0) && (atual < vector[j-1]))
-            vector[j] = vector[j-1];
-        }*/
         atual = i;
-        while(vector[atual] < vector[atual - 1])
+
+        if(vector[atual] != atual)cont_troca += 1;
+
+        //Desloca os valores pra esquerda e insere:
+        while(atual < vector[atual - 1])
         {
             swap(&vector[atual],&vector[atual - 1]);
             atual --;
-            cont_troca += 1;
+        
+            cont_comp += 1;
+            
             if(atual == 0)break;
         }
+
+        //if(vector[j] != atual)cont_troca += 1;
+
     cont_var += 1;
     }
 }
