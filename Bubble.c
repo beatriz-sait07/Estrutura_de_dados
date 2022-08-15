@@ -1,53 +1,47 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
-#include"select.h"
+#include"Bubble.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-void tempo(int *vector, int size);
+long int cont_varredura = 0;
+long int cont_trocas = 0;
+long int cont_comp = 0;
 
-int main()
+void swap(int *a, int *b)
 {
-    int indc = 100000;
-    int * vector;
-
-    srand(time(NULL));
-
-    vector = (int*)malloc( indc * sizeof(int));
-    if (vector == NULL)
-    {
-        printf("erro de alocacao!\n");
-        exit(1);
-    }
-    tempo(vector,indc);
-
-
-    indc = 500000;
-    vector = (int*)realloc( vector, indc * sizeof(int));
-    tempo(vector,indc);
-
-    indc = 1000000;
-    vector = (int*)realloc( vector, indc * sizeof(int));
-    tempo(vector,indc);
-
-    free(vector);
-    return 0;
+    int aux = *a;
+    *a = *b;
+    *b = aux;
 }
 
-void tempo(int *vector, int size)
+void bubble(int vector[], int size)
 {
-    double tempo_execucao = 0.0;
 
-    clock_t  begin = clock();
+    for(int i=0; i<size-1; i++){
+        for(int j=0; j<size-1; j++){
 
-    srand(time(NULL));
+            if(vector[j] > vector[j+1]){
 
-    for(int i = 0; i < size; i++)
-    {
-        vector[i] = rand()%size;
+                swap(&vector[j], &vector[j+1]);
+                if (cont_varredura == vector[j - 1]) break;
+                cont_trocas += 1;
+            }
+            cont_comp += 1;
+        }
+        cont_varredura += 1;
     }
-    bubble(vector, size);
-
-    clock_t end = clock();
-    tempo_execucao += (double)(end - begin) / CLOCKS_PER_SEC;
-    int print_arq(size,tempo_execucao);
 }
+
+
+int print_arq(int size, double tempo)
+{
+    FILE *file = fopen("Bubble_sort.txt", "a");
+    if(file == NULL)printf("\n\nnao foi possivel criar arquivo!\n\n");
+
+    fprintf(file, "dados do vetor de %d",size);
+    fprintf(file, "\nnumero de trocas %ld", cont_trocas);
+    fprintf(file, "\nnumero de varedura do vetor: %ld", (cont_varredura - 1));
+    fprintf(file, "\nnumero de comparacoes: %ld", cont_comp);
+    fprintf(file, "\no tempo de execucao foi de: %.2f", tempo);
+    fprintf(file, "\n\n------------------------------\n");
+}
+
