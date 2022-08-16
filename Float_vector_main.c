@@ -4,6 +4,6 @@
 
 int main(int argc, char const *argv[])
 {
-    FloatVector *vetor = crate(10);
+    FloatVector *vetor = create(10);
     return 0;
 }

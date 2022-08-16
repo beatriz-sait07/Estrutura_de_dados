@@ -1,3 +1,8 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include"Merge.h"
+
+
 void merge(int *array[], int  inicio, int meio, int fim)
 {
     int array;

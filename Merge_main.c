@@ -1,11 +1,17 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include"Mergi.h"
+#include"Merge.h"
+#include"Float_vector.h"
 
 int main ()
-{
-    int vector[8] = {3,0,7,1,5,2,4,6};
-    
-    margessort(vector, )
+{    
+    FloatVector *vector = create(8);
+    for(int i = 0; i < capacity(vector); i++)
+    {
+        int var = rand()%10;
+        append(vector, var);
+    }
+    print(vector);
+    mergesort()
     return 0;
 }

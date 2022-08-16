@@ -1,19 +1,20 @@
-#include "float_vector.h"
+#include "Float_vector.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
 
-bool isfull(FloatVector *vector)
-{
-    return capacity == size;
-    /*jeito do beto --> vector->capacity == vector->size */
-}
 struct float_vector
 {
     int capacity; //numero maximo de elementos
     int size; //controlar a quantidade atual de elementos
     float *data; //vetor de float
 };
+
+bool _isfull(FloatVector *vector)
+{
+    return vector->capacity == vector->size;
+    /*jeito do beto --> vector->capacity == vector->size */
+}
 
 /**
 *@brief Cria(aloca) um vetor de flaot com uma dada capacidade
@@ -32,6 +33,12 @@ vet -> data = (float*) calloc(vet->capacity, sizeof(float));
 
 return vet;
 }
+/**
+ * @brief Cria (aloca) um vetor de floats com uma dada capacidade.
+ *
+ * @param **vet_ref A referencia da nossa TAD.
+ * @return .
+ */
 
 void destroy (FloatVector **vet_ref)
 {
@@ -53,15 +60,17 @@ int capacity (const FloatVector *vector)
 }
 
 //trata o erro, quando não sabe o que tem dentro
+
 float at(const FloatVector *vector, int pos)
 {
-    if (pos < 0 || pos >= vector->size)
-    {
-        fprintf(stderr, "Erro: posicao invalida\n");
-        fprintf(stderr, "Index [%d] is out of bounds\n");
-        exit(EXIT_FAILURE);//programa termina de maneira subta com erro
-    }
-    return vector->data[pos];
+  if (pos < 0 || pos >= vector->size)
+  {
+    fprintf(stderr, "Error: Invalid position!\n");
+    fprintf(stderr, "Index [%d] is out of bounds\n", pos);
+    exit(EXIT_FAILURE);
+  }
+
+  return vector->data[pos];
 }
 
 //não trata o erro, quando sabe extamente o que esta dentro do vetor... e quando voce sabe isso ? quando o vetor está cheio
@@ -86,9 +95,10 @@ void append(FloatVector *vector, float n)
 
 void print(const FloatVector *vector)
 {
+
     for(int i = 0; i  < vector->size; i++)
     {
-        printf("[%d]", vector->data[i]);
+        printf("[%f]", vector->data[i]);
     }
 }
 
@@ -98,6 +108,6 @@ void set(const FloatVector *vector)
     printf("dados substituidos!\n");
     for(int i = 0; i < vector->size; i++)
     {
-        printf("[%d]", vector->data[i]);
+        printf("[%.2f]", vector->data[i]);
     }
 }

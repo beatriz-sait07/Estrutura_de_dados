@@ -28,11 +28,15 @@ a função bool inicia-se com : bool isNOME
 
 todos os TADS precisa de um contador para redução de custos, ou seja, aumento de eficiencia
 
-        15/08/2022
+        15/08/2022 - aula 04
 em modulo é sempre melhor para estábilidade do vetor
 
 algoritmo quadraticos sao simples, mas são melhores em alguma ocasioes e outras não.
 saiba o porque!!
+
+        16/08/2022 - aula 05
+realizar o trabalho valendo nota, onde voce ira utilizar o "float_vector"
+
 
 mergi -> dividir para conquistar, use recursividade
 ele divide o vetor até ter uma unica casa nele, ex:
