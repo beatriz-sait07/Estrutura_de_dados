@@ -7,7 +7,7 @@ struct float_vector
 {
     int capacity; //numero maximo de elementos
     int size; //controlar a quantidade atual de elementos
-    float *data; //vetor de float
+    int *data; //vetor de float
 };
 
 bool _isfull(FloatVector *vector)
@@ -28,7 +28,7 @@ FloatVector *create (int tam) //aloca dinamicamente
 FloatVector *vet = (FloatVector*)calloc(1, sizeof(FloatVector)); //quantidade
 vet -> capacity = tam;
 vet -> size = 0;
-vet -> data = (float*) calloc(vet->capacity, sizeof(float));
+vet -> data = (int*) calloc(vet->capacity, sizeof(float));
 //vet -> data = (float*) malloc(quantidade de vetor * tam)
 
 return vet;
@@ -98,7 +98,7 @@ void print(const FloatVector *vector)
 
     for(int i = 0; i  < vector->size; i++)
     {
-        printf("[%f]", vector->data[i]);
+        printf("[%d]", vector->data[i]);
     }
 }
 
@@ -108,6 +108,7 @@ void set(const FloatVector *vector)
     printf("dados substituidos!\n");
     for(int i = 0; i < vector->size; i++)
     {
-        printf("[%.2f]", vector->data[i]);
+        printf("[%d]", vector->data[i]);
     }
 }
+

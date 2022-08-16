@@ -1,2 +1,2 @@
-void merge(int *array[], int  inicio, int meio, int fim);
-int mergesort(int *array[], int inicio, int fim);
+void merge(FloatVector **vector[], int  inicio, int meio, int fim);
+int mergesort(FloatVector **vector[], int inicio, int fim);

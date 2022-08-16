@@ -10,6 +10,7 @@ float get(const FloatVector *vector, int index);
 void append(FloatVector *vector, float n); //inserir algo dentro do vetor
 void print(const FloatVector *vector);
 
+
 /*
 ---------- poderia existir---------
 bool compare(floatVector*, FloatVector) -- comparar os dois TADs

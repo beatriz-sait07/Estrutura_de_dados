@@ -1,9 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include"Merge.h"
+#include"Float_vector.h"
 
 
-void merge(int *array[], int  inicio, int meio, int fim)
+void merge(FloatVector **vector[], int  inicio, int meio, int fim)
 {
     int array;
     int n1 = meio - inicio + 1;
@@ -19,6 +20,8 @@ void merge(int *array[], int  inicio, int meio, int fim)
     {
         sub_esquerda[meio + i];
     }
+
+    int posicao = 0, index = get(vector, posicao);
     
     int i = 0, j = 0, k = 0;
 
@@ -26,12 +29,14 @@ void merge(int *array[], int  inicio, int meio, int fim)
     {
         if(sub_esquerda[i] <= sub_direita[j])
         {
-            array[k] = sub_esquerda[i];//manda direto para o vetor principal ao inves da subdivisão
+            index = get(vector, k);
+            index = sub_esquerda[i];//manda direto para o vetor principal ao inves da subdivisão
             i++;
         }
         else
         {
-            array[k] = sub_direita[j];
+            index = get(vector, k);
+            index = sub_direita[j];
             j++;
         }
         k++;
@@ -39,7 +44,8 @@ void merge(int *array[], int  inicio, int meio, int fim)
 
     while(j < n2)
     {
-        array[k] = sub_direita[j];
+        int index = get(vector, k);
+        index = sub_direita[j];
         j++;
         k++;
     }
@@ -47,7 +53,8 @@ void merge(int *array[], int  inicio, int meio, int fim)
     //ordenar o que faltou caso as casa de um lado tenha sido menor e finalizada antes do outro lado
     while(j < n1)
     {
-        array[k] = sub_esquerda[i];
+        index = get(vector, k);
+        index = sub_esquerda[i];
         j++;
         k++;
     }
@@ -55,18 +62,14 @@ void merge(int *array[], int  inicio, int meio, int fim)
 
 }
 
-int mergesort(int *array[], int inicio, int fim)
+int mergesort(FloatVector **vector[], int inicio, int fim)
 {
-
-
-
     //dividindo para conquistar
     if(inicio < fim)
     {
-
         int meio = inicio + (fim - inicio) / 2;
-        mergesort(array, inicio, meio); //faz as partes do subvetores (1,2)
-        mergesort(array, meio + 1, fim);
-        merge(array, inicio, meio, fim);
+        mergesort(vector, inicio, meio); //faz as partes do subvetores (1,2)
+        mergesort(vector, meio + 1, fim);
+        merge(vector, inicio, meio, fim);
     }
 }
