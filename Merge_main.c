@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include"Merge.h"
 #include"Float_vector.h"
+#include"Merge.h"
 
 int main ()
 {    
@@ -16,7 +16,7 @@ int main ()
     
     int inicio = get(vector, 0);
     int fim = get(vector,size(vector));
-    mergesort(Float, inicio, fim);
+    mergesort(&vector, inicio, fim);
     //print();
 
     return 0;

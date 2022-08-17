@@ -4,7 +4,7 @@
 #include"Float_vector.h"
 
 
-void merge(FloatVector **vector[], int  inicio, int meio, int fim)
+void merge(FloatVector *vector[], int  inicio, int meio, int fim)
 {
     int array;
     int n1 = meio - inicio + 1;
@@ -62,7 +62,7 @@ void merge(FloatVector **vector[], int  inicio, int meio, int fim)
 
 }
 
-int mergesort(FloatVector **vector[], int inicio, int fim)
+int mergesort(FloatVector *vector[], int inicio, int fim)
 {
     //dividindo para conquistar
     if(inicio < fim)

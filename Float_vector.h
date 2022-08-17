@@ -1,5 +1,10 @@
 //tipo de arquivo publico, contendo as **especificações**
-typedef struct float_vector FloatVector;
+typedef struct float_vector
+{
+    int capacity; //numero maximo de elementos
+    int size; //controlar a quantidade atual de elementos
+    int *data; //vetor de float
+}FloatVector;
 
 FloatVector *create(int tam);
 void destroy(FloatVector **ref_vector);

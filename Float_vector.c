@@ -3,12 +3,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-struct float_vector
-{
-    int capacity; //numero maximo de elementos
-    int size; //controlar a quantidade atual de elementos
-    int *data; //vetor de float
-};
+FloatVector *vector;
+
 
 bool _isfull(FloatVector *vector)
 {
