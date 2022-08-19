@@ -62,6 +62,7 @@ quiok
 
 
 ##### trabalho de agosto #####
+500, 1.000, 10.000, 500.000, 1.000.000
 quantidade de comparaçoes
 quaantidade de varredura
 quantidade de trocas
@@ -70,6 +71,8 @@ explicar qual foi o melhor dos algoritimos
 colocar as especificaçoes do pc
 analise curta sobre os alg de ordenação usado, dizer qual seria o melhor alg a ser usado naquele vetor.
 conclusao final 
+sequencia: 
+bubble, selection, insertion, merge, quick
 
 
 

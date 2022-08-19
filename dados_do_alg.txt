@@ -1,0 +1,35 @@
+# especificações #
+AMD dual-Core
+Processador A9
+AMD radeon R5 Graphics
+1000 HD HDD
+6 GB DDR4
+
+
+
+            *Bubble sort*
+melhor caso é um vetor ordenado, porem sua vantagem é a facil aplicação e entendimento.
+há um numero muito grande de movimentações com isto torna-se um algoritmo de baixa eficiencia para
+dados sem ordenação e dados muito extensos.
+
+            *Selection sort*
+tambem é um algoritimo de facil aplicação.
+melhor caso é a pequena quantidade de movimentações, assim acarretando uma facilidade em problemas complexos.
+desvantagem: não é um esquema estável, e seu numero de comparações é sempre muito grande isso o torna ineficiente
+para array grandes
+
+            *Insertion sort*
+a implementação é um pouco mais complicada, mas não é a pior dentre os algoritimos de ordenação.
+vantagem: algoritimo estável, melhor caso é quando os numero estão sequenciados quase organizados e em array
+pequenos.
+desvantagem: não é tão eficáz quando os outros algoritimos de ordenação
+
+            *Merge sort*
+implementação complicada, ainda mais usando outra TAD
+vantagem: estável e depois de ordenado ele não altera os dados.
+desvantagem: 
+
+
+            ***conclusão***
+
+
