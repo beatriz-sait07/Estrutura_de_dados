@@ -17,7 +17,7 @@ void bubble(int vector[], int size)
 {
 
     for(int i=0; i<size-1; i++){
-        for(int j=0; j<size-1; j++){
+        for(int j=i; j<size-1; j++){
 
             if(vector[j] > vector[j+1]){
 
@@ -43,5 +43,6 @@ int print_arq(int size, double tempo)
     fprintf(file, "\nnumero de comparacoes: %ld", cont_comp);
     fprintf(file, "\no tempo de execucao foi de: %.2f", tempo);
     fprintf(file, "\n\n------------------------------\n");
+    fclose(file);
 }
 

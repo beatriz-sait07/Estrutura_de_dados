@@ -7,7 +7,7 @@ void tempo(int *vector, int size);
 
 int main()
 {
-    long int T = 100000;
+    long int T = 500;
     int * vector;
 
     vector = (int*)malloc( T * sizeof(int));
@@ -18,6 +18,13 @@ int main()
     }
     tempo(vector,T);
 
+    T = 1000;
+    vector = (int*)realloc( vector, T * sizeof(int));
+    tempo(vector,T);
+
+    T = 10000;
+    vector = (int*)realloc( vector, T * sizeof(int));
+    tempo(vector,T);
 
     T = 500000;
     vector = (int*)realloc( vector, T * sizeof(int));

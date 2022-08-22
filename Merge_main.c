@@ -11,13 +11,13 @@ int main ()
         int var = rand()%10;
         append(vector, var);
     }
-    //print(vector);
+    print(vector);
     printf("\n\norganizando...");
     
     int inicio = get(vector, 0);
     int fim = get(vector,size(vector));
-    mergesort(&vector, inicio, fim);
-    //print();
+    mergesort(vector, inicio, fim);
+    print(mergesort);
 
     return 0;
 }

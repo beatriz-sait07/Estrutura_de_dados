@@ -51,4 +51,5 @@ int salva_dados(int size, double tempo)
     fprintf(file, "\nnumero de comparacoes: %ld", cont_comp);
     fprintf(file, "\no tempo de execucao foi de: %.2f", tempo);
     fprintf(file, "\n\n------------------------------\n");
+    fclose(file);
 }

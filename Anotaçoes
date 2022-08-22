@@ -50,6 +50,16 @@ subvetor = [0 1 3 7] [2 4 5 6]
 vetor dinalizado = [0 1 2 3 4 5 6 7]
 
 
+        22/08/2022
+
+"equipe de 4 membros"
+fazer uma apresentação do quick sorte - melhor equipe a apresentar e com o melhor alg. ganha pontos na prova!
+- qual seria o melhor tipo de pivo ?
+- pode usar qualquer linguagem de programação
+- elementos menor que o pivo fica a esquerda e os maiores a direita
+- qual melhor e pior caso do quick, como evitar cair no caso quadratico
+- USAR TAD E CASOS REAIS
+
 ######################## OBSERVAÇÕES ############################
 nome de funções não ideiais
 -size
@@ -73,7 +83,6 @@ analise curta sobre os alg de ordenação usado, dizer qual seria o melhor alg a
 conclusao final 
 sequencia: 
 bubble, selection, insertion, merge, quick
-
 
 
 ---------entregar trabalhos-----------

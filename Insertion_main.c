@@ -3,13 +3,44 @@
 #include<time.h>
 #include"Insertion.h"
 
+void tempo(int *vector, int size);
 
 int main()
 {
-    int size = 5;
-    int vetor[] = {23, 4, 67, -8, 21};
-    insertion(vetor, size);
-    dados_arq(vetor, size);
+    int indc = 10;
+    int * vector;
+
+    srand(time(NULL));
+
+    vector = (int*)malloc( indc * sizeof(int));
+    if (vector == NULL)
+    {
+        printf("erro de alocacao!\n");
+        exit(1);
+    }
+    tempo(vector,indc);
    
     return 0;
+}
+
+void tempo(int *vector, int size)
+{
+    double tempo_execucao = 0.0;
+
+    clock_t  begin = clock();
+
+    srand(time(NULL));
+
+    for(int i = 0; i < size; i++)
+    {
+        vector[i] = rand()%size;
+    }
+
+    insertion(vector, size);
+    
+
+    clock_t end = clock();
+    tempo_execucao += (double)(end - begin) / CLOCKS_PER_SEC;
+    salva_dados(size,tempo_execucao,vector);
+    //print_arq(size,tempo_execucao);
 }
