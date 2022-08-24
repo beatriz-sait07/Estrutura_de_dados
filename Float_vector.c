@@ -24,7 +24,7 @@ FloatVector *create (int tam) //aloca dinamicamente
 FloatVector *vet = (FloatVector*)calloc(1, sizeof(FloatVector)); //quantidade
 vet -> capacity = tam;
 vet -> size = 0;
-vet -> data = (int*) calloc(vet->capacity, sizeof(float));
+vet -> vetor_prin = (int*) calloc(vet->capacity, sizeof(float));
 //vet -> data = (float*) malloc(quantidade de vetor * tam)
 
 return vet;
@@ -39,7 +39,7 @@ return vet;
 void destroy (FloatVector **vet_ref)
 {
     FloatVector *vet = *vet_ref;
-    free(vet->data); //pegou a strutura e dentro dela, entrou na var data e destruiu ela
+    free(vet->vetor_prin); //pegou a strutura e dentro dela, entrou na var data e destruiu ela
     free(vet); //aqui destruiu a estrutura inteira
     *vet_ref = NULL; //setamo null no valor da função main para não causar um mal subito no pc 
 }
@@ -66,14 +66,14 @@ float at(const FloatVector *vector, int pos)
     exit(EXIT_FAILURE);
   }
 
-  return vector->data[pos];
+  return vector->vetor_prin[pos];
 }
 
 //não trata o erro, quando sabe extamente o que esta dentro do vetor... e quando voce sabe isso ? quando o vetor está cheio
 // como saber se o vetor está cheio ? usando a caácidade
 float get(const FloatVector *vector, int index)
 {
-    return vector->data[index];
+    return vector->vetor_prin[index];
 }
 
 void append(FloatVector *vector, float n)
@@ -83,7 +83,7 @@ void append(FloatVector *vector, float n)
         fprintf(stderr, "Erros: nao eh possivel inserir dados");
         exit(EXIT_FAILURE);
     }
-    vector->data[vector->size++] = n;
+    vector->vetor_prin[vector->size++] = n;
 
     /*if(capacity == size)printf("ERRO: nao eh possivel inserir dados");
     exit(1);*/
@@ -94,7 +94,7 @@ void print(const FloatVector *vector)
 
     for(int i = 0; i  < vector->size; i++)
     {
-        printf("[%d]", vector->data[i]);
+        printf("[%d]", vector->vetor_prin[i]);
     }
 }
 
@@ -104,7 +104,7 @@ void set(const FloatVector *vector)
     printf("dados substituidos!\n");
     for(int i = 0; i < vector->size; i++)
     {
-        printf("[%d]", vector->data[i]);
+        printf("[%d]", vector->vetor_prin[i]);
     }
 }
 

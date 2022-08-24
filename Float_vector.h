@@ -3,7 +3,7 @@ typedef struct float_vector
 {
     int capacity; //numero maximo de elementos
     int size; //controlar a quantidade atual de elementos
-    int *data; //vetor de float
+    int *vetor_prin;; //vetor de float
 }FloatVector;
 
 FloatVector *create(int tam);

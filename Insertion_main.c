@@ -7,7 +7,7 @@ void tempo(int *vector, int size);
 
 int main()
 {
-    int indc = 10;
+    int indc = 500;
     int * vector;
 
     srand(time(NULL));
@@ -19,7 +19,24 @@ int main()
         exit(1);
     }
     tempo(vector,indc);
+
+    indc = 1000;
+    vector = (int *)realloc(vector, indc * sizeof(int));
+    tempo(vector, indc);
+
+    indc = 10000;
+    vector = (int *)realloc(vector, indc * sizeof(int));
+    tempo(vector, indc);
+
+    indc = 500000;
+    vector = (int *)realloc(vector, indc * sizeof(int));
+    tempo(vector, indc);
+
+    indc = 1000000;
+    vector = (int *)realloc(vector, indc * sizeof(int));
+    tempo(vector, indc);
    
+    free(vector);
     return 0;
 }
 
@@ -41,6 +58,6 @@ void tempo(int *vector, int size)
 
     clock_t end = clock();
     tempo_execucao += (double)(end - begin) / CLOCKS_PER_SEC;
-    salva_dados(size,tempo_execucao,vector);
-    //print_arq(size,tempo_execucao);
+    salva_dados(vector,size, tempo_execucao);
+    
 }

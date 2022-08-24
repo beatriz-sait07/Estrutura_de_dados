@@ -1,0 +1,40 @@
+
+dados do vetor de 500
+numero de trocas 491
+numero de varedura do vetor: 499
+numero de comparacoes: 63626
+o tempo de execucao foi de: 0.0002
+
+------------------------------
+
+dados do vetor de 1000
+numero de trocas 1480
+numero de varedura do vetor: 1498
+numero de comparacoes: 305772
+o tempo de execucao foi de: 0.0008
+
+------------------------------
+
+dados do vetor de 10000
+numero de trocas 11467
+numero de varedura do vetor: 11497
+numero de comparacoes: 25309678
+o tempo de execucao foi de: 0.0893
+
+------------------------------
+
+dados do vetor de 500000
+numero de trocas 511457
+numero de varedura do vetor: 511496
+numero de comparacoes: 62512548706
+o tempo de execucao foi de: 305.0113
+
+------------------------------
+
+dados do vetor de 1000000
+numero de trocas 1511443
+numero de varedura do vetor: 1511495
+numero de comparacoes: 312705507761
+o tempo de execucao foi de: 1151.0223
+
+------------------------------

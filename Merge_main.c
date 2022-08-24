@@ -12,12 +12,12 @@ int main ()
         append(vector, var);
     }
     print(vector);
-    printf("\n\norganizando...");
+    printf("\n\norganizando...\n");
     
     int inicio = get(vector, 0);
     int fim = get(vector,size(vector));
     mergesort(vector, inicio, fim);
-    print(mergesort);
+    print(vector);
 
     return 0;
 }
