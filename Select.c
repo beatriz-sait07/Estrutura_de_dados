@@ -13,7 +13,7 @@ void swap (int *a, int *b)
     *b = aux;
 }
 
-void selection(int vector[],int size)
+void selection(int *vector,int size)
 {
     for(int i = 0; i < size; i++)
     {
@@ -24,26 +24,34 @@ void selection(int vector[],int size)
             {
                 menor = j;
             }
-
             cont_comp += 1;
-
+            printf("\ncomp ++\n");
             
         }
         if(i != menor)
         {
             swap(&vector[i], &vector[menor]);
             cont_troca += 1;
+            printf("troca ++ \n");
         }
-    
+        //if(vector[i] == vector[i-1])break;
+
     cont_var += 1;
+    printf("varredura++\n");
         
     }
 }
 
-int salva_dados(int size, double tempo)
+int salva_dados(int size, double tempo, int *vector)
 {
     FILE *file = fopen("Selection_sort.txt", "a");
     if(file == NULL)printf("\n\nnao foi possivel criar arquivo!\n\n");
+
+    for(int i=0; i<size; i++)
+    {
+        printf("|%d|", vector[i]);
+    }
+    printf("\n");
 
     fprintf(file, "dados do vetor de %d",size);
     fprintf(file, "\nnumero de trocas %ld", cont_troca);

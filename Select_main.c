@@ -7,7 +7,7 @@ void tempo(int *vector, int size);
 
 int main()
 {
-    long int T = 500;
+    long int T = 5;
     int * vector;
 
     vector = (int*)malloc( T * sizeof(int));
@@ -18,11 +18,11 @@ int main()
     }
     tempo(vector,T);
 
-    T = 1000;
+    T = 10;
     vector = (int*)realloc( vector, T * sizeof(int));
     tempo(vector,T);
 
-    T = 10000;
+    /*T = 10000;
     vector = (int*)realloc( vector, T * sizeof(int));
     tempo(vector,T);
 
@@ -32,7 +32,7 @@ int main()
 
     T = 1000000;
     vector = (int*)realloc( vector, T * sizeof(int));
-    tempo(vector,T);
+    tempo(vector,T);*/
 
     free(vector);
     return 0;
@@ -49,10 +49,12 @@ void tempo(int *vector, int size)
     for(int i = 0; i < size; i++)
     {
         vector[i] = rand()%size;
+        printf("|%d|", vector[i]);
     }
+    printf("\n");
     selection(vector, size);
 
     clock_t end = clock();
     tempo_execucao += (double)(end - begin) / CLOCKS_PER_SEC;
-    salva_dados(size, tempo_execucao);
+    salva_dados(size, tempo_execucao, vector);
 }

@@ -13,19 +13,27 @@ verificar as contagens!!!!
 */
 void bubble(int *vector, int size)
 {
-    int i, j, aux=0;
+    int i, j, aux=0, comp=0, ant=0;
     for (i=0; i < size; i++) {
        for (j=0; j < size; j++) {
          if (vector[j] > vector[j + 1]) {
-           aux = vector[j];
-           vector[j] = vector[j + 1];
-           vector[j + 1] = aux;
-           if(aux != aux-1)cont_trocas += 1;
-           if(vector[j] == vector[j-1])break;
+            aux = vector[j];
+            ant = aux;
+            vector[j] = vector[j + 1];
+            vector[j + 1] = aux;
+            printf("|%d|->|%d|\n",vector[j],vector[j+1]);
          }
-         cont_comp += 1;
+            if(ant>vector[j])cont_trocas += 1;
+          cont_comp += 1;
+          printf("+ comparaçao\n");
        }
+       if(vector[i] == vector[i-1])
+          {
+            printf("parou!\n");
+            break;
+          }
        cont_varredura += 1;
+       printf("+ varredura\n");
      }
 }
 

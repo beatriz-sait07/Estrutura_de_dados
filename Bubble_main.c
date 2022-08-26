@@ -52,7 +52,7 @@ void tempo(int *vector, int size)
     {
         vector[i] = rand()%size;
     }
-
+    printf("\n");
     for(int i = 0; i<size; i++)
     {
         printf("|%d|",vector[i]);

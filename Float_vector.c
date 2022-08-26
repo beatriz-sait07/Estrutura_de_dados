@@ -71,7 +71,7 @@ float at(const FloatVector *vector, int pos)
 
 //não trata o erro, quando sabe extamente o que esta dentro do vetor... e quando voce sabe isso ? quando o vetor está cheio
 // como saber se o vetor está cheio ? usando a caácidade
-float get(const FloatVector *vector, int index)
+float   get(const FloatVector *vector, int index)
 {
     return vector->vetor_prin[index];
 }

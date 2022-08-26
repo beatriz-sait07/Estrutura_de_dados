@@ -1,134 +1,137 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include"Float_vector.h"
-#include"Merge.h"
-
-void merge(FloatVector *vector, int  inicio, int meio, int fim)
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include "Merge.h"
+//criando o vetor e alocando dinamicamente
+typedef struct dados_vetor
 {
-    printf("chamou o merge\n");
+    int capac, size,*array;
+}Dados;
+
+bool _isFull(const Dados *vector)
+{
+    return vector->size == vector->capac;
+}
+Dados *create(int tam)
+{
+    Dados *arr = (Dados *)calloc(1, sizeof(Dados));
+    arr->capac = tam; //quantidade de array
+    arr->size = 0;
+    arr->array = (int*)calloc(arr->capac, sizeof(int));
+
+return arr;
+}
+
+int size(const Dados *vector)//retorna o tamanho do vetor
+{
+    return vector->size;
+}
+
+int at(const Dados *vector,int pos)//retorna o valor com o tratamento de erros dentro
+{
+    if(pos<0 || pos>=vector->size)
+    {
+        fprintf(stderr, "posicao invalida!\n");
+        fprintf(stderr, "index [%d] fora do limite permitido",vector->array[pos]);
+        exit(EXIT_FAILURE);
+    }
+return vector->array[pos];
+}
+
+
+int get(const Dados *vector, int indc)
+{
+    return vector->array[indc];
+}
+
+void adicionar(Dados *vector, int valor)
+{
+    if(_isFull(vector))
+    {
+        fprintf(stderr, "erro ao adicionar, vetor cheio!\n");
+    }
+    vector->array[vector->size++] = valor;
+}
+void set(Dados *vector, int index, int novo_valor)
+{
+    if(index<0 || index>=vector->size)
+    {
+        fprintf(stderr, "posicao indisponivel!\n");
+        exit(EXIT_FAILURE);
+    }
+    vector->array[index] = novo_valor;
+}
+
+void destroy(Dados **busc_vector)
+{
+    Dados *arr = *busc_vector;
+    free(arr->array); //desaloca elemento/elemento
+    free(arr); //desaloca o vetor inteiro
+    *busc_vector = NULL;
+}
+
+void merge(Dados *vector, int inicio, int meio, int fim)
+{
+    //pivo
+    int i, j, k;
+    //inicio de cada vetor
     int n1 = meio - inicio + 1;
     int n2 = fim - meio;
-    int *sub_esquerda[n1], *sub_direita[n2], *vet_aux[inicio];
-
-    //realizando a divisao dos subvetores
-    for(int i =0; i < n1; i++)
-    {
-        sub_esquerda[n1 + i];
-    }
-    for(int i =0; i < n2; i++)
-    {
-        sub_esquerda[meio + i];
-    }
-
-    int posicao = 0, index = get(vector, posicao);
+ 
+    //subvetores
+    int esq[n1], dir[n2];
+ 
     
-    int i = 0, j = 0, k = 0;
+    for (i = 0; i < n1; i++)esq[i] = at(vector, inicio + 1);
+    for (j = 0; j < n2; j++)dir[j] = at(vector,meio + 1 + j);
+ 
+    i = 0, j = 0; 
+    //pivo vetor principal
+    k = inicio; 
 
-    while(i < n1 && j < n2)//anda os subvetores juntos, subvetor de A e B
-    {
-        if(sub_esquerda[i] <= sub_direita[j])
-        {
-            index = get(vector, k);
-            index = sub_esquerda[i];//manda direto para o vetor principal ao inves da subdivisão
+    while (i < n1 && j < n2) {
+        if (esq[i] <= dir[j]) {
+            set(vector,k,esq[i]);
             i++;
         }
-        else
-        {
-            index = get(vector, k);
-            index = sub_direita[j];
+        else {
+            set(vector,k,dir[j]);
             j++;
         }
         k++;
     }
-
-    while(j < n2)
-    {
-        int index = get(vector, k);
-        index = sub_direita[j];
-        j++;
+ 
+    //sobra
+    while (i < n1) {
+        set(vector,k,esq[i]);
+        i++;
         k++;
     }
 
-    //ordenar o que faltou caso as casa de um lado tenha sido menor e finalizada antes do outro lado
-    while(j < n1)
-    {
-        index = get(vector, k);
-        index = sub_esquerda[i];
+    while (j < n2) {
+        set(vector,k,dir[j]);
         j++;
         k++;
     }
-
-
 }
 
-int mergesort(FloatVector *vector, int inicio, int fim)
+void mergesort(Dados *vector, int inicio, int fim)
 {
-    //dividindo para conquistar
-    printf("entrou na função\n");
-    if(inicio)
-    {
-        printf("entrou no if\n");
+    if (inicio < fim) {
+        //calcula o meio do vetor
         int meio = inicio + (fim - inicio) / 2;
-        mergesort(vector, inicio, meio); //faz as partes do subvetores (1,2)
+        //divide o vetor
+        mergesort(vector, inicio, meio);
         mergesort(vector, meio + 1, fim);
+        //ordena apos finalizar a divisão
         merge(vector, inicio, meio, fim);
-
     }
 }
 
-/*
-void merge(FloatVector *vector, int  inicio, int meio, int fim)
+void salva_dados(const Dados *vector)
 {
-    int *aux, esq, dir, tam;
-    int fim_esq=0, fim_dir=0, k=0;
-
-    tam = fim - inicio + 1;
-    esq = inicio;
-    dir = meio + 1;
-    aux = (int *)malloc(tam*sizeof(int));
-
-    if(aux != NULL)
+    for(int i=0; i<(vector->size); i++)
     {
-        for(int i=0; i<tam; i++)
-        {
-            if(!esq && !dir)
-            {
-                //ordenando
-                if(at(vector,esq) < at(vector,dir))
-                {
-                    aux[i] = get(vector,esq++);
-                }else
-                {
-                    aux[i] = get(vector,dir++);
-                }
-                //verifica o fim do vetor
-                if(esq>meio)
-                {
-                    fim_esq = 1;
-                }
-                if(dir>meio)
-                {
-                    fim_dir = 1;
-                }
-            }else
-            {
-                //copia as sobras
-                if(!fim_esq)
-                {
-                    aux[i] = at(vector,esq++);
-                }else
-                {
-                    aux[i] = at(vector,dir++);
-                }
-            }
-        }
-        for(int j=0, k=inicio; j<tam; j++, k++)
-        {
-           
-        }
+        printf("|%d|",vector->array[i]);
     }
-    free(aux);
-
 }
-
-*/

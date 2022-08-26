@@ -1,23 +1,26 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include"Float_vector.h"
-#include"Merge.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "Merge.h"
 
-int main ()
-{    
-    FloatVector *vector = create(8);
-    for(int i = 0; i < capacity(vector); i++)
+int main()
+{
+    int tam =10;
+    Dados *vector = create(tam);
+
+    srand(time(NULL));
+    for(int i=0; i < tam; i++)
     {
         int var = rand()%10;
-        append(vector, var);
+        adicionar(vector,var);
     }
-    print(vector);
-    printf("\n\norganizando...\n");
-    
-    int inicio = get(vector, 0);
-    int fim = get(vector,size(vector));
-    mergesort(vector, inicio, fim);
-    print(vector);
+    salva_dados(vector);
 
+    mergesort(vector, 0, tam - 1);
+    printf("\n\nordenando...\n\n");
+    
+    salva_dados(vector);
+     
+    
     return 0;
 }
