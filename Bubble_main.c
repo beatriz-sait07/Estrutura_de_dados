@@ -7,7 +7,7 @@ void tempo(int *vector, int size);
 
 int main()
 {
-    int indc = 500;
+    int indc = 5;
     int * vector;
 
     srand(time(NULL));
@@ -20,7 +20,7 @@ int main()
     }
     tempo(vector,indc);
 
-    indc = 1000;
+    indc = 10;
     vector = (int*)realloc( vector, indc * sizeof(int));
     tempo(vector,indc);
 
