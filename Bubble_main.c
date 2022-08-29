@@ -7,7 +7,7 @@ void tempo(int *vector, int size);
 
 int main()
 {
-    int indc = 5;
+    int indc = 500;
     int * vector;
 
     srand(time(NULL));
@@ -20,11 +20,11 @@ int main()
     }
     tempo(vector,indc);
 
-    indc = 10;
+    indc = 1000;
     vector = (int*)realloc( vector, indc * sizeof(int));
     tempo(vector,indc);
 
-    /*indc = 10000;
+    indc = 10000;
     vector = (int*)realloc( vector, indc * sizeof(int));
     tempo(vector,indc);
 
@@ -34,7 +34,7 @@ int main()
 
     indc = 1000000;
     vector = (int*)realloc( vector, indc * sizeof(int));
-    tempo(vector,indc);*/
+    tempo(vector,indc);
 
     free(vector);
     return 0;
@@ -52,12 +52,6 @@ void tempo(int *vector, int size)
     {
         vector[i] = rand()%size;
     }
-    printf("\n");
-    for(int i = 0; i<size; i++)
-    {
-        printf("|%d|",vector[i]);
-    }
-    printf("\n\n\n");
     bubble(vector, size);
 
     clock_t end = clock();

@@ -5,7 +5,7 @@
 //criando o vetor e alocando dinamicamente
 typedef struct dados_vetor
 {
-    int capac, size,*array;
+    int capac, size,*array, *troca;
 }Dados;
 
 bool _isFull(const Dados *vector)
@@ -52,14 +52,15 @@ void adicionar(Dados *vector, int valor)
     }
     vector->array[vector->size++] = valor;
 }
-void set(Dados *vector, int index, int novo_valor)
+int set(Dados *vector, int index, int novo_valor)
 {
     if(index<0 || index>=vector->size)
     {
         fprintf(stderr, "posicao indisponivel!\n");
         exit(EXIT_FAILURE);
     }
-    vector->array[index] = novo_valor;
+    vector->array[index] = vector->troca[novo_valor];
+    return novo_valor;
 }
 
 void destroy(Dados **busc_vector)
@@ -91,10 +92,12 @@ void merge(Dados *vector, int inicio, int meio, int fim)
 
     while (i < n1 && j < n2) {
         if (esq[i] <= dir[j]) {
+            //vector[k] = at(esq[n1],i);
             set(vector,k,esq[i]);
             i++;
         }
         else {
+            //vector[k] = at(dir[n2],j);
             set(vector,k,dir[j]);
             j++;
         }
@@ -103,12 +106,14 @@ void merge(Dados *vector, int inicio, int meio, int fim)
  
     //sobra
     while (i < n1) {
+        //vector[k] = at(esq[n1],i);
         set(vector,k,esq[i]);
         i++;
         k++;
     }
 
     while (j < n2) {
+        //vector[k] = at(dir[n2],j);
         set(vector,k,dir[j]);
         j++;
         k++;
