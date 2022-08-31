@@ -34,3 +34,12 @@ numero de comparacoes: 499999500000
 o tempo de execucao foi de: 2701.0288
 
 ------------------------------
+
+
+DADOS DO VETOR **1000000**
+numero de trocas 249552436647
+numero de varedura do vetor: 1000000
+numero de comparacoes: 1999998000000
+o tempo de execucao foi de: 9281.2919
+
+------------------------------

@@ -7,6 +7,7 @@ long int cont_comp = 0;
 
 void insertion(int *vector, int size)
 {
+    cont_var = 0, cont_comp =0, cont_troca =0;
     int i =0, j =0, atual=0;
     //comparando o valor de uma posicao com os antecessores
     for(i=1; i<size; i++)
