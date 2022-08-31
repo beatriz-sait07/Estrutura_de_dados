@@ -1,0 +1,26 @@
+                    Bubble Sort
+-> MELHOR CASO: array ordenado e com um baixo numero de quantidades.
+                para iniciantes é um bom método de facil compreenção alem de facilidade para implementação.
+-> PIOR CASO: array como foi desenvolvido (1mi de posições) e deserdenado
+
+-> MINHAS OBSERVAÇÕES: dentre os algoritmos de ordenação foi o algoritmo com pior desempenho, tanto em tempo
+como em quantidades de trocas, além de consumir uma quantidade absurda de uso em CPU
+
+-> MEU CODIGO: utilizando apenas os dois laços para conferir a ordenação não estava ordenando corretamente,
+após eu ter imprementado o 'do while' houve uma melhora de 100% em ordenação.
+
+                    Selection Sort
+-> MELHOR CASO: array pequeno, baixa quantidade de trocas.
+
+->PIOR CASO: ele faz a mesma quantidade de comparação que o tamanho do vetor
+
+-> MINHAS OBSERVAÇÕES: foi o segundo pior caso em algoritmos de ordenação, mas houve uma melhora sigifi-
+cativa em quantidades de trocas, se comparar com o Bubble Sort. 
+
+-> MEU CODIGO: basico e funcional
+
+                    Insertion Sort
+->MELHOR CASO: elementos mais proximos do metodo de ordenação possivel.
+-> PIOR CASO: elementos ordenados de formas ivarsas ao que foi solicitado.
+-> MINHAS OBSERVAÇÕES: foi o algoritmo com menor tempo de execução
+-> MEU CODIGO: basico, não consegui reduzir os gastos computacionais

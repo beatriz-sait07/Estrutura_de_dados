@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "Merge.h"
+
+int cont_trocas = 0, cont_varredura = 0, cont_comp = 0;
 //criando o vetor e alocando dinamicamente
 typedef struct dados_vetor
 {
@@ -59,7 +61,7 @@ int set(Dados *vector, int index, int novo_valor)
         fprintf(stderr, "posicao indisponivel!\n");
         exit(EXIT_FAILURE);
     }
-    vector->array[index] = vector->troca[novo_valor];
+    vector->array[index] = novo_valor;
     return novo_valor;
 }
 
@@ -73,6 +75,7 @@ void destroy(Dados **busc_vector)
 
 void merge(Dados *vector, int inicio, int meio, int fim)
 {
+    cont_trocas = 0, cont_varredura = 0, cont_comp = 0;
     //pivo
     int i, j, k;
     //inicio de cada vetor
@@ -83,8 +86,16 @@ void merge(Dados *vector, int inicio, int meio, int fim)
     int esq[n1], dir[n2];
  
     
-    for (i = 0; i < n1; i++)esq[i] = at(vector, inicio + 1);
-    for (j = 0; j < n2; j++)dir[j] = at(vector,meio + 1 + j);
+    for (i = 0; i < n1; i++)
+    {
+        esq[i] = at(vector, inicio + 1);
+        cont_varredura += 1;
+    }
+    for (j = 0; j < n2; j++)
+    {
+        dir[j] = at(vector,meio + 1);
+        cont_varredura += 1;
+    }
  
     i = 0, j = 0; 
     //pivo vetor principal
@@ -106,14 +117,13 @@ void merge(Dados *vector, int inicio, int meio, int fim)
  
     //sobra
     while (i < n1) {
-        //vector[k] = at(esq[n1],i);
         set(vector,k,esq[i]);
         i++;
         k++;
     }
 
     while (j < n2) {
-        //vector[k] = at(dir[n2],j);
+
         set(vector,k,dir[j]);
         j++;
         k++;
@@ -133,10 +143,16 @@ void mergesort(Dados *vector, int inicio, int fim)
     }
 }
 
-void salva_dados(const Dados *vector)
+void salva_dados(int size, double tempo)
 {
-    for(int i=0; i<(vector->size); i++)
-    {
-        printf("|%d|",vector->array[i]);
-    }
+    FILE *file = fopen("Merge_sort.txt", "a");
+    if(file == NULL)printf("\n\nnao foi possivel criar arquivo!\n\n");
+
+    fprintf(file, "\n\nDADOS DO VETOR **%d**",size);
+    fprintf(file, "\nnumero de trocas %d", cont_trocas);
+    fprintf(file, "\nnumero de varedura do vetor: %d", (cont_varredura));
+    fprintf(file, "\nnumero de comparacoes: %d", cont_comp);
+    fprintf(file, "\no tempo de execucao foi de: %.4f", tempo);
+    fprintf(file, "\n\n------------------------------\n");
+    fclose(file);
 }

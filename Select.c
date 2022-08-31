@@ -15,6 +15,7 @@ void swap (int *a, int *b)
 
 void selection(int *vector,int size)
 {
+    cont_troca = 0, cont_var = 0, cont_comp = 0;
     for(int i = 0; i < size; i++)
     {
         int menor = i;

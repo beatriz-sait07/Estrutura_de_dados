@@ -21,22 +21,23 @@ int main()
     tempo(vector,indc);
 
     indc = 1000;
-    vector = (int*)realloc( vector, indc * sizeof(int));
+    vector = (int*)realloc(vector, indc * sizeof(int));
     tempo(vector,indc);
 
     indc = 10000;
-    vector = (int*)realloc( vector, indc * sizeof(int));
+    vector = (int*)realloc(vector, indc * sizeof(int));
     tempo(vector,indc);
 
     indc = 500000;
-    vector = (int*)realloc( vector, indc * sizeof(int));
+    vector = (int*)realloc(vector, indc * sizeof(int));
     tempo(vector,indc);
 
     indc = 1000000;
-    vector = (int*)realloc( vector, indc * sizeof(int));
+    vector = (int*)realloc(vector, indc * sizeof(int));
     tempo(vector,indc);
-
     free(vector);
+
+    printf("PROGRAMA FINALIZADO!\nVERIFIQUE NO ARQUIVO: 'bubble_sort.txt'\n\n");
     return 0;
 }
 
@@ -56,5 +57,5 @@ void tempo(int *vector, int size)
 
     clock_t end = clock();
     tempo_execucao += (double)(end - begin) / CLOCKS_PER_SEC;
-    print_arq(size,tempo_execucao,vector);
+    print_arq(size,tempo_execucao);
 }

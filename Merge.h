@@ -9,4 +9,4 @@ void adicionar(Dados *vector, int valor);
 void destroy(Dados **busc_vector);
 void merge(Dados *vector, int inicio, int meio, int fim);
 void mergesort(Dados *vector, int inicio, int fim);
-void salva_dados(const Dados *vector);
+void salva_dados(int size, double tempo);

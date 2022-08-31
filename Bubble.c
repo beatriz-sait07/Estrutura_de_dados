@@ -5,34 +5,39 @@
 long int cont_varredura = 0;
 long int cont_trocas = 0;
 long int cont_comp = 0;
+int cont_rep;
 
 void bubble(int *vector, int size)
 {
+   cont_varredura = 0, cont_trocas = 0, cont_comp = 0;
    int i, j, aux=0, comp=0;
-   for(i=0; i < size-1; i++)
+   //verifica o vetor total
+   for(i=0; i < size; i++)
    {
-      cont_varredura+=1;
-      for(j=0; j<size-i-1; j++)
-      {
-         cont_comp+=1;
-         if(vector[j] > vector[j + 1])
+      //executa enquanto existir posições a serem ordenadas
+      do{
+         cont_rep = 0;
+         /* verifica cada posição existente do vetor
+         ordena enquando a posição atual for maior que a proxima posição
+         */
+         for(j=0; j<size; j++)
          {
-            aux = vector[j];
-            vector[j] = vector[j + 1];
-            vector[j + 1] = aux;
-            cont_trocas+=1;
+            cont_comp+=1;
+            if(vector[j] > vector[j + 1])
+            {
+              aux = vector[j];
+               vector[j] = vector[j + 1];
+               vector[j + 1] = aux;
+               cont_trocas+=1;
+               cont_rep = 1;
+            }
          }
-      }
-
-         if(vector[i] == vector[i-1])
-         {
-            cont_varredura-=1;
-            break;
-         }
-     }
+      }while(cont_rep == 1);
+       cont_varredura+=1;
+   }   
 }
 
-int print_arq(int size, double tempo, int *vector)
+int print_arq(int size, double tempo)
 {
    FILE *file = fopen("Bubble_sort.txt", "a");
    if(file == NULL)printf("\n\nnao foi possivel criar arquivo!\n\n");
