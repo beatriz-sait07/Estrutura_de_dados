@@ -36,6 +36,7 @@ int main()
     vector = (int *)realloc(vector, indc * sizeof(int));
     tempo(vector, indc);
    
+    printf("programa finalizado!\n\nVERIFIQUE O ARQUIVO: 'insertion_sort.txt'");
     free(vector);
     return 0;
 }

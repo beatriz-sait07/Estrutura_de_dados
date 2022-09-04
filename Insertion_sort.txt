@@ -1,8 +1,0 @@
-
-dados do vetor de 1000000
-numero de trocas 999986
-numero de varedura do vetor: 999999
-numero de comparacoes: 250042997939
-o tempo de execucao foi de: 1060.0502
-
-------------------------------
