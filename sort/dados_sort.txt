@@ -24,3 +24,13 @@ cativa em quantidades de trocas, se comparar com o Bubble Sort.
 -> PIOR CASO: elementos ordenados de formas ivarsas ao que foi solicitado.
 -> MINHAS OBSERVAÇÕES: foi o algoritmo com menor tempo de execução
 -> MEU CODIGO: basico, não consegui reduzir os gastos computacionais
+
+
+                    Quick Sort
+-> O melhor caso ocorre quando as particoes possue sempre o mesmo tamanho,
+ou seja, estao sempre balanceadas (NlogN)
+
+-> O pior caso ocorre quando a funcao de particao calcula um pivo que divide o array de N elementos em dois:
+uma particao com N-1 elementos e outra com 0 elementos.
+Nesse caso teremos um particionamento nao balanceado. Quando isso acontece a cada nivel da recursao 
+temos um tempo de execucao o(N^2)

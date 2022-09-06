@@ -50,7 +50,7 @@ subvetor = [0 1 3 7] [2 4 5 6]
 vetor dinalizado = [0 1 2 3 4 5 6 7]
 
 
-        22/08/2022
+        22/08/2022 - aula 06
 
 "equipe de 4 membros"
 fazer uma apresentação do quick sorte - melhor equipe a apresentar e com o melhor alg. ganha pontos na prova!
@@ -60,11 +60,21 @@ fazer uma apresentação do quick sorte - melhor equipe a apresentar e com o mel
 - qual melhor e pior caso do quick, como evitar cair no caso quadratico
 - USAR TAD E CASOS REAIS
 
+- faltei 07
+- não teve 08
+        05/09/2022 - aula 09
+como criar uma lista encadeada com tamanho finito ? ex: tam = 15
+
+criar uma função bool para verificar se ela esta vazia
+*para inserir algo no final, voce precisa achar apenas o primeiro elemento e guiar ele até o fim.*
+
 ######################## OBSERVAÇÕES ############################
 nome de funções não ideiais
 -size
 -at
 -get
+
+** aprenda a guardar o ultimo elemento **
 
 ***busca de pesquisa***
 bobble sort
@@ -83,6 +93,9 @@ analise curta sobre os alg de ordenação usado, dizer qual seria o melhor alg a
 conclusao final 
 sequencia: 
 bubble, selection, insertion, merge, quick
+
+##### trabalho de setembro #####
+criar uma lista de size, para inserir dados no meio da mesma
 
 
 ---------entregar trabalhos-----------
