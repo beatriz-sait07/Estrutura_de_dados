@@ -2,21 +2,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct _no_simples{
+typedef struct _node_simples{
     int valor;
-    struct _no_simples *next;
-}Node_s;
+    struct _node_simples *next;
+}Node_simples;
 
 typedef struct _lista_simples{
-    Node_s *inicio;
-    int size;    //obrigatório já qque necessia-se saber o tamanho
+    Node_simples *inicio;
+    int size;    //obrigatório já que necessia-se saber o tamanho
 }Lista;
 
-Node_s *Node_create(int val){
-    Node_s *node = (Node_s*)calloc(1, sizeof(Node_s));
+Node_simples *Node_create(int val){
+    Node_simples *node = (Node_simples*)calloc(1, sizeof(Node_simples));
     node->valor = val;
     node->next = NULL;
     return node;
+}
+
+bool _isNull(const Lista *list){
+    return list->inicio == NULL;
 }
 
 Lista *Lista_create(){
@@ -29,12 +33,12 @@ void add_inicio(Lista *list, int elem)
 {
     //lista está vazia
     if(list->inicio == NULL){
-        Node_s *dados = Node_create(elem);
+        Node_simples *dados = Node_create(elem);
         list->inicio = dados;
     }
     //lista com dados, 
     else{
-        Node_s *dados = Node_create(elem);
+        Node_simples *dados = Node_create(elem);
         dados->next = list->inicio; // o elemento criado aponta para o elemento que o 'inicio' está apotando p/ não perder a referancia
         list->inicio = dados; // agora ele se torna o primeiro elemento sem perder a referencia do antigo 1º elemento
     }
@@ -42,12 +46,12 @@ void add_inicio(Lista *list, int elem)
 
 //tem que verificar se a lista não está vazia, pois caso ela esteja. ele será o elemento final e inicial
 void add_final(Lista *list, int elem){
-    Node_s *dados = Node_create(elem);
-    if(list->inicio == NULL)list->inicio = dados;
+    Node_simples *dados = Node_create(elem);
+    if(_isNull(list))list->inicio = dados;
     //sem o else ele inseriria como 1º e depois duplicaria como ultimo, ou seja, ele entraria duas vezes
     else{
         //enquando dados não foir igual a null (ultimo elemento), prox.
-        Node_s *aux = list->inicio;
+        Node_simples *aux = list->inicio;
         while(aux->next != NULL){
             aux = aux->next;
         }//quando chegar aqui, aux aponta p/ o ultimo elemento
@@ -66,9 +70,32 @@ list->inicio = dados;
     (testa o 'null' que você entenderá)
 */
 
+void insert_ordem (Lista *list, int elem){
+    Node_simples *inserir = Node_create(elem); // cria o novo elemento
+    Node_simples *aux = list->inicio; //percorre o vetor sem perder a referencia,
+    if(_isNull(list))list->inicio = inserir; //veririfca se a lista está vazia
+
+    else{
+        if(list->inicio->valor > inserir->valor){
+            inserir->next = list->inicio; //se for menor, ele passa a ser o inicio
+            list->inicio = inserir;
+        }
+        else{
+            while(aux->next && inserir->valor > aux->next->valor){ // verif. se existe um prox e se esse proximo é maior
+                
+                aux = aux->next; // o ponteiro auxiliar passa a receber o valor do proximo valor
+
+            }
+            inserir->next = aux->next; // novo valor vai apontar para o valor maior que ele
+            aux->next = inserir; // aqui ele entra na posição entre um numero maior que ele e um maior
+        }
+    }
+}
+
+
 void print(const Lista *list)
 {
-    Node_s *p = list->inicio;
+    Node_simples *p = list->inicio;
     printf("INICIO -> ");
     while(p != NULL){
         printf("%d ->", p->valor);
