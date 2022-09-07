@@ -92,6 +92,31 @@ void insert_ordem (Lista *list, int elem){
     }
 }
 
+void remover_elemento(Lista *list, int elem){
+    if(!_isNull(list)){ //verifica se a lista NÃO está vazia
+        // elemento no inicio
+        if(list->inicio->valor == elem){ //verifica se o 1º nó contem o valor que deseja remover
+            Node_simples *pos = list->inicio; //antes de atualizar o inicio, estamos armazenando ele em uma variavel 'pos'
+            list->inicio = pos->next; //atualiza o inicio, sem perda de referencia
+            if(list->inicio == NULL)pos = NULL; //isso é para o caso da lista conter apensas um elemento
+            free(pos);
+        }
+        // elemento no meio
+        else{
+            Node_simples *pos = list->inicio->next;
+            Node_simples *ant = list->inicio;
+            while(pos != NULL && pos->valor != elem){ //enq exister elemen na lista e o valor apontado pelo pos for != do valor desejado, a lista seguirá p/ o prox elemento            }
+                ant = pos; //andaando juntamente com o pos
+                pos = pos->next; 
+            }     
+            if (pos != NULL){ //elemento encontrado
+                ant->next = pos->next; // fazendo a ligação para não perder a referencia
+                free(pos);
+            }
+        }
+    }
+}
+
 
 void print(const Lista *list)
 {

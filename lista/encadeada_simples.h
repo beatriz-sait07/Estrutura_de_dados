@@ -10,7 +10,8 @@ Lista *Lista_create();
 bool _isNull(const Lista *list);
 void add_inicio(Lista *list, int elem);
 void add_final(Lista *listt, int elem);
-void insert_ordem (Lista *list, int elem);
+void insert_ordem (Lista *list, int elem); //insere em ordem crescente na lista
+void remover_elemento(Lista *list, int elem); //remove o 1º nó que está alocando o valor dessejado
 void print(const Lista *list);
 
 #endif

@@ -97,7 +97,7 @@ bubble, selection, insertion, merge, quick
 ##### trabalho de setembro #####
 criar uma lista de size, para inserir dados no meio da mesma
 - insert ordenada
-- pesq nuumero na lista, se existe (printa a posição que o numero está), caso não exista (print que o numero não existe)
+- pesq numero na lista, se existe (printa a posição que o numero está), caso não exista (print que o numero não existe)
 - remover algum elemento
 - implementar na LL findlista
 
