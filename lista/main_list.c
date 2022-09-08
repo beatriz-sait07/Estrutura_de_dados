@@ -12,15 +12,30 @@ int main (){
     insert_ordem(lista, 6);
     insert_ordem(lista, 8);
     insert_ordem(lista, 16);
-    insert_ordem(lista, 0);
+    insert_ordem(lista, 25);
+    insert_ordem(lista, 13);
+    insert_ordem(lista, 32);
+    insert_ordem(lista, 3);
+    insert_ordem(lista, 7);
+    insert_ordem(lista, 19);
+    insert_ordem(lista, 11);
+    insert_ordem(lista, 14);
     print(lista);
     printf("excluindo o primeiro elemento\n");
-    remover_elemento(lista, 0);
+    remover_elemento(lista, 2);
     print(lista);
     printf("removendo elementos iguais\n");
     remover_elemento(lista, 6);
     print(lista);
     printf("removendo elemento do meio da lista\n");
     remover_elemento(lista, 12);
+    print(lista);
+    printf("removendo elemento do final\n");
+    remover_elemento(lista, 32);
+    print(lista);
+    printf("removendo todos os elementos\n");
+    for(int i =0; i<=32; i++){
+        remover_elemento(lista, i);
+    }
     print(lista);
 }

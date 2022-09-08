@@ -9,6 +9,7 @@ typedef struct _node_simples{
 
 typedef struct _lista_simples{
     Node_simples *inicio;
+    Node_simples *fim;
     int size;    //obrigatório já que necessia-se saber o tamanho
 }Lista;
 
@@ -25,7 +26,8 @@ bool _isNull(const Lista *list){
 
 Lista *Lista_create(){
     Lista *lista = (Lista *)calloc(1, sizeof(Lista));   //aloca apenas a "cabeca da lista", ou seja, o inicio da lista
-    lista -> inicio = NULL;
+    lista->inicio = NULL;
+    lista->fim = NULL;
     return lista;
 }
 
@@ -101,16 +103,20 @@ void remover_elemento(Lista *list, int elem){
             if(list->inicio == NULL)pos = NULL; //isso é para o caso da lista conter apensas um elemento
             free(pos);
         }
+
         // elemento no meio
         else{
             Node_simples *pos = list->inicio->next;
             Node_simples *ant = list->inicio;
             while(pos != NULL && pos->valor != elem){ //enq exister elemen na lista e o valor apontado pelo pos for != do valor desejado, a lista seguirá p/ o prox elemento            }
-                ant = pos; //andaando juntamente com o pos
+                ant = pos; //andando juntamente com o pos
                 pos = pos->next; 
             }     
             if (pos != NULL){ //elemento encontrado
                 ant->next = pos->next; // fazendo a ligação para não perder a referencia
+                if(pos->next == NULL){ // elemento no final
+                    list->fim = ant;
+                }
                 free(pos);
             }
         }
@@ -123,7 +129,7 @@ void print(const Lista *list)
     Node_simples *p = list->inicio;
     printf("INICIO -> ");
     while(p != NULL){
-        printf("%d ->", p->valor);
+        printf(" %d ->", p->valor);
         p = p->next;
     }
     printf("NULL\n");
