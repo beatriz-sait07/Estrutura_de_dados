@@ -123,14 +123,56 @@ void remover_elemento(Lista *list, int elem){
     }
 }
 
+void remover_todos_elementos(Lista **ref_list){
+    Lista *lista = *ref_list;
+
+    /*precisa da aux para não perder a referencia para o proximo elemento
+    assim que o aux recebe o proximo elemento a lista pula para o outro e assim
+    excluimos o aux, isso acontecerá até a lista receber null, ou seja, o fim da lista*/
+    Node_simples *busca = lista->inicio;
+    Node_simples *aux = NULL;
+
+    while (busca != NULL){
+        aux = busca;
+        busca = busca->next;
+
+        free(aux);
+    }
+    free(lista);
+}
+
+void busca_elemento(Lista *list, int elem){
+    if(_isNull(list))printf("lista vazia!\n");
+    Node_simples *busca = list->inicio;
+    Node_simples *aux = NULL;
+    while(busca != NULL){
+        if(busca->valor == elem){
+            aux = busca;
+            busca = busca->next;
+        }
+        busca = busca->next;
+    }
+    if(busca->valor != aux->valor){
+    printf("voce pediu a busca do elemento %d, o mesmo não foi encontrado\nelemento inexistente!\n\n",elem);
+    }else{printf("voce pediu a busca do elemento %d, elemento encontrado!!!\n\n",elem);}
+}
 
 void print(const Lista *list)
 {
     Node_simples *p = list->inicio;
-    printf("INICIO -> ");
-    while(p != NULL){
-        printf(" %d ->", p->valor);
-        p = p->next;
+
+    if(list != NULL){
+        printf("INICIO -> ");
+        while(p != NULL){
+            printf(" %d ->", p->valor);
+            p = p->next;
+        }
+        printf("NULL\n");
+    }else{
+        printf("a lista foi totalmete desalocada!\n");
     }
-    printf("NULL\n");
 }
+
+/*
+arrumar a busca e a remoção de todos os elementos
+*/

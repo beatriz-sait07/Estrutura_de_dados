@@ -11,7 +11,9 @@ bool _isNull(const Lista *list);
 void add_inicio(Lista *list, int elem);
 void add_final(Lista *listt, int elem);
 void insert_ordem (Lista *list, int elem); //insere em ordem crescente na lista
-void remover_elemento(Lista *list, int elem); //remove o 1º nó que está alocando o valor dessejado
+void remover_elemento(Lista *list, int elem); //remove o 1º nó que está alocando o valor desejado
+void remover_todos_elementos(Lista **ref_list); //remove todos os elementos da lista
+void busca_elemento(Lista *list, int elem); //procura um elemento na lista
 void print(const Lista *list);
 
 #endif
