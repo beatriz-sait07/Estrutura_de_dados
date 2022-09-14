@@ -13,6 +13,10 @@ typedef struct _lista_simples{
     int size;    //obrigatório já que necessia-se saber o tamanho
 }Lista;
 
+bool _isNull(const Lista *list){
+    return list->size == 0;
+}
+
 Node_simples *Node_create(int val){
     Node_simples *node = (Node_simples*)calloc(1, sizeof(Node_simples));
     node->valor = val;
@@ -20,14 +24,11 @@ Node_simples *Node_create(int val){
     return node;
 }
 
-bool _isNull(const Lista *list){
-    return list->inicio == NULL;
-}
-
 Lista *Lista_create(){
     Lista *lista = (Lista *)calloc(1, sizeof(Lista));   //aloca apenas a "cabeca da lista", ou seja, o inicio da lista
     lista->inicio = NULL;
     lista->fim = NULL;
+    lista->size = 0;
     return lista;
 }
 
@@ -38,12 +39,13 @@ void add_inicio(Lista *list, int elem)
         Node_simples *dados = Node_create(elem);
         list->inicio = dados;
     }
-    //lista com dados, 
+    //lista com dados
     else{
         Node_simples *dados = Node_create(elem);
         dados->next = list->inicio; // o elemento criado aponta para o elemento que o 'inicio' está apotando p/ não perder a referancia
         list->inicio = dados; // agora ele se torna o primeiro elemento sem perder a referencia do antigo 1º elemento
     }
+    list->size++;
 }
 
 //tem que verificar se a lista não está vazia, pois caso ela esteja. ele será o elemento final e inicial
@@ -92,6 +94,7 @@ void insert_ordem (Lista *list, int elem){
             aux->next = inserir; // aqui ele entra na posição entre um numero maior que ele e um maior
         }
     }
+    list->size++;
 }
 
 void remover_elemento(Lista *list, int elem){
@@ -102,6 +105,7 @@ void remover_elemento(Lista *list, int elem){
             list->inicio = pos->next; //atualiza o inicio, sem perda de referencia
             if(list->inicio == NULL)pos = NULL; //isso é para o caso da lista conter apensas um elemento
             free(pos);
+            list->size--;
         }
 
         // elemento no meio
@@ -118,6 +122,7 @@ void remover_elemento(Lista *list, int elem){
                     list->fim = ant;
                 }
                 free(pos);
+                list->size--;
             }
         }
     }
@@ -137,6 +142,7 @@ void remover_todos_elementos(Lista **ref_list){
         busca = busca->next;
 
         free(aux);
+        lista->size--;
     }
     free(lista);
 }
@@ -157,6 +163,10 @@ void busca_elemento(Lista *list, int elem){
     }else{printf("voce pediu a busca do elemento %d, elemento encontrado!!!\n\n",elem);}
 }
 
+int tam_lista(const Lista *list){
+    return list->size;
+}
+
 void print(const Lista *list)
 {
     Node_simples *p = list->inicio;
@@ -171,6 +181,8 @@ void print(const Lista *list)
     }else{
         printf("a lista foi totalmete desalocada!\n");
     }
+
+    printf("tamanho = %d\n", list->size);
 }
 
 /*

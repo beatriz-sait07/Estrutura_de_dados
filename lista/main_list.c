@@ -21,9 +21,9 @@ int main (){
     insert_ordem(lista, 11);
     insert_ordem(lista, 14);
     print(lista);
-    printf("buscando elemento na lista\n");
+    /*printf("buscando elemento na lista\n");
     busca_elemento(lista, 13);
-    busca_elemento(lista, 15);
+    busca_elemento(lista, 15);*/
     printf("\nexcluindo o primeiro elemento\n");
     remover_elemento(lista, 2);
     print(lista);
