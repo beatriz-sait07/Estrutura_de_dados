@@ -148,19 +148,29 @@ void remover_todos_elementos(Lista **ref_list){
 }
 
 void busca_elemento(Lista *list, int elem){
-    if(_isNull(list))printf("lista vazia!\n");
-    Node_simples *busca = list->inicio;
-    Node_simples *aux = NULL;
-    while(busca != NULL){
-        if(busca->valor == elem){
-            aux = busca;
-            busca = busca->next;
-        }
-        busca = busca->next;
+    //verifica se a lista contem elementos
+    if(_isNull(list)){
+        fprintf(stderr, "ERRO: lista vazia\n\n");
+        exit(EXIT_FAILURE);
     }
-    if(busca->valor != aux->valor){
-    printf("voce pediu a busca do elemento %d, o mesmo não foi encontrado\nelemento inexistente!\n\n",elem);
-    }else{printf("voce pediu a busca do elemento %d, elemento encontrado!!!\n\n",elem);}
+    //verifica se o elemento dessejado é um elemento valido!
+    else if(elem < 0 || elem >= list->size){
+        fprintf(stderr, "ERRO: index invalido!\n\n");
+        exit(EXIT_FAILURE);
+    }
+    //tudo valido
+    else{
+        int index=0;
+        Node_simples *p = list->inicio;
+        
+        while(index != elem){
+            p = p->next;
+            index++;
+        }
+
+        return p->valor; //retorna o valor dentro do index
+    }
+    
 }
 
 int tam_lista(const Lista *list){
