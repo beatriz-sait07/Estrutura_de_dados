@@ -21,9 +21,6 @@ int main (){
     insert_ordem(lista, 11);
     insert_ordem(lista, 14);
     print(lista);
-    printf("buscando elemento na lista\n");
-    busca_elemento(lista, 13);
-    busca_elemento(lista, 15);
     printf("\nexcluindo o primeiro elemento\n");
     remover_elemento(lista, 2);
     print(lista);
@@ -36,7 +33,8 @@ int main (){
     printf("removendo elemento do final\n");
     remover_elemento(lista, 32);
     print(lista);
-    /*printf("removendo todos os elementos\n");
+    printf("buscando elemento na lista\n");
+    busca_elemento(lista, 6);
+    printf("removendo todos os elementos\n");
     remover_todos_elementos(&lista);
-    print(lista);*/
 }

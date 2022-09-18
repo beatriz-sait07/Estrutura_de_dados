@@ -129,25 +129,23 @@ void remover_elemento(Lista *list, int elem){
 }
 
 void remover_todos_elementos(Lista **ref_list){
-    Lista *lista = *ref_list;
-
     /*precisa da aux para não perder a referencia para o proximo elemento
     assim que o aux recebe o proximo elemento a lista pula para o outro e assim
     excluimos o aux, isso acontecerá até a lista receber null, ou seja, o fim da lista*/
-    Node_simples *busca = lista->inicio;
+    Lista *l = *ref_list;
+    Node_simples *p = l->inicio;
     Node_simples *aux = NULL;
-
-    while (busca != NULL){
-        aux = busca;
-        busca = busca->next;
-
+    while(p != NULL){
+        aux = p;
+        p = p->next;
         free(aux);
-        lista->size--;
     }
-    free(lista);
+    free(l);
+    *ref_list = NULL;
+    printf("lista totalmente desalocada!");
 }
 
-void busca_elemento(Lista *list, int elem){
+int busca_elemento(Lista *list, int elem){
     //verifica se a lista contem elementos
     if(_isNull(list)){
         fprintf(stderr, "ERRO: lista vazia\n\n");
@@ -167,10 +165,9 @@ void busca_elemento(Lista *list, int elem){
             p = p->next;
             index++;
         }
-
+        printf("valor: %d, na posição %d\n",p->valor, elem);
         return p->valor; //retorna o valor dentro do index
-    }
-    
+    }   
 }
 
 int tam_lista(const Lista *list){
