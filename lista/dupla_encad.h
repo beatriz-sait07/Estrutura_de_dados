@@ -12,4 +12,4 @@ void add_comeco(Lista_dupla *list, int val);
 void add_final(Lista_dupla *list, int val); // fazer
 void imprimir_lista(const Lista_dupla *list); 
 void imprimir_invert(const Lista_dupla *list); //fazer
-void remover_elemento(Lista_dupla *list, int val); // fazzer
+void remover_elemento(Lista_dupla *list, int val); // fazer

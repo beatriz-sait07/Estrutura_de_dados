@@ -52,3 +52,32 @@ void destroy(Lista_dupla **ref_list){
     }
     free(aux_list);
 }
+
+void imprimir_lista(const Lista_dupla *list){
+    Node *aux = list->inicio;
+
+    printf("inicio -> ");
+    while(aux != NULL){
+        printf("%d -> ", aux->val);
+        aux = aux->next; //passa para imprimir o elemento a frente
+    }
+    printf(" fim\n\n");
+    
+    if(list->fim == NULL){
+        printf("fim = NULL\n");
+    }
+    else{
+        printf("fim = %d\n", list->fim);
+    }
+}
+
+void imprimir_invert(const Lista_dupla *list){
+    Node *aux = list->fim;
+
+    printf("fim -> ");
+    while(aux != NULL){
+        printf("%d -> ", aux->val);
+        aux = aux->prev; //passa a imprimir o elemento anterior
+    }
+    printf("inicio\n\n");
+}
