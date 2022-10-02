@@ -56,15 +56,13 @@ void destroy_dupla(List **ref_list){
 void add_final_dupla(List *list, int val){
     Node *aux = create_node(val);
 
-    if(_isNull_dupla(list))list->inicio = aux;
+    if(_isNull_dupla(list))list->inicio = list->fim = aux;
     else{
 
-        Node *p = list->inicio; //percorrer a lista como um ponteiro auiliar para nao perder a referencia
-        while(p->next != NULL){
-            p = p->next; //pula casa a casa até enconter o fim da lista
-        }
-        //quando encontra o fim da lista ela adiciona o valor
-        p->next = aux;
+        list->fim->next = aux; //final passara a receber o novo elemento
+        aux->prev = list->fim; // guarda a posicao atual para ela tornar-se a posicao anterios
+        list->fim = aux; // assume o novo valor
+
     }
 
     list->size++; //conta cada elemento que está sendo adicionado no final da
