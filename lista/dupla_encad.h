@@ -1,15 +1,15 @@
 #include<stdbool.h>
 
 typedef struct _double_node DoubleNode, Node;
-typedef struct _double_list Lista_dupla, List;
+typedef struct _double_list DoubleList, List;
 
-Node *Node_create(int val);
-List *List_create();
+Node *create_node(int val);
+List *create_list();
 
-void destroy(Lista_dupla **ref_list); //fazer
-bool _isNull(const Lista_dupla *list); // fazer
-void add_comeco(Lista_dupla *list, int val);
-void add_final(Lista_dupla *list, int val); // fazer
-void imprimir_lista(const Lista_dupla *list); 
-void imprimir_invert(const Lista_dupla *list); //fazer
-void remover_elemento(Lista_dupla *list, int val); // fazer
+void destroy_dupla(List **ref_list); //fazer
+bool _isNull_dupla(const List *list); // fazer
+void add_comeco_dupla(List *list, int val);
+void add_final_dupla(List *list, int val); // fazer
+void imprimir_lista(const List *list);
+void imprimir_invert(const List *list); //fazer
+void remover_elemento_dupla(List *list, int val); // fazer
