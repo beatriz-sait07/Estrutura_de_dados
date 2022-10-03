@@ -56,9 +56,16 @@ int main (){
     imprimir_lista(lista_dupla_enc);
     printf("\n\nprint invertido:\n");
     imprimir_invert(lista_dupla_enc);
-    /*printf("\ndesalocando totalmente:\n");
+    printf("\n\nremovendo o primeiro elemento:\n");
+    remover_elemento_dupla(lista_dupla_enc, 3);
+    imprimir_lista(lista_dupla_enc);
+    printf("\n\nremovendo elemento do meio da lista:\n");
+    remover_elemento_dupla(lista_dupla_enc, 2);
+    imprimir_lista(lista_dupla_enc);
+    printf("\n\nremovendo elemento do fim da lista:\n");
+    remover_elemento_dupla(lista_dupla_enc, 23);
+    imprimir_lista(lista_dupla_enc);
+    printf("\n\ndesalocando a lista:\n");
     destroy_dupla(&lista_dupla_enc);
-    imprimir_lista(lista_dupla_enc);*/
-
     return 0;
 }
