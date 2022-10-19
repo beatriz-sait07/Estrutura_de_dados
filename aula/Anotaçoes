@@ -60,13 +60,17 @@ fazer uma apresentação do quick sorte - melhor equipe a apresentar e com o mel
 - qual melhor e pior caso do quick, como evitar cair no caso quadratico
 - USAR TAD E CASOS REAIS
 
-- faltei 07
+- faltei 07, correção da prova
 - não teve 08
         05/09/2022 - aula 09
 como criar uma lista encadeada com tamanho finito ? ex: tam = 15
 
 criar uma função bool para verificar se ela esta vazia
 *para inserir algo no final, voce precisa achar apenas o primeiro elemento e guiar ele até o fim.*
+
+        17/10/2022 - aula 10
+**considerar a add no meio da lista, possivel questão de prova**
+revisão do da lista duplamente encadeada
 
 ######################## OBSERVAÇÕES ############################
 nome de funções não ideiais
