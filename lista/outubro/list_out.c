@@ -27,8 +27,8 @@ typedef struct linkedlist
 //criando nó
 void create_node(char nome[50], char rua[50]){
     Node *node = (Node*)calloc(1, sizeof(Node));
-    node->cad->nome[50] = nome[50];
-    node->cad->rua[50] = rua[50];
+    node->cad->nome[50] = scanf("%c", &nome[50]);
+    node->cad->rua[50] = scanf("%c", &rua[50]);
     node->next = NULL;
 }
 
@@ -36,4 +36,9 @@ void create_lista(){
     List *lista = (List*)calloc(1, sizeof(List));
     lista->begin = NULL;
     lista->end = NULL;
+    lista->cont = 0;
+}
+
+bool _isNull(List *lista){
+    return lista->cont == 0;
 }
