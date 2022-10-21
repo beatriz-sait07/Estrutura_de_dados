@@ -110,7 +110,13 @@ criar uma lista de size, para inserir dados no meio da mesma
 ================== video aulas ====================
 remoção
 1º corrigir o encadeamento
-2º 
+
+
+*MAKEFILE*
+
+make -> executa a primeira diretiva
+make nome_ex -> busca e executa a diretiva solicitada
+
 
 
 ---------entregar trabalhos-----------
