@@ -8,5 +8,10 @@ typedef struct node_simples Node;
 typedef struct linkedlist List;
 
 //funções
-void create_lista(List *lista);
-void create_node(List *lista);
+bool _isNull(List *lista);
+Node *create_node(char *nome, char *rua);
+List *create_lista();
+void insert_dados(List *list, char *n, char *r);
+void print_list(List *lista);
+
+
