@@ -11,11 +11,8 @@ contar o numero de elementos na lista
 int main(){
     printf("exercicio Nº04\n");
     List *lista = create_lista();
-    char *nm = "bia";
-    char *ru = "augusta";
-    insert_dados(lista, nm, ru);
-
-
+    char *nm = "bia", *ru = "augusta";
+    insert_dados(lista, nm,ru);
     printf("fim de armazenamento!\n");
     print_list(lista);
     return 0;

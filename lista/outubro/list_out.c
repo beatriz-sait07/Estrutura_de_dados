@@ -56,8 +56,9 @@ void print_list(List *lista){
     if(_isNull(lista))
         printf("lista vazia!\n");
     else{
-        while(p != NULL){
+        /*while(p != NULL){
             printf("nome: %s\trua: %s", p->nome, p->rua);
-        }
+        }*/
+        printf("nome: %s\trua: %s\n", p->nome, p->rua);
     }
 }
