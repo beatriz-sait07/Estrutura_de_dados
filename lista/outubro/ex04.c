@@ -48,3 +48,14 @@ List *create_lista(){
     return list;
 
 }
+
+void print_list(List *lista){
+    if(isNull(lista))
+        printf("lista vazia!\n");
+    else{
+        while(lista != NULL){
+            printf("nome: %s\trua: %s\tcelular: %d\n");
+        }
+        printf("fim do armazenamento!\n");
+    }
+}
