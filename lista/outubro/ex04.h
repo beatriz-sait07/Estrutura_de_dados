@@ -8,7 +8,7 @@ typedef struct node_simples Node;
 typedef struct linkedlist List;
 
 //funções
-bool _isNull(List *lista);
+bool isNull(List *lista);
 Node *create_node(char *nome, char *rua);
 List *create_lista();
 void insert_dados(List *list, char *n, char *r);

@@ -5,7 +5,7 @@ funcoes: inserir, remover, listar, pesquisar, gravar em ficheiro, ler de ficheir
 contar o numero de elementos na lista
 */
 
-#include "list_out.h"
+#include "ex04.h"
 #include <stdio.h>
 
 int main(){
