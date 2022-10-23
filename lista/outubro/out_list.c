@@ -10,10 +10,10 @@ contar o numero de elementos na lista
 
 int main(){
     printf("exercicio Nº04\n");
+    Dados *pessoa;
     List *lista = create_lista();
-    char *nm = "bia", *ru = "augusta";
-    insert_dados(lista, nm,ru);
-    printf("fim de armazenamento!\n");
+    cadastro(pessoa, "bia", "paranaiba", "993008608");
+    insert_dados(lista, pessoa);
     print_list(lista);
     return 0;
 }
