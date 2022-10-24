@@ -7,13 +7,18 @@ contar o numero de elementos na lista
 
 #include "ex04.h"
 #include <stdio.h>
+#include<stdlib.h>
 
 int main(){
     printf("exercicio Nº04\n");
-    Dados *pessoa;
+    Dados *pessoa=cadastro(pessoa, 9, 7);
     List *lista = create_lista();
-    cadastro(pessoa, "bia", "paranaiba", "993008608");
     insert_dados(lista, pessoa);
     print_list(lista);
+
+    
+    /*List *lista = create_lista();
+    insert_dados(lista, cadastro("bia", 6,9));
+    print_list(lista);*/
     return 0;
 }
