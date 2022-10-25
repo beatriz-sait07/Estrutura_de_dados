@@ -9,8 +9,7 @@ typedef struct linkedlist List;
 
 //funções
 bool isNull(List *lista);
-//void cadastro (Dados *p, char nome[], char rua[], char cell[]);
-Dados *cadastro (char nome[], int num1, int num2);
+Dados *cadastro (Dados *p,char *nome, char *rua, char *cell);
 Node *create_node(Dados *p);
 List *create_lista();
 void insert_dados(List *lista, Dados *p);

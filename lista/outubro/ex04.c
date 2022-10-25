@@ -5,8 +5,9 @@
 
 //criando estrutura do cadastro.
 typedef struct cadastro_struc {
-    int n1, n2, media;
-    //char nome[50];
+    char *nome_cad;
+    char *rua_cad;
+    char *cell_cad;
 } Dados;
 
 // criando nó para armazernar os cada cadastro.
@@ -27,21 +28,14 @@ bool isNull(List *lista){
     return lista->size == 0;
 }
 
-/*void cadastro (Dados *p, char nome[], char rua[], char cell[]) {
-    p->nome_cad[50] = nome[50];
-    p->rua_cad[50] = rua[50];
-    p->cell_cad[15] = cell[50];
-}
-*/
-Dados *cadastro (char nome[],int num1, int num2){
-    Dados *p = (Dados*)calloc(1, sizeof(Dados));
-    //p.nome[50] = nome[50];
-    p->n1 = num1;
-    p->n2 = num2;
-    int md = num1 + num2 / 2;
-    p->media = md;
+Dados *cadastro (Dados *p, char *nome, char *rua, char *cell) {
+    Dados *aux= (Dados*)calloc(1, sizeof(Dados));
+    p->nome_cad = nome;
+    p->rua_cad = rua;
+    p->cell_cad = cell;
     return p;
 }
+
 
 Node *create_node(Dados *p){
     Node *node = (Node*)calloc(1, sizeof(Node));
@@ -82,11 +76,9 @@ void print_list(List *lista){
         printf("lista vazia!\n");
 
     else{
-        /*while(lista != NULL){
-            printf("nome: %s\trua: %s\tcelular: %s\n", aux->cad_node->nome_cad, aux->cad_node->rua_cad, aux->cad_node->cell_cad);
-        */
         while(lista != NULL){
-            printf("n1: %d\nn2: %d\nmedia: %d", aux->cad_node->n1, aux->cad_node->n2, aux->cad_node->media);
+            printf("nome: %s\trua: %s\tcell: %s\n", aux->cad_node->nome_cad, aux->cad_node->rua_cad, aux->cad_node->cell_cad);
+            aux = aux->next;
         }
         printf("fim do armazenamento!\n");
     }
