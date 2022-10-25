@@ -77,10 +77,10 @@ revisão do da lista duplamente encadeada
 precisa controlar o topo.
 LIFO: lest in first out -> ultimo elemento será o primeiro a ser retirado
                         -> push e pop
-pilha estática: implementada com vetor, obrigatóriamente precisa definir tamanho.
+- pilha estática: implementada com vetor, obrigatóriamente precisa definir tamanho.
 variavel para armazenar o topo, uma para a capacidade e uma para o indice.
-pilha dinamica: indice de entrada e indice de saida são controlados por ponteiro e listas duplamente ligada.
-pilha so pode inserir ou remover no topo, mas fora o topo voce pode buscar e ou editar.
+- pilha dinamica: indice de entrada e indice de saida são controlados por ponteiro e listas duplamente ligada.
+-> pilha so pode inserir ou remover no topo, mas fora o topo voce só pode buscar e/ou editar.
 **para lista que voce sabe o tamanho, usar a pilha estática. independente do tamanho ela é mais eficiente pois voce pode ir direto ao campo que busca.o contrário diz-se para quando voce não sabe o tamnho ai sim torna-se eficienet usar uma pilha dinamica**
 
 "cobrar em prova" -> como organizar a pilha ?

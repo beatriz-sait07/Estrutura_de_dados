@@ -32,24 +32,46 @@ void destroy_estatica(Estatica **ref_pilha){
 bool estatica_vazia(Estatica *s){return s->topo == -1;}
 bool estatica_cheia(Estatica *s){return s->topo == (s->capacity-1);}
 
-//long estatica_tamanho(Estatica *s);
+//verificando o tamanho
+long estatica_tamanho(Estatica *s){
+    return s->topo+1;
+}
 
 
 void estatica_push(Estatica *s, long val){
-    if(estatica_cheia(s))printf(stderr, "lista cheia!\n");
+    if(estatica_cheia(s)){
+        fprintf(stderr, "lista cheia!\n");
+        exit(EXIT_FAILURE);
+    }
+
     s->topo++;
     s->data[s->topo] = val;
 }
-/*
+
 void estatica_peek(Estatica *s){
-    fazer
+    if(estatica_vazia(s)){
+        fprintf(stderr, "erro: ESTATICA_PEEK\n");
+        fprintf(stderr, "erro: lista vazia\n");
+        exit(EXIT_FAILURE);
+    }
 }
-*/
+
 void estatica_pop(Estatica *s){
-    if(estatica_vazia(s))printf(stderr,"lista vazia!\n");
+    if(estatica_vazia(s)){
+        fprintf(stderr, "erro: ESTATICA_POP\n");
+        fprintf(stderr,"lista vazia!\n");
+        exit(EXIT_FAILURE);
+    }
 
     int aux = s->data[s->topo];
     s->topo--;
 }
 
-//fazer print e size
+void estatica_print(Estatica *s){
+    printf("capacidade: %ld", s->capacity);
+    printf("topo: %ld", s->topo);
+
+    for(long int i=0; i<s->capacity; i++){
+        printf("%d", s->data[i]);
+    }
+}
