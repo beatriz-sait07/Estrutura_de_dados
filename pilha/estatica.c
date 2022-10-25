@@ -37,7 +37,7 @@ long estatica_tamanho(Estatica *s){
     return s->topo+1;
 }
 
-
+//colocar daados
 void estatica_push(Estatica *s, long val){
     if(estatica_cheia(s)){
         fprintf(stderr, "lista cheia!\n");
@@ -48,6 +48,7 @@ void estatica_push(Estatica *s, long val){
     s->data[s->topo] = val;
 }
 
+//buscar o topo
 void estatica_peek(Estatica *s){
     if(estatica_vazia(s)){
         fprintf(stderr, "erro: ESTATICA_PEEK\n");
@@ -56,6 +57,7 @@ void estatica_peek(Estatica *s){
     }
 }
 
+//tira o topo
 void estatica_pop(Estatica *s){
     if(estatica_vazia(s)){
         fprintf(stderr, "erro: ESTATICA_POP\n");
