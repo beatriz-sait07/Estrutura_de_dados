@@ -13,6 +13,7 @@ typedef struct cadastro_struc {
 // criando nó para armazernar os cada cadastro.
 typedef struct node_simples {
     Dados *cad_node;
+    long int size_node;
     struct node_simples *next;
 } Node;
 
@@ -20,12 +21,12 @@ typedef struct node_simples {
 typedef struct linkedlist {
     Node *begin;
     Node *end;
-    long int size;
+    long int size_list;
 } List;
 
 //verifica se a lista está vazia.
 bool isNull(List *lista){
-    return lista->size == 0;
+    return lista->begin == NULL;
 }
 
 Dados *cadastro (Dados *p, char *nome, char *rua, char *cell) {
@@ -41,6 +42,7 @@ Node *create_node(Dados *p){
     Node *node = (Node*)calloc(1, sizeof(Node));
     node->cad_node = p;
     node->next = NULL;
+    node->size_node = 0;
     return node;
 }
 
@@ -48,25 +50,40 @@ List *create_lista(){
     List *list = (List*)calloc(1, sizeof(List));
     list->begin = NULL;
     list->end = NULL;
-    list->size = 0;
+    list->size_list = 0;
     return list;
 
 }
 
-void insert_dados(List *lista, Dados *p){
+void insert_dados(Dados *p, List *lista){
     Node *dados = create_node(p);
+    Node *aux = lista->begin;
 
-    if(isNull(lista))
-        lista->begin = dados;
+    if(isNull(lista))lista->begin = lista->end = dados;
     else{
-        Node *aux = lista->begin;
-
         while(aux->next != NULL){
-            aux = aux->next;
+        aux = aux->next;
         }
+        printf("entro insert\n");
         aux->next = dados;
+        aux->size_node++;
+        /*lista->end->next = dados;
+        lista->end = dados;*/
     }
-    lista->size++;
+}
+
+void destroy(List **ref_lista){
+    List *l = *ref_lista;
+    Node *p = l->begin;
+    Node *aux = NULL;
+    while(p != NULL){
+        aux = p;
+        p = p->next;
+        free(aux);
+    }
+    free(l);
+    *ref_lista = NULL;
+    printf("lista totalmente desalocada!");
 }
 
 void print_list(List *lista){
@@ -74,12 +91,12 @@ void print_list(List *lista){
 
     if(isNull(lista))
         printf("lista vazia!\n");
-
     else{
         while(aux != NULL){
             printf("nome: %s\trua: %s\tcell: %s\n", aux->cad_node->nome_cad, aux->cad_node->rua_cad, aux->cad_node->cell_cad);
             aux = aux->next;
         }
-        printf("fim do armazenamento!\n");
+        printf("\n");
     }
+    destroy(&lista);
 }

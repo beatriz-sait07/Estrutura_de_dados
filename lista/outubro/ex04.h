@@ -12,7 +12,8 @@ bool isNull(List *lista);
 Dados *cadastro (Dados *p, char *nome, char *rua, char *cell);
 Node *create_node(Dados *p);
 List *create_lista();
-void insert_dados(List *lista, Dados *p);
+void destroy(List **ref_lista);
+void insert_dados(Dados *p, List *lista);
+/*void insert_dados(Node *node, Dados *p);
+void insert_dados(List *lista, Node *node);*/
 void print_list(List *lista);
-
-
