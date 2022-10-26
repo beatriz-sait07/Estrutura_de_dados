@@ -76,7 +76,7 @@ void print_list(List *lista){
         printf("lista vazia!\n");
 
     else{
-        while(lista != NULL){
+        while(aux != NULL){
             printf("nome: %s\trua: %s\tcell: %s\n", aux->cad_node->nome_cad, aux->cad_node->rua_cad, aux->cad_node->cell_cad);
             aux = aux->next;
         }

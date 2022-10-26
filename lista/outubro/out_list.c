@@ -11,13 +11,12 @@ contar o numero de elementos na lista
 
 int main(){
     printf("exercicio Nº04\n");
-    Dados *pessoa;
+    Dados *pessoa=cadastro(pessoa, "bia", "paranaiba, 866, centro", "993008608");
     List *lista = create_lista();
-
-
-    pessoa=cadastro(pessoa, "bia", "paranaiba, 866, centro", "993008608");
     insert_dados(lista, pessoa);
-    
+    printf("\n"); 
+    pessoa = cadastro(pessoa, "susy", "paramaiba, 866, centro", "92063261" );
+    insert_dados(lista, pessoa);
     print_list(lista);
 
     
