@@ -29,12 +29,12 @@ bool isNull(List *lista){
     return lista->begin == NULL;
 }
 
-Dados *cadastro (Dados *p, char *nome, char *rua, char *cell) {
+Dados *cadastro (char *nome, char *rua, char *cell) {
     Dados *aux= (Dados*)calloc(1, sizeof(Dados));
-    p->nome_cad = nome;
-    p->rua_cad = rua;
-    p->cell_cad = cell;
-    return p;
+    aux->nome_cad = nome;
+    aux->rua_cad = rua;
+    aux->cell_cad = cell;
+    return aux;
 }
 
 
@@ -64,11 +64,10 @@ void insert_dados(Dados *p, List *lista){
         while(aux->next != NULL){
         aux = aux->next;
         }
-        printf("entro insert\n");
         aux->next = dados;
+        lista->end = dados;
+        lista->end->next = NULL;
         aux->size_node++;
-        /*lista->end->next = dados;
-        lista->end = dados;*/
     }
 }
 
@@ -83,7 +82,7 @@ void destroy(List **ref_lista){
     }
     free(l);
     *ref_lista = NULL;
-    printf("lista totalmente desalocada!");
+    printf("lista totalmente desalocada!\n");
 }
 
 void print_list(List *lista){
@@ -98,5 +97,5 @@ void print_list(List *lista){
         }
         printf("\n");
     }
-    destroy(&lista);
+    //destroy(&lista);
 }
