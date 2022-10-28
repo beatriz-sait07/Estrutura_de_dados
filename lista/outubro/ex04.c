@@ -74,24 +74,56 @@ void insert_dados(Dados *p, List *lista){
 
 Dados *busca_elemento(List *lista, char *nome){
     Node *aux = lista->begin;
-    printf("entrou na busca!\n");
+    FILE *file = fopen("resp_ex04.txt", "w");
 
     while (aux != NULL){
         if(aux->cad_node->nome_cad != nome){
-            printf("%s não eh valido!\n", aux->cad_node->nome_cad);
+            //printf("%s não eh valido!\n", aux->cad_node->nome_cad);
             aux = aux->next;
         }
         else if (aux->cad_node->nome_cad == nome) {
-            printf("nome: %s valido!\n", aux->cad_node->nome_cad);
+            printf("nome: %s\ncadastro encontrado!\n", aux->cad_node->nome_cad);
             aux = aux->next;
         }
         else{
             fprintf(stderr, "dados invalidos!\n\n");
         }
     }
-
+    fclose(file);
+    return 0;
 }
 
+void excluir_cliente(List *lista, char *nome){
+    if(!isNull(lista)){
+        // elemento encontra-se no comeco da lista
+        if(lista->begin->cad_node->nome_cad == nome){
+            Node *aux = lista->begin;
+            lista->begin = aux->next;
+
+            if(lista->begin == NULL)aux = NULL;
+            free(aux);
+            lista->size_list--;
+        }
+
+        //elemento encontra-se no meio
+        else{
+            Node *aux = lista->begin->next;
+            Node *ant = lista->begin;
+
+            while(aux != NULL && aux->cad_node->nome_cad != nome){
+                ant = aux;
+                aux = aux->next;
+            }
+            if(aux != NULL) {
+                ant->next = aux->next;
+                if(aux->next == NULL)lista->end;
+
+                free(aux);
+                lista->size_list--;
+            }
+        }
+    }
+}
 
 void destroy(List **ref_lista){
     List *l = *ref_lista;
@@ -109,15 +141,16 @@ void destroy(List **ref_lista){
 
 void print_list(List *lista){
     Node *aux = lista->begin;
+    FILE *file = fopen("resp_ex04.txt", "r");
 
     if(isNull(lista))
-        printf("lista vazia!\n");
+        fprintf(file, "lista vazia!\n");
     else{
         while(aux != NULL){
-            printf("nome: %s\trua: %s\tcell: %s\n", aux->cad_node->nome_cad, aux->cad_node->rua_cad, aux->cad_node->cell_cad);
+            fprintf(file, "nome: %s\trua: %s\tcell: %s\n", aux->cad_node->nome_cad, aux->cad_node->rua_cad, aux->cad_node->cell_cad);
             aux = aux->next;
         }
         printf("\n");
     }
-    //destroy(&lista);
+    fclose(file);
 }

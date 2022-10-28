@@ -28,9 +28,13 @@ int main(){
     insert_dados(pessoa, lista);
 
     print_list(lista);
-    printf("buscando cadastro 'bia'\n");
+    printf("buscando cadastro: bia\n");
     busca_elemento(lista,"Bia");
-    //busca_elemento(lista, pessoa, "antonio");
+    printf("buscando cadastro: antonio\n");
+    busca_elemento(lista,"antonio");
+    printf("escluindo cadastro: luis\n");
+    excluir_cliente(lista, "luis");
+    print_list(lista);
     //destroy(&lista);
     return 0;
 }

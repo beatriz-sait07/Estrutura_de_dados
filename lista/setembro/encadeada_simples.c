@@ -145,6 +145,7 @@ void remover_todos_elementos(Lista **ref_list){
     printf("lista totalmente desalocada!");
 }
 
+
 int busca_elemento(Lista *list, int elem){
     //verifica se a lista contem elementos
     if(_isNull(list)){
@@ -191,7 +192,3 @@ void print(const Lista *list)
 
     printf("tamanho = %d\n", list->size);
 }
-
-/*
-arrumar a busca e a remoção de todos os elementos
-*/
