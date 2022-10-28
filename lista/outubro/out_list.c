@@ -15,7 +15,7 @@ int main(){
     Dados *pessoa;
     List *lista = create_lista();
 
-    pessoa = cadastro("Susy", "Paranaiba, 866, Centro", "92063261" );
+    pessoa = cadastro("Susy", "Paranaiba, 866, Centro", "992063261" );
     insert_dados(pessoa, lista);
 
     pessoa = cadastro("Bia", "Paranaiba, 866, Centro", "993008608");
@@ -28,7 +28,10 @@ int main(){
     insert_dados(pessoa, lista);
 
     print_list(lista);
-    destroy(&lista);
+    printf("buscando cadastro 'bia'\n");
+    busca_elemento(lista,"Bia");
+    //busca_elemento(lista, pessoa, "antonio");
+    //destroy(&lista);
     return 0;
 }
 

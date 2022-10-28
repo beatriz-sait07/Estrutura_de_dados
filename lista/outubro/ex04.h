@@ -14,4 +14,5 @@ Node *create_node(Dados *p);
 List *create_lista();
 void destroy(List **ref_lista);
 void insert_dados(Dados *p, List *lista);
+Dados *busca_elemento(List *lista, char *nome);
 void print_list(List *lista);

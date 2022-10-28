@@ -29,7 +29,7 @@ bool isNull(List *lista){
     return lista->begin == NULL;
 }
 
-Dados *cadastro (char *nome, char *rua, char *cell) {
+Dados *cadastro (char *nome, char *rua, char *cell){
     Dados *aux= (Dados*)calloc(1, sizeof(Dados));
     aux->nome_cad = nome;
     aux->rua_cad = rua;
@@ -70,6 +70,28 @@ void insert_dados(Dados *p, List *lista){
         aux->size_node++;
     }
 }
+
+
+Dados *busca_elemento(List *lista, char *nome){
+    Node *aux = lista->begin;
+    printf("entrou na busca!\n");
+
+    while (aux != NULL){
+        if(aux->cad_node->nome_cad != nome){
+            printf("%s não eh valido!\n", aux->cad_node->nome_cad);
+            aux = aux->next;
+        }
+        else if (aux->cad_node->nome_cad == nome) {
+            printf("nome: %s valido!\n", aux->cad_node->nome_cad);
+            aux = aux->next;
+        }
+        else{
+            fprintf(stderr, "dados invalidos!\n\n");
+        }
+    }
+
+}
+
 
 void destroy(List **ref_lista){
     List *l = *ref_lista;
