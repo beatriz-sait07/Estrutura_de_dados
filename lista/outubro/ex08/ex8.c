@@ -6,12 +6,12 @@ typedef struct cad_inf {
     char *usuario_cad;
     char *nome_cad;
     char *placa;
-    int *id;
+    char *id;
     int vaga;
 } Info;
 
 typedef struct node_simples {
-    Info *cadastro_cliente;
+    Info *cadastro_if;
     struct node_simples *next;
     struct node_simples *prev;
     
@@ -27,12 +27,8 @@ bool isNull(List *lista){
     return lista->begin == NULL;
 }
 
-bool isFull(List *lista){
-    return lista->end == NULL;
-}
-
-Info *cadastro (char *usuario, char *nome, int *id, int vaga, char *placa){
-    Info *aux = (Node*)calloc(1, sizeof(Node));
+Info *cadastro (char *usuario, char *nome, char *id, int vaga, char *placa){
+    Info *aux = (Info*)calloc(1, sizeof(Info));
     aux->usuario_cad = usuario;
     aux->nome_cad = nome;
     aux->id = id;
@@ -40,6 +36,23 @@ Info *cadastro (char *usuario, char *nome, int *id, int vaga, char *placa){
     aux->placa = placa;
     return aux;
 }
+
+Node *create_node(Info *p){
+    Node *node = (Node*)calloc(1, sizeof(Node));
+    node->cadastro_if = p;
+    node->next = NULL;
+    return node;
+}
+
+List *create_lista(){
+    List *list = (List*)calloc(1, sizeof(List));
+    list->begin = NULL;
+    list->end = NULL;
+    list->size_list = 0;
+    return list;
+
+}
+
 
 void destroy (List **ref_list){
     List *l = *ref_list;
@@ -69,13 +82,16 @@ void insert_dados(Info *p, List *lista){
     lista->size_list++;
 }
 
-void print_list(const List *lista){
+void print_list(List *lista){
     Node *aux = lista->begin;
-    
-    while( aux != NULL){
-        prinf("Usuario: %s\tNome: %s\tId: %d\tVaga: %d\tPlaca: %s",
-        aux->cadastro_cliente->usuario_cad, aux->cadastro_cliente->nome_cad, aux->cadastro_cliente->id, aux->cadastro_cliente->vaga, aux->cadastro_cliente->placa);
-        aux = aux->next;
+    if(isNull(lista))printf("Lista vazia\n");
+    else{
+        while( aux != NULL){
+            printf("Usuario: %s\tNome: %s\tId: %s\tVaga: %d\tPlaca: %s\n",
+            aux->cadastro_if->usuario_cad, aux->cadastro_if->nome_cad, aux->cadastro_if->id, aux->cadastro_if->vaga, aux->cadastro_if->placa);
+            aux = aux->next;
+        }
     }
+    printf("ocupacao do estacionamento: %ld\n\n", lista->size_list);
 }
  
