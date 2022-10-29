@@ -10,7 +10,7 @@ contar o numero de elementos na lista
 #include<stdlib.h>
 
 int main(){
-    printf("exercicio Nº04\n");
+    printf("exercicio Nº04\n\n");
 
     Dados *pessoa;
     List *lista = create_lista();
@@ -30,12 +30,13 @@ int main(){
     print_list(lista);
     printf("buscando cadastro: bia\n");
     busca_elemento(lista,"Bia");
-    printf("buscando cadastro: antonio\n");
+    printf("\nbuscando cadastro: antonio\n");
     busca_elemento(lista,"antonio");
-    printf("escluindo cadastro: luis\n");
+    printf("\nexcluindo cadastro: luis\n");
     excluir_cliente(lista, "luis");
     print_list(lista);
     //destroy(&lista);
+    printf("programa filanizado!\nVerifique no arq: resp_ex04.txt\n\n");
     return 0;
 }
 

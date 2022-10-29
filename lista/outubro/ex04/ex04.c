@@ -13,7 +13,6 @@ typedef struct cadastro_struc {
 // criando nó para armazernar os cada cadastro.
 typedef struct node_simples {
     Dados *cad_node;
-    long int size_node;
     struct node_simples *next;
 } Node;
 
@@ -42,7 +41,6 @@ Node *create_node(Dados *p){
     Node *node = (Node*)calloc(1, sizeof(Node));
     node->cad_node = p;
     node->next = NULL;
-    node->size_node = 0;
     return node;
 }
 
@@ -67,29 +65,28 @@ void insert_dados(Dados *p, List *lista){
         aux->next = dados;
         lista->end = dados;
         lista->end->next = NULL;
-        aux->size_node++;
     }
+    lista->size_list++;
 }
 
 
 Dados *busca_elemento(List *lista, char *nome){
     Node *aux = lista->begin;
-    FILE *file = fopen("resp_ex04.txt", "w");
-
     while (aux != NULL){
         if(aux->cad_node->nome_cad != nome){
             //printf("%s não eh valido!\n", aux->cad_node->nome_cad);
             aux = aux->next;
+
         }
         else if (aux->cad_node->nome_cad == nome) {
-            printf("nome: %s\ncadastro encontrado!\n", aux->cad_node->nome_cad);
+            printf("Nome: %s\tRua: %s\tContato: %s \n", aux->cad_node->nome_cad, aux->cad_node->rua_cad, aux->cad_node->cell_cad);
             aux = aux->next;
         }
         else{
-            fprintf(stderr, "dados invalidos!\n\n");
+            printf("%s nao cadastrado\n\n", nome);
         }
     }
-    fclose(file);
+    
     return 0;
 }
 
@@ -103,6 +100,7 @@ void excluir_cliente(List *lista, char *nome){
             if(lista->begin == NULL)aux = NULL;
             free(aux);
             lista->size_list--;
+            printf("CLIENTE DELETADO COM SUCESSO!\n");
         }
 
         //elemento encontra-se no meio
@@ -119,10 +117,15 @@ void excluir_cliente(List *lista, char *nome){
                 if(aux->next == NULL)lista->end;
 
                 free(aux);
+                printf("CLIENTE DELETADO COM SUCESSO!\n");
                 lista->size_list--;
             }
         }
     }
+}
+
+int tam_lista(const List *lista){
+    return lista->size_list;
 }
 
 void destroy(List **ref_lista){
@@ -141,7 +144,7 @@ void destroy(List **ref_lista){
 
 void print_list(List *lista){
     Node *aux = lista->begin;
-    FILE *file = fopen("resp_ex04.txt", "r");
+    FILE *file = fopen("resp_ex04.txt", "a");
 
     if(isNull(lista))
         fprintf(file, "lista vazia!\n");
@@ -150,7 +153,7 @@ void print_list(List *lista){
             fprintf(file, "nome: %s\trua: %s\tcell: %s\n", aux->cad_node->nome_cad, aux->cad_node->rua_cad, aux->cad_node->cell_cad);
             aux = aux->next;
         }
-        printf("\n");
     }
+    fprintf(file, "tamanho lista: %ld\n", lista->size_list);
     fclose(file);
 }

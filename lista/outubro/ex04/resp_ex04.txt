@@ -1,0 +1,9 @@
+nome: Susy	rua: Paranaiba, 866, Centro	cell: 992063261
+nome: Bia	rua: Paranaiba, 866, Centro	cell: 993008608
+nome: luis	rua: Rua 7, 2350, Sao Joao	cell: 996256304
+nome: joao	rua: Rua Augusta, 1361, Lapa	cell: 982325000
+tamanho lista: 4
+nome: Susy	rua: Paranaiba, 866, Centro	cell: 992063261
+nome: Bia	rua: Paranaiba, 866, Centro	cell: 993008608
+nome: joao	rua: Rua Augusta, 1361, Lapa	cell: 982325000
+tamanho lista: 3
