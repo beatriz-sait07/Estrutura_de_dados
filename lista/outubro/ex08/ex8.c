@@ -40,3 +40,30 @@ Info *cadastro (char *usuario, char *nome, int *id, int vaga, char *placa){
     aux->placa = placa;
     return aux;
 }
+
+void destroy (List **ref_list){
+    List *l = *ref_list;
+    Node *p = l->begin;
+    Node *aux = NULL;
+
+    while(p != NULL){
+        aux = p;
+        p = p->next;
+        free(aux);
+    }
+    free(l);
+    *ref_list = NULL;
+    printf("LISTA TOTALMENTE DESALOCADA!\n\n");
+
+}
+
+void print_list(const List *lista){
+    Node *aux = lista->begin;
+    
+    while( aux != NULL){
+        prinf("Usuario: %s\tNome: %s\tId: %d\tVaga: %d\tPlaca: %s",
+        aux->cadastro_cliente->usuario_cad, aux->cadastro_cliente->nome_cad, aux->cadastro_cliente->id, aux->cadastro_cliente->vaga, aux->cadastro_cliente->placa);
+        aux = aux->next;
+    }
+}
+ 
