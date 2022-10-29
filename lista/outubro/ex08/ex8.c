@@ -5,8 +5,9 @@
 typedef struct cad_inf {
     char *usuario_cad;
     char *nome_cad;
+    char *placa;
     int *id;
-    int vaga, placa;
+    int vaga;
 } Info;
 
 typedef struct node_simples {
@@ -30,4 +31,12 @@ bool isFull(List *lista){
     return lista->end == NULL;
 }
 
-
+Info *cadastro (char *usuario, char *nome, int *id, int vaga, char *placa){
+    Info *aux = (Node*)calloc(1, sizeof(Node));
+    aux->usuario_cad = usuario;
+    aux->nome_cad = nome;
+    aux->id = id;
+    aux->vaga = vaga;
+    aux->placa = placa;
+    return aux;
+}
