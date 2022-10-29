@@ -57,6 +57,18 @@ void destroy (List **ref_list){
 
 }
 
+void insert_dados(Info *p, List *lista){
+    Node *dados = create_node(p);
+
+    if(isNull(lista))lista->begin = lista->end = dados;
+    else{
+        lista->end->next = dados;
+        dados->prev = lista->end;
+        lista->end = dados;
+    }
+    lista->size_list++;
+}
+
 void print_list(const List *lista){
     Node *aux = lista->begin;
     
