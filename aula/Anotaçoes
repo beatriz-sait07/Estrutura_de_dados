@@ -89,6 +89,18 @@ se fosse dinamica: realinhar os ponteiros.
 
 peek -> usado p/ consultar na pilhar
 
+        31/10/2022
+ FIFO: first in first on
+
+**primeiro que entra é o primeiro a sair**
+quando estára vazia ? quando o fim e o inicio apontar para a mesma posição.
+toda inserção deve ser feita no final, ao inserir acrescente um elemento ao fim, ou seja, fim+1;
+
+fila estática: implementadas por vetor.
+
+
+
+
 ######################## OBSERVAÇÕES ############################
 nome de funções não ideiais
 -size
