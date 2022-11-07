@@ -98,9 +98,18 @@ toda inserção deve ser feita no final, ao inserir acrescente um elemento ao fi
 
 fila estática: implementadas por vetor.
 
+        07/11/2022
+nós internos são considerados filhos da arvore, enquanto os nós externos sao sa folhas(nós que não suportao outros nós)
+
+- ligar os nós por ponteiros/objetos.
+- se conseguir, desenvolva o projeto final em python tambem.
+- TODAS as arvores tem que estar balanceada.
+- quando encher uma arvore, crie outra arvore e ligue elas usando algum conseito (floresta).
+- arvore binaria só pode ter dois filhos (arvore de busca).
+        -os elementos da esquerda tem que ser menor que os da direita.
 
 
-
+        
 ######################## OBSERVAÇÕES ############################
 nome de funções não ideiais
 -size
