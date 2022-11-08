@@ -109,7 +109,25 @@ nós internos são considerados filhos da arvore, enquanto os nós externos sao 
         -os elementos da esquerda tem que ser menor que os da direita.
 
 
-        
+
+-----------resposta aula----------------
+pre :: raiz -> sub_ar_esq -> sub_ar_dir
++ * + 3 6 - 4 1 5
+
+in ordem :: sub_ar_esq -> raiz -> sub_ar_dir
+3 + 6 * 4 - 1 + 5
+
+pos :: sub_ar_esq -> sub_ar_dir -> raiz
+3 6 + 4 1 - * 5 +
+____________________________________________
+pre:
+    h i j o m q p a b c e f
+in:
+    o j m i q p h a b c e f
+pos:
+    o m j p q i e f c b a h
+    
+
 ######################## OBSERVAÇÕES ############################
 nome de funções não ideiais
 -size
@@ -143,6 +161,16 @@ criar uma lista de size, para inserir dados no meio da mesma
 - remover algum elemento
 - implementar na LL findlista
 
+######## novembro #########
+NÃO HAVERÁ PROVA!!
+-- criar menu para:
+    - inserir
+    - deletar
+    - consultar
+    - a arvore é simetrica ?
+- destruir arvore.
+- buscar algo na arvore.
+- dividir arcore apos 50 elementos, criar uma floresta.
 
 
 ================== video aulas ====================
