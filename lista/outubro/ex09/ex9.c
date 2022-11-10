@@ -81,60 +81,32 @@ void insert_dados(Info *p, List *lista){
     lista->size_list++;
 }
 
-void separa_dados(List* lista, Info *p){
-    ///verifica se esta no comeco
-    if(p->usuario_cad == "ESTUDANTE"){
-        if(lista->begin->cadastro_if->usuario_cad == p->usuario_cad){
-            Info *aux = lista->begin;
-        }
-    }
-}
-/*
-void separa_dados(List *lista, Info *p){
-    if(isNull(lista)){
-        fprintf(stderr, "Erro: separa_dados\nExplicacao: nao ha dados a serem comparados!\n");
-        exit(EXIT_FAILURE);
-    }
-    else{
-        if(p->usuario_cad == "ESTUDANTE"){
-            printf("veriica se o usuario eh um estudante!\n");
-            Node *aux = lista->begin;
-            if(lista->begin == lista->end){
-                lista->begin = lista->end = NULL;
-            }
-            else{
-                lista->begin = aux->next;
-                lista->begin->prev = NULL;
-            }
-            free(aux);
-            lista->size_list--;
-        }
+void separa_dados(List *lista, List *lista_est, List *lista_func, Info *p){
+    Node *aux = lista->begin;
+    if(aux->cadastro_if->usuario_cad != "E"){
+        Node *aux_est = create_node(p);
+        if(isNull(lista_est))lista_est->begin = lista_est->end = aux;
         else{
-            Node *aux = lista->begin->next;
-        printf("entrou no segundo else\n");
-            while(aux != NULL){
-                //caso o elemento esteja no fim da lista
-                if(p->usuario_cad == "ESTUDANTE"){
-                    if(lista->end == aux){
-                        lista->end = aux->prev;
-                        lista->end->next = NULL;
-                    }
-                    //caso elemento esteja no meio da lista
-                    else{
-                        aux->prev->next = aux->next;
-                        aux->next = aux->prev;
-                    }
-                    free(aux);
-                    aux = NULL;
-                    lista->size_list--;
-                }
-                else{
-                    aux = aux->next;
-                }
+            lista_est->end->next = aux;
+            aux_est->prev = lista_est->end;
+            lista_est->end = aux;
+            
+        }
+        lista_est++;
+    }else{
+        Node *aux_func = create_node(p);
+        if(isNull(lista_func))lista_func->begin = lista_func->end = aux;
+        else{
+            while(aux_func != NULL){
+                lista_func->end->next = aux;
+                aux_func->prev = lista_func->end;
+                lista_func->end = aux;
             }
         }
+        lista_func++;
     }
-}*/
+    aux = aux->next;
+}
 
 void print_list(List *lista){
     Node *aux = lista->begin;

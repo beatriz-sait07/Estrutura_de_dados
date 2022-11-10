@@ -10,5 +10,5 @@ Node *create_node(Info *p);
 List *create_lista();
 void destroy(List **ref_lista);
 void insert_dados(Info *p, List *lista);
-void separa_dados(List *lista, Info *p);
+void separa_dados(List *lista, List *lista_est, List *lista_func, Info *p);
 void print_list(List *lista);
