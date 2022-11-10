@@ -83,30 +83,52 @@ void insert_dados(Info *p, List *lista){
 
 void separa_dados(List *lista, List *lista_est, List *lista_func, Info *p){
     Node *aux = lista->begin;
-    if(aux->cadastro_if->usuario_cad != "E"){
+    if(aux->cadastro_if->usuario_cad == "ESTUDANTE"){
         Node *aux_est = create_node(p);
-        if(isNull(lista_est))lista_est->begin = lista_est->end = aux;
+        if(isNull(lista_est))lista_est->begin = lista_est->end = aux_est;
         else{
-            lista_est->end->next = aux;
-            aux_est->prev = lista_est->end;
-            lista_est->end = aux;
-            
+            while(aux != NULL){
+                lista_est->end->next = aux_est;
+                aux_est->prev = lista_est->end;
+                lista_est->end = aux_est;
+            }
         }
         lista_est++;
     }else{
         Node *aux_func = create_node(p);
-        if(isNull(lista_func))lista_func->begin = lista_func->end = aux;
+        if(isNull(lista_func))lista_func->begin = lista_func->end = aux_func;
         else{
-            while(aux_func != NULL){
-                lista_func->end->next = aux;
+            while(aux != NULL){
+                lista_func->end->next = aux_func;
                 aux_func->prev = lista_func->end;
-                lista_func->end = aux;
+                lista_func->end = aux_func;
             }
         }
         lista_func++;
     }
-    aux = aux->next;
 }
+
+/*void separa_dados(List *lista, List *lista_est, List *lista_func, Info *p){
+    Node *aux_lista = lista->begin;
+    while(aux_lista != NULL){
+        if(aux_lista->cadastro_if->usuario_cad == "ESTUDANTE"){
+            Node *aux_est = lista_est->begin;
+            if(isNull(lista_est))lista_est->begin = lista_est->end = aux_lista;
+            else{
+                lista_est->end->next = aux_lista;
+                aux_lista->prev = lista_est->end;
+                lista_est->end = aux_lista;
+            }
+        }
+        else{
+            Node *aux_func = lista_func->begin;
+            lista_func->end->next = aux_lista;
+            aux_lista->prev = lista_func->end;
+            lista_func->end = aux_lista;
+        }
+        aux_lista = aux_lista->next;
+    }
+}*/
 
 void print_list(List *lista){
     Node *aux = lista->begin;
@@ -120,4 +142,3 @@ void print_list(List *lista){
     }
     printf("ocupacao do estacionamento: %ld\n\n", lista->size_list);
 }
- 

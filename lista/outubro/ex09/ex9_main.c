@@ -14,10 +14,11 @@ int main (){
     insert_dados(pessoa, lista);
     pessoa = cadastro("FUNCIONARIO", "Arnaldo", "15236", 9, "QAP-6938");
     insert_dados(pessoa, lista);
+        pessoa = cadastro("ESTUDANTE", "Marcos", "79012", 4, "QAP-9803");
+    insert_dados(pessoa, lista);
     pessoa = cadastro("FUNCIONARIO", "Luana", "86302", 7, "OOS-5204");
     insert_dados(pessoa, lista);
-    pessoa = cadastro("ESTUDANTE", "Marcos", "79012", 4, "QAP-9803");
-    insert_dados(pessoa, lista);
+
     printf("_____________________________________\n\tLISTA DE TOTAL DE CADASTROS\n");
     print_list(lista);
     printf("_____________________________________\n\tLISTA DE ESTUDANTES\n");

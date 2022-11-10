@@ -45,9 +45,9 @@ void insert(Tree *T, int val){
         T->root = create_node(val);
         puts("creting tree...");
     }
-    //tem que passar a folha para reiniciar a arvore.
+
     add(T->root, val);
-    //agr verifique se o valor a entrar seá menor ou maior que a raiz.
+    
 }
 
 void add(Node *node, int val){
