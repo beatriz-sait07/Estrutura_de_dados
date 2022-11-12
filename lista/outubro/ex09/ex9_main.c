@@ -7,15 +7,15 @@ int main (){
     List *lista_e = create_lista();
     List *lista_f = create_lista();
 
-    pessoa = cadastro("F", "Bia", "31904", 3, "OOG-6111");
-    estacionamento(lista_f, pessoa);
-    /*pessoa = cadastro("ESTUDANTE", "Marcia", "63016", 1, "OLN-3206");
-    estacionamento(lista_e, pessoa);
-    pessoa = cadastro("ESTUDANTE", "Arnaldo", "15236", 9, "QAP-6938");
-    estacionamento(lista_e, pessoa);
-    pessoa = cadastro("ESTUDANTE", "Marcos", "79012", 4, "QAP-9803");
-    estacionamento(lista_e, pessoa);
-    pessoa = cadastro("ESTUDANTE", "Luana", "86302", 7, "OOS-5204");
+    /*pessoa = cadastro("F", "Bia", "31904", 3, "OOG-6111");
+    insert_dados(lista_f, pessoa);
+    pessoa = cadastro("F", "Marcia", "63016", 1, "OLN-3206");
+    insert_dados(lista_f, pessoa);*/
+    pessoa = cadastro("E", "Arnaldo", "15236", 9, "QAP-6938");
+    insert_dados(lista_e, pessoa);
+    pessoa = cadastro("E", "Marcos", "79012", 4, "QAP-9803");
+    insert_dados(lista_e, pessoa);
+    /*pessoa = cadastro("ESTUDANTE", "Luana", "86302", 7, "OOS-5204");
     estacionamento(lista_e, pessoa);
     pessoa = cadastro("ESTUDANTE", "luan", "734967", 2, "QAP-9803");
     estacionamento(lista_e, pessoa);

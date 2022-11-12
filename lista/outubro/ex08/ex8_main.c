@@ -6,7 +6,6 @@ que permita armazenar a informação dos arrendatários e respectivos lugares, u
 uma única lista duplamente ligada. A informação a armazenar é composta pelos seguintes
 campos:
 */
-
 #include "ex8.h"
 #include <stdio.h>
 #include <stdlib.h>

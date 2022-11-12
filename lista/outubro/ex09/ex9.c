@@ -48,8 +48,8 @@ List *create_lista(){
     list->begin = NULL;
     list->end = NULL;
     list->capacity = 20;
-    list->cont = 0;
-    list->cont1 = 0;
+    list->cont = 0; //estudante
+    list->cont1 = 0; //servidor
     return list;
 
 }
@@ -82,61 +82,70 @@ void insert_dados(List *lista, Info *p){
     }
 }
 
+
 void estacionamento(List *lista, Info *p){
-    Node *aux = lista->begin;
-
-    if(isNull(lista))insert_dados(lista, p);
+    if(!isNull(lista)){
+        validando(lista, p);
+    }
     else{
-    while(aux != NULL){
-        //contando os dados
-        printf("while\n\n\n\n\n");
-        if(p->usuario_cad == "F"){
-            lista->cont1++;
+        insert_dados(lista, p);
+        printf("insert\n");
+        if(lista->cont == 0){
+            Node *aux = lista->begin;
+            if(aux->cadastro_if->usuario_cad == "E"){
+                printf("validou...\n");
+            }
         }
-        if(p->usuario_cad == "E" && lista->cont < (91 * lista->capacity)/100){
-            lista->cont++;
-            /*if(lista->cont > (90 * lista->capacity)/100){
-                fprintf(stderr, "ERRO: estacionamento!\nMOTIVO: vagas para alunos estao indisponiveis.\n");
-                exit(EXIT_FAILURE);
-            }*/
-        }
-        else{
-            printf("usuario invalido!\n");
-        }
-        aux = aux->next;
     }
-    }
-
 }
 
-
 /*void estacionamento(List *lista, Info *p){
-    Node *aux = lista->begin;
-    if(isNull(lista))lista->begin = lista->end = create_node(p);
-    else{
-        if((lista->cont + lista->cont1) < lista->capacity){
-            if(aux->cadastro_if->usuario_cad == "FUNCIONARIO"){
-                insert_dados(p, lista);
-                lista->cont1++;
-            }
-            if(aux->cadastro_if->usuario_cad == "ESTUDANTE"){
-                if(aux->cadastro_if->usuario_cad == "E" || (lista->cont <= (90 * (lista->capacity)/100))){
-                    insert_dados(p, lista);
-                    lista->cont++;
-                }
-                else{
-                    printf("nao ha vagas disponiveis para alunos\n");
-                }
-            }
+    if(isNull(lista)){
+        insert_dados(lista, p);
+        Node *aux = lista->begin;
+        if(p->usuario_cad == "F"){
+            printf("entrou na validacao\n");
+            lista->cont1++;
+            printf("cont1++ 01\n");
+        }
+        else if(aux->cadastro_if->usuario_cad == "E"){
+            lista->cont++;
+            printf("cont++ 01\n");
         }
     }
+    else{
+        printf("entrou no else\n");
+        while(aux != NULL){
+            //contando os dados
+            printf("while\n");
+            if(p->usuario_cad == "F"){
+                printf("cont1 ++ 02\n");
+                lista->cont1++;
+            }
+            if(p->usuario_cad == "E" && lista->cont < (91 * lista->capacity)/100){
+                printf("cont++\n");
+                lista->cont++;
+                if(lista->cont > (90 * lista->capacity)/100){
+                    fprintf(stderr, "ERRO: estacionamento!\nMOTIVO: vagas para alunos estao indisponiveis.\n");
+                    exit(EXIT_FAILURE);
+                }
+            }
+            else{
+                printf("usuario invalido!\n");
+            }
+            aux = aux->next;
+        }
+    }
+
 }*/
+
+
 
 void print_list(List *lista){
     Node *aux = lista->begin;
     if(isNull(lista))printf("Lista vazia\n");
 
     printf("vagas com alunos: %ld\n", lista->cont);
-    printf("vagas com servidores: %ld\n", lista->cont1);
-    printf("vagas livres no estacionamento: %ld\n", (lista->capacity - (lista->cont + lista->cont1)));
+    printf("vagas com servidores: %ld\n", (lista->cont1 - lista->cont));
+    printf("vagas livres no estacionamento: %ld\n", (lista->capacity - lista->cont1));
 }

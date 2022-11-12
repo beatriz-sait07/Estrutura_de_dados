@@ -42,10 +42,13 @@ void estatica_push(Estatica *s, long val){
     s->data[s->topo] = val;
 }
 
-void estatica_peek(Estatica *s){
+void estatica_pop(Estatica *s){
     if(estatica_vazia(s)){
-        fprintf(stderr, "erro: ESTATICA_PEEK\n");
-        fprintf(stderr, "erro: lista vazia\n");
+        fprintf(stderr, "erro: ESTATICA_POP\n");
+        fprintf(stderr,"lista vazia!\n");
         exit(EXIT_FAILURE);
     }
+
+    int aux = s->data[s->topo];
+    s->topo--;
 }

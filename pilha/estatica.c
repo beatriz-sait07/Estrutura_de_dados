@@ -37,7 +37,7 @@ long estatica_tamanho(Estatica *s){
     return s->topo+1;
 }
 
-//colocar daados
+//colocar dados
 void estatica_push(Estatica *s, long val){
     if(estatica_cheia(s)){
         fprintf(stderr, "lista cheia!\n");
