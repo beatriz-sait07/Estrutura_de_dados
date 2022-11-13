@@ -31,15 +31,10 @@ void destroy_estatica(Estatica **ref_pilha){
 bool estatica_vazia(Estatica *s){return s->topo == -1;}
 bool estatica_cheia(Estatica *s){return s->topo == (s->capacity-1);}
 
-//verificando o tamanho
-long estatica_tamanho(Estatica *s){
-    return s->topo+1;
-}
-
 //colocar dados
-void estatica_push(Estatica *s, long val){
+void estatica_push(Estatica *s, int val){
     if(estatica_cheia(s)){
-        fprintf(stderr, "lista cheia!\n");
+        fprintf(stderr, "Erro: push\nato: lista cheia!\n");
         exit(EXIT_FAILURE);
     }
 
@@ -47,122 +42,43 @@ void estatica_push(Estatica *s, long val){
     s->item[s->topo] = val;
 }
 
-void estatica_pop(Estatica *s, Estatica *s1, int elem){
-    if(estatica_vazia(s)){
-        fprintf(stderr, "erro: ESTATICA_POP\n");
-        fprintf(stderr,"lista vazia!\n");
-        exit(EXIT_FAILURE);
-    }
-
-    while(s){
-        if(s->item != elem){
-            estatica_push(s1, elem);
-            int aux = s->item[s->topo];
-            s->topo--;
-        }
-        else{
-            int aux = s->item[s->topo];
-
-            s->topo--;
-            while(s1){
-                estatica_push(s, s1->item);
-            }
-        }
-    }
-}
-
 void estatica_print(const Estatica *s){
-    printf("capacidade: %ld\n", s->capacity);
-    printf("topo: %ld\n", s->topo);
-
-    for(long int i=0; i<s->capacity; i++){
-        printf("%d", s->item[i]);
+    for(long int i=0; i<= s->topo; i++){
+        printf("|%d| ", s->item[i]);
     }
     printf("\n");
+    printf("topo: %ld\n", s->topo);
+    printf("capacidade: %ld\n", s->capacity);
 }
 
-
-
-
-
-
-
-/*
-typedef struct _static_stack {
-    char *item;
-    long capacity;
-    char topo;
-} Estatica;
-
-Estatica *create_estatica(long capacity){
-    Estatica *s = (Estatica*)calloc(1, sizeof(Estatica));
-
-    s->capacity = capacity;
-    s->topo = -1; //pilha vazia
-    s->item = (char*)calloc(s->capacity, sizeof(char)); // alocando espaco para os dados a serem inseridos
-    return s;
-}
-
-void destroy_estatica(Estatica **ref_pilha){
-    Estatica *s = *ref_pilha;
- 
-    free(s->item);
-    free(s);
-    ref_pilha = NULL;
-}
-
-bool estatica_vazia(Estatica *s){return s->topo == -1;}
-bool estatica_cheia(Estatica *s){return s->topo == (s->capacity-1);}
-
-long estatica_tamanho(Estatica *s){
-    return s->topo+1;
-}
-
-//coloca algo na pilha
-char estatica_push(Estatica *s, char *elem){
-    if(estatica_cheia(s)){
-        fprintf(stderr, "lista cheia!\n");
-        exit(EXIT_FAILURE);
-    }
-    s->topo++;
-    s->item[s->topo] = *elem;
-    printf("finalizou um salvamento\n");
-    return s->topo;
-}
-
-char estatica_pop(Estatica *s, Estatica *s1, char *elem){
+int estatica_pop(Estatica *s, int elem){
+    int tam = s->capacity;
+    Estatica *s1 = create_estatica(tam);
     if(estatica_vazia(s)){
         fprintf(stderr, "erro: ESTATICA_POP\n");
         fprintf(stderr,"lista vazia!\n");
         exit(EXIT_FAILURE);
     }
 
-    while(s){
-        if(s->item != elem){
-            estatica_push(s1, s->item);
-            char aux = s->item[s->topo];
-            char *aux1 = &aux;
-            s->topo--;
-        }
-        else{
-            char aux = s->item[s->topo];
-            char *aux1 = &aux;
-            s->topo--;
-            while(s1){
-                estatica_push(s, s1->item);
-            }
-        }
+    while(s->item[s->topo] != elem){
+        int aux = s->item[s->topo];
+        s1->topo++;
+        s1->item[s1->topo] = aux;
+        estatica_print(s1);
+        s->topo--;
     }
-    
-    return s->topo;
-}
 
-void estatica_print(const Estatica *s){
-    printf("capacidade: %ld\n", s->capacity);
-    printf("topo: %c", s->topo);
+    int aux = s1->item[s1->topo];
+    s->topo--;
 
-    for(long int i=0; i<s->capacity; i++){
-        printf("%s", s->item[i]);
+    while(!estatica_vazia(s1)){
+        int aux1 = s1->item[s1->topo];
+        s->topo++;
+        s->item[s->topo] = aux1;
+        s1->item[s1->topo] = aux1;
+        s1->topo--;
     }
+    s1->topo++;
+
+    return aux;
 }
-*/
