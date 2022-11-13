@@ -11,7 +11,8 @@ int main (){
     estatica_push(s, 3);
     estatica_push(s, 4);
     estatica_print(s);
-
+    estatica_pop(s);
+    estatica_print(s);
 
     return 0;
 }
