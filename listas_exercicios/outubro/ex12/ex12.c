@@ -3,9 +3,9 @@
 #include <stdlib.h>
 
 typedef struct _static_stack {
-    int *data;
+    char *item;
     long capacity;
-    long topo;
+    char topo;
 } Estatica;
 
 Estatica *create_estatica(long capacity){
@@ -13,14 +13,14 @@ Estatica *create_estatica(long capacity){
 
     s->capacity = capacity;
     s->topo = -1; //pilha vazia
-    s->data = (int*)calloc(s->capacity, sizeof(int)); // alocando espaco para os dados a serem inseridos
+    s->item = (char*)calloc(s->capacity, sizeof(char)); // alocando espaco para os dados a serem inseridos
     return s;
 }
 
 void destroy_estatica(Estatica **ref_pilha){
-    Estatica *s = ref_pilha;
-
-    free(s->data);
+    Estatica *s = *ref_pilha;
+ 
+    free(s->item);
     free(s);
     ref_pilha = NULL;
 }
@@ -32,23 +32,29 @@ long estatica_tamanho(Estatica *s){
     return s->topo+1;
 }
 
-void estatica_push(Estatica *s, long val){
+//coloca algo na pilha
+char estatica_push(Estatica *s, char *elem){
     if(estatica_cheia(s)){
         fprintf(stderr, "lista cheia!\n");
         exit(EXIT_FAILURE);
     }
 
     s->topo++;
-    s->data[s->topo] = val;
+    s->item[s->topo] = *elem;
+    return s->topo;
 }
 
-void estatica_pop(Estatica *s){
+char estatica_pop(Estatica *s, Estatica *s1, char *elem){
     if(estatica_vazia(s)){
         fprintf(stderr, "erro: ESTATICA_POP\n");
         fprintf(stderr,"lista vazia!\n");
         exit(EXIT_FAILURE);
     }
-
-    int aux = s->data[s->topo];
-    s->topo--;
+    while(s->item != elem){
+        char aux = s->item[s->topo];
+        char *rec = &aux;
+        estatica_push(s1, rec); //coloca o valor em um vetor auxiliar
+        s->topo--; //exclui o valor
+    }
+    return s->topo;
 }

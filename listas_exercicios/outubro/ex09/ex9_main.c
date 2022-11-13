@@ -11,9 +11,9 @@ int main (){
     insert_dados(lista_f, pessoa);
     pessoa = cadastro("F", "Marcia", "63016", 1, "OLN-3206");
     insert_dados(lista_f, pessoa);*/
-    pessoa = cadastro("E", "Arnaldo", "15236", 9, "QAP-6938");
+    pessoa = cadastro("F", "Arnaldo", "15236", 9, "QAP-6938");
     insert_dados(lista_e, pessoa);
-    pessoa = cadastro("E", "Marcos", "79012", 4, "QAP-9803");
+    pessoa = cadastro("F", "Marcos", "79012", 4, "QAP-9803");
     insert_dados(lista_e, pessoa);
     /*pessoa = cadastro("ESTUDANTE", "Luana", "86302", 7, "OOS-5204");
     estacionamento(lista_e, pessoa);

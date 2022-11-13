@@ -76,31 +76,25 @@ void insert_dados(List *lista, Info *p){
 
     if(isNull(lista))lista->begin = lista->end = dados;
     else{
-        lista->end->next = dados;
-        dados->prev = lista->end;
-        lista->end = dados;
+        if(p->usuario_cad == "F"){
+            printf("entrou if\n");
+            lista->end->next = dados;
+            dados->prev = lista->end;
+            lista->end = dados;
+        }
+        else{
+            printf("entrou else\n");
+            lista->end->next = dados;
+            dados->prev = lista->end;
+            lista->end = dados;
+        }
     }
 }
 
 
 void estacionamento(List *lista, Info *p){
-    if(!isNull(lista)){
-        validando(lista, p);
-    }
-    else{
-        insert_dados(lista, p);
-        printf("insert\n");
-        if(lista->cont == 0){
-            Node *aux = lista->begin;
-            if(aux->cadastro_if->usuario_cad == "E"){
-                printf("validou...\n");
-            }
-        }
-    }
-}
-
-/*void estacionamento(List *lista, Info *p){
     if(isNull(lista)){
+        printf("entrou\n");
         insert_dados(lista, p);
         Node *aux = lista->begin;
         if(p->usuario_cad == "F"){
@@ -115,6 +109,7 @@ void estacionamento(List *lista, Info *p){
     }
     else{
         printf("entrou no else\n");
+        Node *aux = lista->begin;
         while(aux != NULL){
             //contando os dados
             printf("while\n");
@@ -137,7 +132,7 @@ void estacionamento(List *lista, Info *p){
         }
     }
 
-}*/
+}
 
 
 
