@@ -4,7 +4,7 @@
 
 
 typedef struct _static_stack {
-    int *data;
+    int *item;
     long capacity;
     long topo;
 } Estatica;
@@ -16,14 +16,14 @@ Estatica *create_estatica(long capacity){
 
     s->capacity = capacity;
     s->topo = -1; //pilha vazia
-    s->data = (int*)calloc(s->capacity, sizeof(int)); // alocando espaco para os dados a serem inseridos
+    s->item = (int*)calloc(s->capacity, sizeof(int)); // alocando espaco para os dados a serem inseridos
     return s;
 }
 
 void destroy_estatica(Estatica **ref_pilha){
-    Estatica *s = ref_pilha;
+    Estatica *s = *ref_pilha;
 
-    free(s->data);
+    free(s->item);
     free(s);
     ref_pilha = NULL; //retira o valor do ponteiro da main
 }
@@ -45,7 +45,7 @@ void estatica_push(Estatica *s, long val){
     }
 
     s->topo++;
-    s->data[s->topo] = val;
+    s->item[s->topo] = val;
 }
 
 //buscar o topo
@@ -65,15 +65,16 @@ void estatica_pop(Estatica *s){
         exit(EXIT_FAILURE);
     }
 
-    int aux = s->data[s->topo];
+    int aux = s->item[s->topo];
     s->topo--;
 }
 
 void estatica_print(Estatica *s){
-    printf("capacidade: %ld", s->capacity);
-    printf("topo: %ld", s->topo);
+    printf("capacidade: %ld\n", s->capacity);
+    printf("topo: %ld\n", s->topo);
 
     for(long int i=0; i<s->capacity; i++){
-        printf("%d", s->data[i]);
+        printf("%d", s->item[i]);
     }
+    printf("\n");
 }

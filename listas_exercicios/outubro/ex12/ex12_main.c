@@ -7,7 +7,12 @@ int main (){
     Estatica *s1 = create_estatica(5);
     char valor_top;
 
-    valor_top = estatica_push(s, "a");
-    estatica_pop(s, s1, "c");
+    estatica_push(s, "a");
+    estatica_push(s, "b");
+    estatica_push(s, "c");
+    estatica_push(s, "d");
+    estatica_print(s);
+
+
     return 0;
 }
