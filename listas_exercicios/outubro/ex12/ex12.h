@@ -1,5 +1,5 @@
-#ifndef ESTATICA
-#define ESTATICA
+#ifndef EX12
+#define EX12
 #include <stdbool.h>
 
 typedef struct _static_stack Estatica;
