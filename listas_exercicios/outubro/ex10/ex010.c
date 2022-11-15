@@ -7,7 +7,7 @@ typedef struct cad_inf {
 } Info;
 
 typedef struct node_simples {
-    Info *cadastro_if;
+    Info *conj_string;
     struct node_simples *next;
     struct node_simples *prev;
     
@@ -21,4 +21,27 @@ typedef struct linkedlist {
 
 bool isNull(List *lista){
     return lista->begin == NULL;
+}
+
+Info *cadastro (char *string){
+    Info *aux = (Info*)calloc(1, sizeof(Info));
+    aux->string = string;
+    return aux;
+}
+
+Node *create_node(Info *p){
+    Node *node = (Node*)calloc(1, sizeof(Node));
+    node->conj_string = p;
+    node->next = NULL;
+    node->prev = NULL;
+    return node;
+}
+
+List *create_lista(){
+    List *list = (List*)calloc(1, sizeof(List));
+    list->begin = NULL;
+    list->end = NULL;
+    list->size_list = 0;
+    return list;
+
 }
