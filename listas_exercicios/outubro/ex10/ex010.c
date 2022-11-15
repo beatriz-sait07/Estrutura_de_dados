@@ -2,12 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct cad_inf {
-    char *string;
-} Info;
-
 typedef struct node_simples {
-    Info *conj_string;
+    char *string;
     struct node_simples *next;
     struct node_simples *prev;
     
@@ -23,15 +19,9 @@ bool isNull(List *lista){
     return lista->begin == NULL;
 }
 
-Info *cadastro (char *string){
-    Info *aux = (Info*)calloc(1, sizeof(Info));
-    aux->string = string;
-    return aux;
-}
-
-Node *create_node(Info *p){
+Node *create_node(char *s){
     Node *node = (Node*)calloc(1, sizeof(Node));
-    node->conj_string = p;
+    node->string = s;
     node->next = NULL;
     node->prev = NULL;
     return node;
@@ -62,10 +52,10 @@ void destroy (List **ref_list){
 
 }
 
-void insert_dados(List *lista, Info *p){
-    Node *aux = create_node(p);
+void insert_dados(List *lista, char *s){
+    Node *aux = create_node(s);
 
-    if(_isNull_dupla(lista))lista->begin = lista->end = aux;
+    if(isNull(lista))lista->begin = lista->end = aux;
     else{
 
         lista->end->next = aux;

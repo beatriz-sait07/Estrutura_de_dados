@@ -5,9 +5,8 @@ typedef struct node_simples Node;
 typedef struct linkedlist List;
 
 bool isNull(List *lista);
-Info *cadastro (char *string);
-Node *create_node(Info *p);
+Node *create_node(char *string);
 List *create_lista();
 void destroy(List **ref_lista);
-void insert_dados(List *lista, Info *p);
+void insert_dados(List *lista, char *s);
 void print_list(List *lista);
