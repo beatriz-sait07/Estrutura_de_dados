@@ -18,3 +18,7 @@ typedef struct linkedlist {
     Node *end;
     long int size_list;
 } List;
+
+bool isNull(List *lista){
+    return lista->begin == NULL;
+}
