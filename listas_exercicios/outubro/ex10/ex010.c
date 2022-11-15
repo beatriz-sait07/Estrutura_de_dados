@@ -3,11 +3,7 @@
 #include <stdlib.h>
 
 typedef struct cad_inf {
-    char *usuario_cad;
-    char *nome_cad;
-    char *placa;
-    char *id;
-    int vaga;
+    char *string;
 } Info;
 
 typedef struct node_simples {
