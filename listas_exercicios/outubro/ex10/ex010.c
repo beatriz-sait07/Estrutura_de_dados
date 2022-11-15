@@ -45,3 +45,20 @@ List *create_lista(){
     return list;
 
 }
+
+void destroy (List **ref_list){
+    List *l = *ref_list;
+    Node *p = l->begin;
+    Node *aux = NULL;
+
+    while(p != NULL){
+        aux = p;
+        p = p->next;
+        free(aux);
+    }
+    free(l);
+    *ref_list = NULL;
+    printf("LISTA TOTALMENTE DESALOCADA!\n\n");
+
+}
+
