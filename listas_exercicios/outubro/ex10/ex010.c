@@ -62,3 +62,17 @@ void destroy (List **ref_list){
 
 }
 
+void insert_dados(List *lista, Info *p){
+    Node *aux = create_node(p);
+
+    if(_isNull_dupla(lista))lista->begin = lista->end = aux;
+    else{
+
+        lista->end->next = aux;
+        aux->prev = lista->end; 
+        lista->end = aux;
+
+    }
+
+    lista->size_list++;
+}

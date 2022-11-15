@@ -9,5 +9,5 @@ Info *cadastro (char *string);
 Node *create_node(Info *p);
 List *create_lista();
 void destroy(List **ref_lista);
-void insert_dados(Info *p, List *lista);
+void insert_dados(List *lista, Info *p);
 void print_list(List *lista);
