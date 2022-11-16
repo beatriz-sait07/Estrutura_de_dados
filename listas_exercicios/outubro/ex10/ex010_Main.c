@@ -3,7 +3,16 @@
 #include <stdlib.h>
 
 int main(){
-    Info *string;
-    List *lista_main = create_lista();
+    List *lista_princ = create_lista();
+    List *lista_sec = create_lista();
+    insert_dados(lista_princ, "n");
+    insert_dados(lista_princ, "i");
+    insert_dados(lista_princ, "n");
+    insert_dados(lista_princ, "a");
+    insert_dados(lista_princ, "r");
+    imprimir_lista(lista_princ);
+    validar_lista_sec(lista_princ, lista_sec);
+    imprimir_lista(lista_sec);
+
     return 0;
 }
