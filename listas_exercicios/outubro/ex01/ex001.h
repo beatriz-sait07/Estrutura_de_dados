@@ -7,8 +7,7 @@ typedef struct _lista_simples Lista;
 
 Node_simples *Node_create(int val);
 Lista *Lista_create();
-void add_final(Lista *listt, int elem);
-void remover_elemento(Lista *list, int elem);
-void print(const Lista *list);
+Node_simples *add_final(Node_simples *begin, int elem);
+void print(Node_simples *begin);
 
 #endif

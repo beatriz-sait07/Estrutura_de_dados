@@ -7,15 +7,6 @@ typedef struct _node_simples{
     struct _node_simples *next;
 }Node_simples;
 
-typedef struct _lista_simples{
-    Node_simples *inicio;
-    Node_simples *fim;
-    int size;
-}Lista;
-
-bool _isNull(const Lista *list){
-    return list->size == 0;
-}
 
 Node_simples *Node_create(int val){
     Node_simples *node = (Node_simples*)calloc(1, sizeof(Node_simples));
@@ -24,15 +15,22 @@ Node_simples *Node_create(int val){
     return node;
 }
 
-Lista *Lista_create(){
-    Lista *lista = (Lista *)calloc(1, sizeof(Lista));
-    lista->inicio = NULL;
-    lista->fim = NULL;
-    lista->size = 0;
-    return lista;
+Node_simples *add_final(Node_simples *begin, int elem){
+    if (begin == NULL){
+        return Node_create(elem);
+    }else{
+        begin->next = add_final(begin->next, elem);
+        return begin;
+    }
 }
 
-void add_final(Lista *list, int elem){
+void print(Node_simples *begin){
+    if(begin == NULL)return;
+    printf("%d ->", begin->valor);
+    print(begin->next);
+}
+
+/*void add_final(Lista *list, int elem){
     Node_simples *dados = Node_create(elem);
     if(_isNull(list))list->inicio = dados;
     else{
@@ -43,4 +41,7 @@ void add_final(Lista *list, int elem){
         aux->next = dados;
     }
     list->size++;
-}
+}*/
+
+
+
