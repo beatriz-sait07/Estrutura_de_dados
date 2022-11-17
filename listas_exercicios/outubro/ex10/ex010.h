@@ -10,6 +10,7 @@ List *create_lista();
 void destroy(List **ref_lista);
 void insert_dados(List *lista, char *s);
 List *list_sec(List *lista);
-void validar_lista_sec(List *first, List *secund);
+void cop_first_list(List *first, List *sec);
+void validar(List *sec);
 void imprimir_lista(const List *list);
 

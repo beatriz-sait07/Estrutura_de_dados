@@ -65,7 +65,7 @@ void insert_dados(List *lista, char *s){
     lista->size_list++;
 }
 
-void validar_lista_sec(List *first, List *sec){
+void cop_first_list(List *first, List *sec){
 
     Node *aux_f = first->begin;
     while(aux_f != NULL){
@@ -79,8 +79,10 @@ void validar_lista_sec(List *first, List *sec){
         }
         aux_f = aux_f->next;
     }
+}
 
-    Node *aux_s = sec->begin;
+void validar(List *sec){
+    /*Node *aux_s = sec->begin;
     while(aux_s != NULL){
         if(sec->begin->string == aux_s->next->string){
             if(sec->begin == sec->end){ 
@@ -96,7 +98,7 @@ void validar_lista_sec(List *first, List *sec){
         else{
             Node *aux = sec->begin->next;
 
-            if(aux->string == aux_f->string){
+            if(aux->string == aux_s->string){
                 if(sec->end == aux){ 
                    sec->end = aux->prev; 
                    sec->end->next = NULL;
@@ -106,37 +108,55 @@ void validar_lista_sec(List *first, List *sec){
                     aux->next = aux->prev;
                 }
                 free(aux);
-                aux = NULL; 
+                aux = NULL;
                 sec->size_list--;
             }
             else{
                 aux = aux->next;
             }
         }  
-    }
-}
+        aux_s = aux_s->next;
+    }*/
 
-/*void validar_lista_sec(List *first, List *sec){
-    Node *aux_f = first->begin;
-    Node *aux_s = sec->begin;
-
-    while(aux_f != NULL){
-        if(aux_f->string != aux_f->next->string){
-            if(isNull(sec))sec->begin = sec->end = aux_f;
-            else{
-                sec->end->next = aux_f;
-                aux_s->prev = sec->end;
-                sec->end = aux_s;
+    if(!isNull(sec)){ 
+        Node *aux = sec->begin;
+        char *s = aux->string;
+        if(sec->begin->string == s){
+            if(sec->begin == sec->end){
+                sec->begin = sec->end = NULL;
             }
-            sec->size_list++;
+            else{
+                sec->begin = aux->next;
+                sec->begin->prev = NULL; 
+                free(aux); 
+                sec->size_list--; 
+            }
         }
         else{
-            printf("nao foi possivel inserir a letra: %s\n", aux_f->string);
-        }
-        aux_f = aux_f->next;
-    }
-}*/
+            Node *aux = sec->begin->next;
+            Node *aux1 = sec->begin;
 
+            while(aux != NULL){
+                if(aux->string == s){
+                    if(sec->end == aux){ 
+                    sec->end = aux->prev; 
+                    sec->end->next = NULL;
+                    }
+                        else{ 
+                        aux->prev->next = aux->next; 
+                    }
+                    free(aux);
+                    aux = NULL;
+                    sec->size_list--;
+                }
+                else{
+                    aux = aux->next;
+                }
+                aux1 = aux1->next;
+            }
+        }
+    }
+}
 
 void imprimir_lista(const List *list){
     Node *aux = list->begin;
