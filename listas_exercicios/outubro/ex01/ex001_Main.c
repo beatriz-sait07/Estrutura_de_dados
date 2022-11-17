@@ -13,7 +13,10 @@ int main(){
     begin = add_final(begin, 23);
     begin = add_final(begin, 31);
     print(begin);
-    printf("\nfim do exercicio\n");
-
+    printf(" NULL\n");
+    remover(begin, 9);
+    print(begin);
+    printf(" NULL\n\n");
+    
     return 0;
 }

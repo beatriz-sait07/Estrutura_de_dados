@@ -24,6 +24,29 @@ Node_simples *add_final(Node_simples *begin, int elem){
     }
 }
 
+Node_simples *remover(Node_simples *node, int elem){
+    Node_simples *aux = node->next;
+    Node_simples *ant = node;
+    if(node->valor == elem){
+        ant->next = aux->next;
+        free(aux);
+    }
+    else{
+        remover(node->next, elem);
+    }
+}
+
+//nao foi validada
+Node_simples *destroy(Node_simples *node){
+    Node_simples *aux = node->next;
+    Node_simples *ant = node;
+    while(node != NULL){
+        destroy(node);
+    }
+    ant->next = aux->next;
+    free(aux);
+}
+
 void print(Node_simples *begin){
     if(begin == NULL)return;
     printf("%d ->", begin->valor);
