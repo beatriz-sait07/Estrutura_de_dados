@@ -31,3 +31,16 @@ Lista *Lista_create(){
     lista->size = 0;
     return lista;
 }
+
+void add_final(Lista *list, int elem){
+    Node_simples *dados = Node_create(elem);
+    if(_isNull(list))list->inicio = dados;
+    else{
+        Node_simples *aux = list->inicio;
+        while(aux->next != NULL){
+            aux = aux->next;
+        }
+        aux->next = dados;
+    }
+    list->size++;
+}
