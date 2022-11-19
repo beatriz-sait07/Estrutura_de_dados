@@ -10,6 +10,7 @@ int main() {
     insert(t, 1);
     insert(t, 2);
     insert(t, 15);
-
+    pre_order(t);
+    
     return 0;
 }

@@ -39,17 +39,6 @@ void destroy_tree (Tree *T){
 
 } 
 
-//inserir dados
-void insert(Tree *T, int val){
-    if(tree_is_empty(T)){
-        T->root = create_node(val);
-        puts("creting tree...");
-    }
-
-    add(T->root, val);
-    
-}
-
 void add(Node *node, int val){
     Node *n = create_node(val);
 
@@ -62,7 +51,7 @@ void add(Node *node, int val){
         add(node->left, val);
     }else{ //se não, ele será inserido no lado esquerdo.
         if(node->rigth == NULL){
-            node->rigth = create_node(val);
+            node->rigth = n;
             return;
         }
         add(node->rigth, val);
@@ -70,6 +59,16 @@ void add(Node *node, int val){
 }
 
 
+//inserir dados
+void insert(Tree *T, int val){
+    if(tree_is_empty(T)){
+        T->root = create_node(val);
+        puts("creting tree...");
+    }
+
+    add(T->root, val);
+    
+}
 
 void pre(Node *node){
     if(node != NULL){
