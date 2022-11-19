@@ -87,7 +87,7 @@ void insert(Tree *T, int val){
 void consult_tree(Node *node, int elem){
     //encontra o elemento
     if(node != NULL){
-        if(node->val == elem)printf("\nElemento encontrado: %d", node->val);
+        if(node->val == elem)printf("\nElemento encontrado: %d\n", node->val);
         
         //percorre ate encontrar o elemento
         else if(node->val < elem){
@@ -98,7 +98,7 @@ void consult_tree(Node *node, int elem){
         }
     }
     else{
-        printf("\nElemento nao encontrado: %d", elem);
+        printf("\nElemento nao encontrado: %d\n", elem);
     }
 }
 
@@ -112,7 +112,7 @@ void buscar (Tree *T, int elem){
 
 Node *remover(Node *root, int elem){
     if(root == NULL){ // esta vazia ou o elemento nao exites na arvore
-        printf("valor nao encontrado: %d", elem);
+        printf("\nvalor nao encontrado: %d", elem);
         return NULL;
     } else {
         if(root->val == elem){ // verificaçao para remover o no
@@ -128,7 +128,9 @@ Node *remover(Node *root, int elem){
                         aux = aux->right;
                         root->val = aux->val;
                         aux->val = elem;
+                        printf("\nRemovido: %d\n", elem);
                         root->left = remover(root->left, elem);
+                        return root;
                     }
                 }
                 else{//um filho
@@ -140,6 +142,7 @@ Node *remover(Node *root, int elem){
                     else{
                         aux = root->right; // arux aponta para o prox elem
                         free(root); // desaloca o elem
+                        printf("\nRemovido: %d\n", elem);
                         return aux; //retorna para o pai do elemento que removemos
                     }
                 }
@@ -170,7 +173,7 @@ void remover_arvore(Tree *T, int elem){
 //funcoes recursivas
 void pre(Node *node){
     if(node != NULL){
-        printf("%d ", node->val);
+        printf("|%d|", node->val);
         pre(node->left); // chamada recursiva a esquerda
         pre(node->right); //chama recursiva a direita
     }
@@ -184,12 +187,13 @@ void pre_order(Tree *T){
         return;
     }
     pre(T->root);
+    printf("\n__________________________________________________________________________________________________________________\n");
 }
 
 void in(Node *node){
     if(node != NULL){
         in(node->left); // chamada recursiva a esquerda
-        printf("%d ", node->val);
+        printf("|%d|", node->val);
         in(node->right); //chama recursiva a direita
     }
 }
@@ -201,6 +205,7 @@ void in_order(Tree *T){
         return;
     }
     in(T->root);
+    printf("\n___________________________________________________________________________________________________________________\n");
 }
 
 void pos(Node *node){
@@ -218,4 +223,5 @@ void pos_order(Tree *T){
         return;
     }
     pos(T->root);
+    printf("\n____________________________________________________________________________________________________________________\n");
 }
