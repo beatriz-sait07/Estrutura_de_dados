@@ -84,34 +84,10 @@ void insert(Tree *T, int val){
     
 }
 
-void pre(Node *node){
-    if(node != NULL){
-        printf("%d ", node->val);
-        pre(node->left); // chamada recursiva a esquerda
-        pre(node->right); //chama recursiva a direita
-    }
-}
-
-void in(Node *node){
-    if(node != NULL){
-        in(node->left); // chamada recursiva a esquerda
-        printf("%d ", node->val);
-        in(node->right); //chama recursiva a direita
-    }
-}
-
-void pos(Node *node){
-    if(node != NULL){
-        in(node->left); // chamada recursiva a esquerda
-        in(node->right); //chama recursiva a direita
-        printf("%d ", node->val);
-    }
-}
-
 void consult_tree(Node *node, int elem){
     //encontra o elemento
     if(node != NULL){
-        if(node->val == elem)printf("%d encontrado!\n", node->val);
+        if(node->val == elem)printf("\nElemento encontrado: %d", node->val);
         
         //percorre ate encontrar o elemento
         else if(node->val < elem){
@@ -122,11 +98,9 @@ void consult_tree(Node *node, int elem){
         }
     }
     else{
-        printf("nao existe\n");
+        printf("\nElemento nao encontrado: %d", elem);
     }
 }
-
-
 
 
 void buscar (Tree *T, int elem){
@@ -136,34 +110,75 @@ void buscar (Tree *T, int elem){
     }
 }
 
-/*forma correta
-void consult_tree(Node *node, int elem){
-    //encontra o elemento
-    if(node->val == elem)printf("%d encontrado!\n", node->val);
-    
-    //percorre ate encontrar o elemento
-    else if(node->val < elem){
-        consult_tree(node->right, elem);
-    }
-    else{
-        consult_tree(node->left, elem);
+Node *remover(Node *root, int elem){
+    if(root == NULL){ // esta vazia ou o elemento nao exites na arvore
+        printf("valor nao encontrado: %d", elem);
+        return NULL;
+    } else {
+        if(root->val == elem){ // verificaçao para remover o no
+            if(root->left == NULL && root->right == NULL){ //encontramos um no folha
+                free(root); // retira o valor e o encadeamento está correto!
+                return NULL;
+            }
+            else{// nos filhos
+                if(root->left != NULL && root->right != NULL){ //dois filhos
+                //escolha qual sub-arvore voce vai percorrer
+                    Node *aux = root->left; // ao escolher o lado esquerdo
+                    while(aux->right != NULL){ // percorremos mais a fundo os nos a direita
+                        aux = aux->right;
+                        root->val = aux->val;
+                        aux->val = elem;
+                        root->left = remover(root->left, elem);
+                    }
+                }
+                else{//um filho
+                Node *aux;
+                //verifica em qual lado esta
+                    if(root->left != NULL){
+                        aux = root->left;
+                    }
+                    else{
+                        aux = root->right; // arux aponta para o prox elem
+                        free(root); // desaloca o elem
+                        return aux; //retorna para o pai do elemento que removemos
+                    }
+                }
+
+            }
+        }
+        else{ //caminhando na arvore
+            if(elem < root->val){
+                root->left = remover(root->left, elem);
+            }
+            else{
+                root->right = remover(root->right, elem);
+            }
+            return root;
+        }
     }
 }
 
 
-
-void buscar (Tree *T, int elem){
-    if(T->root == NULL)fprintf(stderr, "ERRO: buscar!\nAto: arvore vazia\n");
+void remover_arvore(Tree *T, int elem){
+    if(T->root == NULL)fprintf(stderr, "ERRO: deletar_item!\nAto: arvore vazia\n");
     else{
-        consult_tree(T->root, elem);
+        remover(T->root, elem);
     }
 }
-*/
+
 
 //funcoes recursivas
+void pre(Node *node){
+    if(node != NULL){
+        printf("%d ", node->val);
+        pre(node->left); // chamada recursiva a esquerda
+        pre(node->right); //chama recursiva a direita
+    }
+}
+
 void pre_order(Tree *T){
 
-    printf("PRE ORDER\n");
+    printf("\nPRE ORDER: ");
     if(T->root == NULL){
         puts("tree is empty!\n");
         return;
@@ -171,11 +186,36 @@ void pre_order(Tree *T){
     pre(T->root);
 }
 
+void in(Node *node){
+    if(node != NULL){
+        in(node->left); // chamada recursiva a esquerda
+        printf("%d ", node->val);
+        in(node->right); //chama recursiva a direita
+    }
+}
+
 void in_order(Tree *T){
-    printf("IN ORDER\n");
+    printf("\nIN ORDER: ");
     if(T->root == NULL){
         puts("tree is empty!\n");
         return;
     }
     in(T->root);
+}
+
+void pos(Node *node){
+    if(node != NULL){
+        in(node->left); // chamada recursiva a esquerda
+        in(node->right); //chama recursiva a direita
+        printf("%d ", node->val);
+    }
+}
+
+void pos_order(Tree *T){
+    printf("\nPOS ORDER: ");
+    if(T->root == NULL){
+        puts("tree is empty!\n");
+        return;
+    }
+    pos(T->root);
 }

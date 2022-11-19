@@ -11,10 +11,16 @@ int main() {
     insert(t, 2);
     insert(t, 15);
     pre_order(t);
-    printf("\nbuscando elemento 15\n");
+    in_order(t);
+    pos_order(t);
     buscar(t, 3);
-    printf("\nbuscando elemento 26\n");
     buscar(t, 26);
+
+    remover_arvore(t, 15);
+    remover_arvore(t, 1);
+    pre_order(t);
+    in_order(t);
+    pos_order(t);
 
     return 0;
 }

@@ -23,5 +23,10 @@ void insert(Tree *T, int val);
 //buscar elem
 void buscar (Tree *T, int elem);
 
+//deletar elem
+void remover_arvore(Tree *T, int elem);
+
 //funcao recursiva
 void pre_order(Tree *T);
+void in_order(Tree *T);
+void pos_order(Tree *T);
