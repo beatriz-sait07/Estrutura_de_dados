@@ -30,3 +30,10 @@ void remover_arvore(Tree *T, int elem);
 void pre_order(Tree *T);
 void in_order(Tree *T);
 void pos_order(Tree *T);
+
+//imprimir a arvore organizada
+void draw_tree(Tree *T);
+
+// profundidade
+void profundidade_ar(Tree *T);
+

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "binaria.h"
+#define espaco 5
 
 //funcao a qual ninguem pode usar, pois é uma função recursiva.
 void add(Node *node, int val);
@@ -46,10 +47,11 @@ void destroy_node(Node *node){
 
 //destroi a arvore
 void destroy_tree (Tree *T){
-    if(tree_is_empty(T)){
+    if(T->root == NULL){
         return;
     }
     destroy_node(T->root);
+    printf("\narvore totalmente desalocada\n");
     free(T);
 } 
 
@@ -60,15 +62,19 @@ void add(Node *node, int val){
     if(node->val > val){
         if(node->left == NULL){
             node->left = n;
+
             return;
         }
         add(node->left, val);
-    }else{ //se não, ele será inserido no lado esquerdo.
+    } else if(node->val < val){ //se não, ele será inserido no lado esquerdo.
         if(node->right == NULL){
             node->right = n;
             return;
         }
         add(node->right, val);
+    } else {
+        fprintf(stderr, "Erro: add\nAto: valores repetidos nao podem ser inseridos (%d)\n", val);
+        //exit(EXIT_FAILURE);
     }
 }
 
@@ -79,9 +85,7 @@ void insert(Tree *T, int val){
         T->root = create_node(val);
         puts("creting tree...");
     }
-
     add(T->root, val);
-    
 }
 
 void consult_tree(Node *node, int elem){
@@ -169,6 +173,26 @@ void remover_arvore(Tree *T, int elem){
     }
 }
 
+//altura da arvore é a distancia entre a raiz e a ultima folha
+int altura(Node *raiz){
+    if(raiz == NULL)return -1; //para que nao haja erro, se houver apenas um no na arvore
+    else{
+        int esq = altura(raiz->left); //percorre toda a sub arvore esquerda
+        int dir = altura(raiz->right); //percorre toda a sub arvore direita
+        if(esq > dir)return esq + 1;
+        else return dir + 1;
+    }
+}
+
+void profundidade_ar(Tree *T){
+        if(T->root == NULL){
+    //if(!tree_is_empty(T)){
+        puts("tree is empty");
+        return;
+    }
+    altura(T->root);
+    printf("\nAltura da arvore: %d \n\n", altura(T->root));
+}
 
 //funcoes recursivas
 void pre(Node *node){
@@ -187,7 +211,6 @@ void pre_order(Tree *T){
         return;
     }
     pre(T->root);
-    printf("\n__________________________________________________________________________________________________________________\n");
 }
 
 void in(Node *node){
@@ -205,7 +228,6 @@ void in_order(Tree *T){
         return;
     }
     in(T->root);
-    printf("\n___________________________________________________________________________________________________________________\n");
 }
 
 void pos(Node *node){
@@ -223,5 +245,80 @@ void pos_order(Tree *T){
         return;
     }
     pos(T->root);
-    printf("\n____________________________________________________________________________________________________________________\n");
+}
+
+void desenha_arvore_horiz(Node *node, int profundidade, char *caminho, int direita)
+{
+    // profundidade da condicao de parada
+    if (node == NULL)
+        return;
+
+    // aumentando espaco
+    profundidade++;
+
+    // o no comeca na direita
+    desenha_arvore_horiz(node->right, profundidade, caminho, 1);
+
+    // definindo - desenhando
+    caminho[profundidade-2] = 0;
+
+    if(direita)
+        caminho[profundidade-2] = 1;
+
+    if(node->left)
+        caminho[profundidade-1] = 1;
+
+    // impressao da raiz apos o espacamento
+    printf("\n");
+
+    for(int i=0; i<profundidade-1; i++)
+    {
+      if(i == profundidade-2)
+          printf("+");
+      else if(caminho[i])
+          printf("|");
+      else
+          printf(" ");
+
+      for(int j=1; j<espaco; j++)
+      if(i < profundidade-2)
+          printf(" ");
+      else
+          printf("-");
+    }
+
+    printf("%d\n", node->val);
+
+    // vertical espacors below
+    for(int i=0; i<profundidade; i++)
+    {
+      if(caminho[i])
+          printf("|");
+      else
+          printf(" ");
+
+      for(int j=1; j<espaco; j++)
+          printf(" ");
+    }
+
+    // go to esquerda no
+    desenha_arvore_horiz(node->left, profundidade, caminho, 0);
+}
+
+void desenha_arvore(Node *T)
+{
+    char path[255] = {};
+
+    //inicia a profundidade com 0
+    desenha_arvore_horiz(T, 0, path, 0);
+}
+
+void draw_tree(Tree *T)
+{
+    if(T->root == NULL){
+    //if(!tree_is_empty(T)){
+        puts("tree is empty");
+        return;
+    }
+    desenha_arvore(T->root);
 }
