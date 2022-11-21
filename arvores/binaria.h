@@ -41,5 +41,6 @@ void profundidade_ar(Tree *T);
 void quantidade_node(Tree *T);
 
 //validando simetria
-void simetria(Tree *T);
+void validando_simetria_arvore(Tree *T);
+
 

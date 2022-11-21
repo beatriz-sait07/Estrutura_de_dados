@@ -84,8 +84,9 @@ void insert(Tree *T, int val){
     if(T->root == NULL){
         T->root = create_node(val);
         puts("creting tree...");
+        return;
     }
-    add(T->root, val);
+    else add(T->root, val);
 }
 
 //buscando elemento na arvore.
@@ -202,12 +203,19 @@ int qtd_node(Node *root){
 }
 
 //conferindo simetria
-void simetria(Tree *T){
-    int alt = altura(T->root), qtdN = qtd_node(T->root), x = qtdN + 1;
-    double menor_alt = log(x)-1; //formular para verificar a menor
-    //verificando a menor altura da arvore
-    if(menor_alt == alt)printf("\nSIMETRICA\n\n");
-    else printf("NAO EH SIMETRICA\n");
+bool EHsimetria(Node *n1, Node *n2){
+    if (n1 == NULL && n2 == NULL)return true;
+    return (n1 != NULL && n2 != NULL) && EHsimetria(n1->left, n2->right) && EHsimetria(n1->right, n2->left);
+}
+
+bool simetrica(Node *root){
+    if(root == NULL)return true;
+    return EHsimetria(root->left, root->right);
+}
+
+void validando_simetria_arvore(Tree *T){
+    bool x = simetrica(T->root);
+    printf("%s\n", x ? "Arvore Simetria\n\n":"Arvore Nao eh Simetrica\n\n");
 }
 
 //funcoes recursivas para validar as ordens da arvore, sendo: pre-prder, in-order, pos-order.
