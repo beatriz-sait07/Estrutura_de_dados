@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "binaria.h"
 #define espaco 5
 
@@ -9,9 +10,10 @@ void pre(Node *node);
 void in(Node *node);
 void pos(Node *node);
 
+//estruturas
 typedef struct _tree {
     Node *root; //raiz
-    int depth; //profundidade da arvore
+    int profundidade; //profundidade da arvore
 }Tree;
 typedef struct _node {
     int val;
@@ -19,6 +21,7 @@ typedef struct _node {
     Node *right; //filhos arvore
 }Node;
 
+//criando nos e arvore.
 Tree *create_tree(){
     Tree *t = (Tree*)malloc(sizeof(Tree));
     return t;
@@ -31,12 +34,12 @@ Node *create_node(int val){
     node->right = NULL;
 }
 
-//verifica se está vazia
+//verifica se está vazia.
 bool tree_is_empty (Tree *T){
     return T->root = NULL;
 }
 
-//destroi o no
+//destroi o no e a arvore.
 void destroy_node(Node *node){
     if(node == NULL)return;
     destroy_node(node->left);
@@ -45,7 +48,6 @@ void destroy_node(Node *node){
     node = NULL;
 }
 
-//destroi a arvore
 void destroy_tree (Tree *T){
     if(T->root == NULL){
         return;
@@ -55,6 +57,7 @@ void destroy_tree (Tree *T){
     free(T);
 } 
 
+// insere dados na arvore.
 void add(Node *node, int val){
     Node *n = create_node(val);
 
@@ -74,12 +77,9 @@ void add(Node *node, int val){
         add(node->right, val);
     } else {
         fprintf(stderr, "Erro: add\nAto: valores repetidos nao podem ser inseridos (%d)\n", val);
-        //exit(EXIT_FAILURE);
     }
 }
 
-
-//inserir dados
 void insert(Tree *T, int val){
     if(T->root == NULL){
         T->root = create_node(val);
@@ -88,6 +88,7 @@ void insert(Tree *T, int val){
     add(T->root, val);
 }
 
+//buscando elemento na arvore.
 void consult_tree(Node *node, int elem){
     //encontra o elemento
     if(node != NULL){
@@ -106,7 +107,6 @@ void consult_tree(Node *node, int elem){
     }
 }
 
-
 void buscar (Tree *T, int elem){
     if(T->root == NULL)fprintf(stderr, "ERRO: buscar!\nAto: arvore vazia\n");
     else{
@@ -114,6 +114,7 @@ void buscar (Tree *T, int elem){
     }
 }
 
+//removendo elemento da arvore.
 Node *remover(Node *root, int elem){
     if(root == NULL){ // esta vazia ou o elemento nao exites na arvore
         printf("\nvalor nao encontrado: %d", elem);
@@ -165,7 +166,6 @@ Node *remover(Node *root, int elem){
     }
 }
 
-
 void remover_arvore(Tree *T, int elem){
     if(T->root == NULL)fprintf(stderr, "ERRO: deletar_item!\nAto: arvore vazia\n");
     else{
@@ -173,7 +173,7 @@ void remover_arvore(Tree *T, int elem){
     }
 }
 
-//altura da arvore é a distancia entre a raiz e a ultima folha
+//altura da arvore é a distancia entre a raiz e a ultima folha.
 int altura(Node *raiz){
     if(raiz == NULL)return -1; //para que nao haja erro, se houver apenas um no na arvore
     else{
@@ -186,15 +186,31 @@ int altura(Node *raiz){
 
 void profundidade_ar(Tree *T){
         if(T->root == NULL){
-    //if(!tree_is_empty(T)){
         puts("tree is empty");
         return;
     }
-    altura(T->root);
     printf("\nAltura da arvore: %d \n\n", altura(T->root));
 }
 
-//funcoes recursivas
+//quantidades de nos na arvore
+int qtd_node(Node *root){
+    if(root == NULL) return 0;
+    else return 1 + qtd_node(root->left) + qtd_node(root->right); // usando a recursividade verificamos a existencia de nos, se houver, somamos.
+    /*operador ternario:
+        ruturn (root == NULL) ? 0:  1 + qtd_node(root->left) + qtd_node(root->right);
+    */
+}
+
+//conferindo simetria
+void simetria(Tree *T){
+    int alt = altura(T->root), qtdN = qtd_node(T->root), x = qtdN + 1;
+    double menor_alt = log(x)-1; //formular para verificar a menor
+    //verificando a menor altura da arvore
+    if(menor_alt == alt)printf("\nSIMETRICA\n\n");
+    else printf("NAO EH SIMETRICA\n");
+}
+
+//funcoes recursivas para validar as ordens da arvore, sendo: pre-prder, in-order, pos-order.
 void pre(Node *node){
     if(node != NULL){
         printf("|%d|", node->val);
@@ -247,6 +263,7 @@ void pos_order(Tree *T){
     pos(T->root);
 }
 
+// imprime a arvore bonitinha.
 void desenha_arvore_horiz(Node *node, int profundidade, char *caminho, int direita)
 {
     // profundidade da condicao de parada

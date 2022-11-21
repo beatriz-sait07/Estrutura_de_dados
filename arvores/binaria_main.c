@@ -7,12 +7,13 @@ int main() {
 
     int dig = 1, size=0, elem;
     while(dig != 0){
-        printf("\n\t0 - sair\n\t1 - inserir um valor\n\t2 - remover um valor\n\t3 - consultar um valor\n\t4 - consultar simetria da arvore\n\t5 - imprimir dados da arvore\n\t6 - imprime arvore\n\t7 - destruir a arvore\n\t8 - profundidade\n");
+        printf("\n\t0 - sair\n\t1 - inserir um valor\n\t2 - remover um valor\n\t3 - consultar um valor\n\t4 - consultar simetria da arvore\n");
+        printf("\t5 - imprimir dados da arvore\n\t6 - imprime arvore\n\t7 - destruir a arvore\n\t8 - profundidade\n\t9 - quantidade de no\n");
         printf("qual operacao deseja realizar: ");
         scanf("%d", &dig);
 
         if(dig == 1){
-            int i=0, igual, vet[255];
+            /*int i=0, igual, vet[255];
             printf("quantos valores deseja inserir: ");scanf("%d", &size);
             do{
                 vet[i] = rand()%100;
@@ -24,7 +25,9 @@ int main() {
             }while(i<size);
             for(i=0;i<size; i++){
                 insert(t, vet[i]);
-            }
+            }*/
+            printf("valor: ");scanf("%d", &elem);
+            insert(t, elem);
         }
         if(dig == 2){
             printf("\ninsira um valor para ser removido: ");scanf("%d", &elem);
@@ -35,7 +38,7 @@ int main() {
             buscar(t, elem);
         }
         if(dig == 4){
-            printf("nao foi feito ainda\n");
+            printf("%s", isSymmetric(t));
         }
         if(dig == 5){
             in_order(t);
@@ -53,7 +56,8 @@ int main() {
         }
         if(dig > 9){
             printf("\nesta opcao nao existe!\n");
-            printf("\t0 - sair\n\t1 - inserir um valor\n\t2 - remover um valor\n\t3 - consultar um valor\n\t4 - consultar simetria da arvore\n\t5 - imprimir dados da arvore\n\t6 - imprime arvore\n\t7 - destruir a arvore\n\t8 - profundidade\n");
+            printf("\n\t0 - sair\n\t1 - inserir um valor\n\t2 - remover um valor\n\t3 - consultar um valor\n\t4 - consultar simetria da arvore\n");
+            printf("\t5 - imprimir dados da arvore\n\t6 - imprime arvore\n\t7 - destruir a arvore\n\t8 - profundidade\n");
             printf("qual operacao deseja realizar: ");
             scanf("%d", &dig);
         }

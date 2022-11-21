@@ -37,3 +37,9 @@ void draw_tree(Tree *T);
 // profundidade
 void profundidade_ar(Tree *T);
 
+//quantidade de no na arvore
+void quantidade_node(Tree *T);
+
+//validando simetria
+void simetria(Tree *T);
+
