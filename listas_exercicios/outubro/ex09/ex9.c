@@ -100,7 +100,7 @@ void insert_dados(List *lista_est,  List *lista_serv, Info *p){
         }
         else{
             fprintf(stderr, "Erro: insert_dados");
-            fprintf(stderr, "Ato: %s nao pode estacionar, vagas para estudantes indisponiveis\n");
+            fprintf(stderr, "Ato: %s nao pode estacionar, vagas para estudantes indisponiveis\n", dados->cadastro_if->nome_cad );
             
         }
     }
@@ -152,8 +152,8 @@ void print_list(List *lista, List *lista1){
     Node *aux = lista->begin;
     Node *aux1 = lista1->begin;
     if(isNull(lista))printf("Lista vazia\n");
-    printf("vagas com alunos: %d\n", lista->cont);
-    printf("vagas com servidores %d\n", lista1->cont1);
+    printf("vagas com alunos: %ld\n", lista->cont);
+    printf("vagas com servidores %ld\n", lista1->cont1);
     printf("vagas livres no estacionamento: %ld\n", (((lista->capacity + lista1->capacity)/2) - (lista->cont + lista1->cont1)));
 }
 
