@@ -36,3 +36,10 @@ List *create_list(){
     return list;
 }
 
+bool _isNull_dupla(const List *list){
+    return list->size == 0;
+}
+
+bool _isFull_dupla(const List *list){
+    return list->capacity == 10000;
+}
