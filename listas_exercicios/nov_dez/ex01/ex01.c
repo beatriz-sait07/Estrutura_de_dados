@@ -73,3 +73,14 @@ void add_final_dupla(List *list, int alt, int idd){
     }
     list->size++;
 }
+
+void imprimir_lista(const List *list){
+    Node *aux = list->inicio;
+
+    printf(" IDADE | ALTURA |\n");
+    while(aux != NULL){
+        printf("\t%d\t|\t%d\t\n", aux->idade, aux->alt);
+        aux = aux->next; //passa para imprimir o elemento a frente
+    }
+    printf("quantidade de cadastros: %ld", list->size);
+}
