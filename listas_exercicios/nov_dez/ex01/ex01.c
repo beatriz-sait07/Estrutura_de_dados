@@ -43,3 +43,18 @@ bool _isNull_dupla(const List *list){
 bool _isFull_dupla(const List *list){
     return list->capacity == 10000;
 }
+
+void destroy_dupla(List **ref_list){
+    List *aux_list = *ref_list;
+    
+    Node *p = aux_list->inicio;
+    while(p != NULL){
+        Node *aux = p;
+        aux = p;
+        p = p->next;
+        free(aux);
+    }
+    free(aux_list);
+    *ref_list = NULL;
+    printf("lista totalmente desalocada!\n");
+}
