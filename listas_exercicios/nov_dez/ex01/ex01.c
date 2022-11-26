@@ -58,3 +58,18 @@ void destroy_dupla(List **ref_list){
     *ref_list = NULL;
     printf("lista totalmente desalocada!\n");
 }
+
+void add_final_dupla(List *list, int alt, int idd){
+    Node *aux = create_node(alt, idd);
+
+    if(_isNull_dupla(list))list->inicio = list->fim = aux;
+    else{
+
+        if(list->size <= list->capacity){
+            list->fim->next = aux;
+            aux->prev = list->fim; 
+            list->fim = aux;
+        } else fprintf(stderr, "capacidade maxima excedida!\ntotal de %ld pessoas cadastradas", list->capacity);
+    }
+    list->size++;
+}
