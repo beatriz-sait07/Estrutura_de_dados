@@ -13,3 +13,26 @@ typedef struct _double_list{
     Node *fim;
     size_t size, capacity;
 }List, List;
+
+Node *create_node(int altura, int idade){
+    Node *node = (Node*)calloc(1, sizeof(Node));
+
+    node->next = NULL;
+    node->prev = NULL;
+    node->alt = altura;
+    node->idade = idade;
+
+    return node;
+}
+
+List *create_list(){
+    List *list = (List*)calloc(1, sizeof(List));
+
+    list->inicio = NULL;
+    list->fim = NULL;
+    list->size = 0;
+    list->capacity = 10000;
+
+    return list;
+}
+
