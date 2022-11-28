@@ -256,8 +256,8 @@ void in_order(Tree *T){
 
 void pos(Node *node){
     if(node != NULL){
-        in(node->left); // chamada recursiva a esquerda
-        in(node->right); //chama recursiva a direita
+        pos(node->left); // chamada recursiva a esquerda
+        pos(node->right); //chama recursiva a direita
         printf("%d ", node->val);
     }
 }
