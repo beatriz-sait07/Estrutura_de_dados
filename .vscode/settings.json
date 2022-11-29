@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "float_vector.h": "c",
-        "stdlib.h": "c"
-    }
-}
