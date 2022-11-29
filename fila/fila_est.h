@@ -1,18 +1,20 @@
 #ifndef FILA_EST_H
 #define FILA_EST_H
-#include <stdbool.h>
 
-typedef struct fila_estatica Fila;
+#include<stdbool.h>
 
-Fila *fila_estatica(long capacity); //necessaria
-void destroy(Fila **ref_fila);
+typedef struct _static_queue StaticQueue;
 
-bool _isNull(const Fila *fila);
-bool _isFull(const Fila *fila);
-long tam_fila(const Fila *fila);
+StaticQueue *create_StaticQueue(long capacity);
+void destroy_StaticQueue(StaticQueue **Q_Ref);
 
-void create_fila(long info, Fila *fila); // cria alista
-int remove_begin(Fila *fila); //remove o primeiro elemento
-int peek(Fila *fila); //buscar elmento
+bool is_empty_StaticQueue(const StaticQueue *Q);
+bool is_full_StaticQueue(const StaticQueue *Q);
+long size_StaticQueue(const StaticQueue *Q);
+void print_StaticQueue(const StaticQueue *Q);
+
+void enqueue_StaticQueue(StaticQueue *Q, int info);
+int dequeue_StaticQueue(StaticQueue *Q);
+int peek_StaticQueue(const StaticQueue *Q);
 
 #endif
