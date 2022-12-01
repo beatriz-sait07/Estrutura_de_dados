@@ -68,8 +68,8 @@ int main (){
     float dias_locado = 0;
     int dig;
     while (dig != 0){
-        printf("******MENU******\n");
-        printf("Digite a opcao que deseja, sendo:\n1 - listar todos os carros\n2 - listar carros disponiveis\n3 - listar carros locados\n4 - locar um veiculo\n5 - devolucao\n0 - sair\nopcao: ");
+        printf("\n\n******MENU******\n\n");
+        printf("Digite a opcao que deseja, sendo:\n1 - Listar todos os carros\n2 - Listar carros disponiveis\n3 - Listar carros locados\n4 - Locar um veiculo\n5 - Devolucao\n0 - Sair\nOpcao: ");
         scanf("%d", &dig);
         if(dig == 1){
             print_list(l);
@@ -78,27 +78,27 @@ int main (){
             print_disponiveis(l);
         }
         if(dig == 3){
-            printf("carros locados:\n");
+            printf("\n\nCarros locados:\n");
             print_indisponiveis(l);
         }
         if(dig == 4){
             //terminar
             int locar;
             char nome[50];
-            printf("qual carro voce deseja locar ? (digite sua identificacao)\n");scanf("%d", &locar);
-            printf("quantos dias de locacao? ");scanf("%f", &dias_locado);
-            printf("contratante: ");scanf("%s", &nome[50]);
-            locar_carro(l, locar, nome);
+            printf("\n\nQual carro voce deseja locar ? (digite sua identificacao)\n");scanf("%d", &locar);
+            printf("Quantos dias de locacao? ");scanf("%f", &dias_locado);
+            printf("Contratante: ");scanf("%s", &nome[50]);
+            locar_carro(l, locar, &nome[50]);
         }
         if(dig == 5){
             int locar;
-            printf("\t\t\tdevolucao do veiculo!\n");
-            printf("Para realizar a devolucao digite a identificacao do carro: ");scanf("%d", &locar);
+            printf("\t\t\tDevolucao do veiculo!\n\n");
+            printf("\n\nPara realizar a devolucao digite a identificacao do carro: ");scanf("%d", &locar);
             checkout(l, in_loc, locar, dias_locado);
         }
 
         if(dig == 0){
-            printf("FINALIZADO\n");
+            printf("\nFINALIZADO\n");
             destroy(&l);
         }
     }
@@ -195,7 +195,7 @@ void locar_carro(List *lista, int alugar, char *nome){
                 aux->cadastro->nome = nome;
                 aux->cadastro->ocup = "indisponivel";
             } else {
-                printf("\ncarro indisponivel no momento!\n");
+                printf("\nCarro indisponivel no momento!\n");
             }
         }
         aux = aux->next;
@@ -204,13 +204,15 @@ void locar_carro(List *lista, int alugar, char *nome){
 
 void checkout(List *lista, Info *p, int id, float dias){
     Node *aux = lista->begin;
+    
     while(aux != NULL){
         if(aux->cadastro->id == id){
-            printf("\t\tCUPOM DE DEVOLUCAO\n");
+            printf("\t\t\t\nCUPOM DE DEVOLUCAO\n");
             printf("Locador: %s\nModelo: %s\nPlaca: %s\nIdentificacao: %d\n",
             aux->cadastro->nome, aux->cadastro->modelo, aux->cadastro->placa, aux->cadastro->id);
             printf("\nDiaria: R$ 200,00\nDias locados: %.0f\nValor Total: \tR$ %.2f\n", dias, (dias*200));
             aux->cadastro->ocup = "disponivel";
+            aux->cadastro->nome = "locadora";
         }
         aux = aux->next;
     }
@@ -248,11 +250,11 @@ void print_indisponiveis(List *lista){
     Node *aux = lista->begin;
     if(isNull(lista))printf("Lista vazia\n");
     else{
-        printf("\nMODELO\t|\tPLACA\t\t|\tOCUPACAO\t|\tIDENTIFICACAO\t|\n");
+        printf("\nNOME\t\t|\tMODELO\t|\tPLACA\t\t|\tOCUPACAO\t|\tIDENTIFICACAO\t|\n");
         while( aux != NULL){
             if(aux->cadastro->ocup == "indisponivel"){
-            printf("%s\t|\t%s\t|\t%s\t|\t\t%d\n",
-            aux->cadastro->modelo, aux->cadastro->placa, aux->cadastro->ocup, aux->cadastro->id);
+            printf("%s\t|\t%s\t|\t%s\t|\t%s\t|\t\t%d\n",
+            aux->cadastro->nome, aux->cadastro->modelo, aux->cadastro->placa, aux->cadastro->ocup, aux->cadastro->id);
             }
             aux = aux->next;
         }
