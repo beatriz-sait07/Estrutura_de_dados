@@ -5,31 +5,44 @@
 int main(){
 
     int dig=999;
-    switch(dig){
-        printf("qual exercicio voce deseja executar ?\n 1 - vetor sem repeticao\n");
-        printf("2 - ");
-        printf("respos: ");scanf("%d", &dig);
-        
-        if (dig == 1){
-            int ex1, aux=0;
-            printf("voce esta executando o exercicio numero 01!\n");
-            printf("quantos numero deseja digitar ?\nresp: ");scanf("%d", &ex1);
-
-            int vet[ex1], val, i;
+        while(dig != 0){
+            printf("qual exercicio voce deseja executar ?\n 1 - vetor sem repeticao\n");
+            printf("2 - \n");
+            printf("respos: ");scanf("%d", &dig);
             
-            for(i=0; i<ex1; i++){
-                printf("digite um valor para a posicao [%d]: ", i);scanf("%d", &val);
-                vet[i] = val;
-            }
-            for(i=0; i<ex1; i++){
-                aux = vet[i];
-                if(aux != vet[i+1])
-                printf("|%d|", vet[i]);
-            }
-        }
-        if(dig == 2){
+            if (dig == 1){
+                int tam, i,j,val,vetor[tam], cont = 0;
 
+                printf("qua tamanho do array: ");scanf("%d", &tam);
+
+                // ja considerado que o usuario entrara com 1<= n <= 100
+                for(i = 0; i < tam; i++){
+                    printf("valor para posicao [%d]: ", i);scanf("%d", &val);
+                    vetor[i] = val;
+
+                    for(j = 0; j <= i-1 ; j++){
+                        if(val == vetor[j]){
+                            cont = 1;
+                            break;
+                        }
+                    }
+
+                    if(cont == 1){
+                        cont = 0;
+                        i -= 1;
+                        tam -= 1; 
+                    } else vetor[i] = val;
+                }
+
+                for(i = 0; i < tam; i++)printf("|%d|", vetor[i]);
+                
+                printf("\nexercicio 1 executado com sucesso!\n");
+            }
+
+            if(dig == 2){
+
+            }
         }
-    }
-return 0;
+
+    return 0;
 }
