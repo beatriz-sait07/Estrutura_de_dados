@@ -42,16 +42,6 @@ int main() {
         }
     }
 
-    for(int i=0; i<tam3; i++){
-        for(int j=0; j<tam3; j++){
-            if(vetor[i]<vetor[j]){
-                int swap = vetor[i];
-                vetor[i] = vetor[j];
-                vetor[j] = swap;
-            }
-        }
-    }
-
 
     printf("\nsem repeticao e em ordem crescente.\nvetor[3]: ");
     for(i=0; i<tam3; i++) printf("%d ", vetor[i]);
