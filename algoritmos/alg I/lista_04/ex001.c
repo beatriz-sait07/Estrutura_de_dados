@@ -1,25 +1,26 @@
-// ler dois numeros inteiros e calcular os valores do intervalo entre eles
+// intersecao de dois vetores
 
 #include <stdio.h>
 
 int main() {
-    int inicio, fim, i, result=0;
+    int i, j, k, n, m, v1[100], v2[100], v3[100];
 
-    printf("Entre com dois numeros inteiros: ");
-    scanf("%d %d", &inicio, &fim);
+    printf("Digite o tamanho dos vetores: ");scanf("%d", &n);
 
-    if (inicio < fim) {
-        for (i = inicio + 1; i < fim; i++)
-            result = inicio + fim+ i;
-        printf("a soma entre os elementos %d e %d eh de: %d", inicio, fim, result);
-    } else {
-        result=0;
-        for (i = fim + 1; i < inicio; i++) {
-            printf("%d ", i);
-            result = inicio + fim + i;
-        }
-        printf("a soma entre os elementos %d e %d eh de: %d", inicio, fim, result);
-    }
+    printf("Digite os elementos do vetor 1: ");
+    for (i = 0; i < n; i++) scanf("%d", &v1[i]);
 
+    printf("Digite os elementos do vetor 2: ");scanf("%d", &m);
+    for (i = 0; i < m; i++) scanf("%d", &v2[i]);
+
+    k = 0; // tamanho do vetor de intersecao
+    for (i = 0; i < n; i++)
+        for (j = 0; j < m; j++)
+            if (v1[i] == v2[j]) { 
+                v3[k] = v1[i];
+                k++;
+            }
+
+    for (i = 0; i < k; i++) printf("%d ", v3[i]);
     return 0;
-}  
+}
