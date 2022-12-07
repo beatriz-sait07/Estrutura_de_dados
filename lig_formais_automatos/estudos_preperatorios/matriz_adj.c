@@ -10,7 +10,6 @@ void remove_arco_grafo(Grafo g, int v, int w);
 void print_vert(Grafo g);
 void print_grafo(Grafo g);
 Grafo destoy_grafo(Grafo g);
-
 //main
 int main (){
     int i=0;
@@ -29,18 +28,16 @@ struct grafo {
 };
 
 Grafo inicia_grafo(int n){ 
-    int i, j;
-
-
+    int i, j; //contadores
     //constroi um grafo com vertices 0 1, sendo de 0 até n-1;
     Grafo G = malloc(sizeof( *G));                                  // G -> A | n | m -- iniciando o arco com zero
     G->n = n;
     G->m = 0;
     G->A = malloc(n * sizeof(int));
 
-    for(i=0; i<n; i++) G->A[i] = malloc(n * sizeof(int));
-    for(i=0; i<n; i++)
-        for(j=0; j<n; j++)G->A[i][j] = 0;
+    for(i=0; i<n; i++) G->A[i] = malloc(n * sizeof(int)); //alocando a matriz de adjacencia
+    for(i=0; i<n; i++) 
+        for(j=0; j<n; j++)G->A[i][j] = 0; //inicializando a matriz com zero
     
     return G;
 }
@@ -76,7 +73,7 @@ void print_vert(Grafo g){
     for(i=0; i<g->n; i++){ // para cada vertice
         printf("%2d: ", i);
         for(j=0; j<g->n;){ // todos os vizinhos possiveis
-            if(g->A[i][j] == 1) printf("%2d", j); //imprime apenas os visinhos reais
+            if(g->A[i][j] == 1) printf("%2d", j); //imprime apenas os vizinhos reais
             printf("\n");
         }
     }
@@ -91,7 +88,9 @@ void print_grafo(Grafo g){
             if(g->A[i][j] == 1) printf("%2d", j);
             printf("-1"); //marcacao do fim da lista
             printf("\n");
-        }
+        }         /* verifica cada posição existente do vetor
+                    ordena enquando a posição atual for maior que a proxima posição*/
+         
     }
 }
 
