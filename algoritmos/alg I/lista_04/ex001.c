@@ -5,12 +5,13 @@
 int main() {
     int i, j, k, n, m, v1[100], v2[100], v3[100];
 
-    printf("Digite o tamanho dos vetores: ");scanf("%d", &n);
+    scanf("%d", &n);
 
-    printf("Digite os elementos do vetor 1: ");
+    //printf("Digite os elementos do vetor 1: ");
     for (i = 0; i < n; i++) scanf("%d", &v1[i]);
 
-    printf("Digite os elementos do vetor 2: ");scanf("%d", &m);
+    //printf("Digite os elementos do vetor 2: ");
+    scanf("%d", &m);
     for (i = 0; i < m; i++) scanf("%d", &v2[i]);
 
     k = 0; // tamanho do vetor de intersecao

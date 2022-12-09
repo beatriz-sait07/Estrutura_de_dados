@@ -4,11 +4,12 @@
 int main(){
     int tam, val, aux=1;
 
-    printf("qual sera o tamanho do vetor: ");scanf("%d", &tam);
+    //printf("qual sera o tamanho do vetor: ");
+    scanf("%d", &tam);
 
     int vetor[tam];
 
-    printf("Digite os valores para seu vetor:\n");
+    //printf("Digite os valores para seu vetor:\n");
     for(int i=0; i<tam; i++){
         scanf("%d", &val);
         vetor[i] = val;

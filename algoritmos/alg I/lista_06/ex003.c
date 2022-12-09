@@ -5,17 +5,19 @@
 int main(){
     int tam, val, del, cont = 0;
 
-    printf("qual sera o tamanho do vetor: ");scanf("%d", &tam);
+    //printf("qual sera o tamanho do vetor: ");
+    scanf("%d", &tam);
 
     int vetor[tam];
 
-    printf("Digite os valores para seu vetor:\n");
+    //printf("Digite os valores para seu vetor:\n");
     for(int i = 0; i < tam; i++){ //para nao haver repeticoes
         scanf("%d", &val);
         vetor[i] = val;
     }
 
-    printf("qual sera o elemento deseja remover: ");scanf("%d", &del);
+    //printf("qual sera o elemento deseja remover: ");
+    scanf("%d", &del);
 
     for(int i=0; i<tam; i++){
         if(vetor[i] == del){

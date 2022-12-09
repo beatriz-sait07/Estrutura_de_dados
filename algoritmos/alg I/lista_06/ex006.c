@@ -11,7 +11,8 @@ int main() {
 
     //recebendo dados
     for(i=0; i<tam1; i++){
-        printf("vetor[1], elemento: ");scanf("%d", &val);
+        //printf("vetor[1], elemento: ");
+        scanf("%d", &val);
         vet1[i] = val;
     }
     for(j=0; j<tam2; j++){

@@ -8,9 +8,9 @@ principal sejam −1.
 int main() {
     int m, n, i, j;
 
-    printf("Entre com o numero de linhas: ");
+    //printf("Entre com o numero de linhas: ");
     scanf("%d", &m);
-    printf("Entre com o numero de colunas: ");
+    //printf("Entre com o numero de colunas: ");
     scanf("%d", &n);
 
     int matriz[m][n];

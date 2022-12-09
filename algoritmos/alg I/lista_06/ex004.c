@@ -2,8 +2,10 @@
 
 int main() {
     int tam1, tam2, tam3, val, i, j, k;
-    printf("qual o tamanho do 1 vetor: ");scanf("%d", &tam1);
-    printf("qual o tamanho do 2 vetor: ");scanf("%d", &tam2);
+    //printf("qual o tamanho do 1 vetor: ");
+    scanf("%d", &tam1);
+    //printf("qual o tamanho do 2 vetor: ");
+    scanf("%d", &tam2);
 
     tam3 = tam1+tam2;
 
@@ -11,11 +13,11 @@ int main() {
 
     //recebendo dados
     for(i=0; i<tam1; i++){
-        printf("vetor[1], elemento: ");scanf("%d", &val);
+        scanf("%d", &val);
         vet1[i] = val;
     }
     for(j=0; j<tam2; j++){
-        printf("vetor[2], elemento: ");scanf("%d", &val);
+        scanf("%d", &val);
         vet2[j] = val;
     }
 
@@ -24,12 +26,12 @@ int main() {
     for(i=tam1; i<tam3; i++) vetor[i] = vet2[i-tam1];
 
     //imprimindo valores antes de quaisquer alteracoes
-    printf("vetor [1]: ");
+    /*printf("vetor [1]: ");
     for(i=0; i<tam1; i++) printf("%d ", vet1[i]);
     printf("\nvetor [2]: ");
     for(i=0; i<tam2; i++) printf("%d ", vet2[i]);
     printf("\nvetor [3]: ");
-    for(i=0; i<tam3; i++) printf("%d ", vetor[i]);
+    for(i=0; i<tam3; i++) printf("%d ", vetor[i]);*/
 
     //remove o numeros repedidos
     for(i=0; i<tam3; i++) {
@@ -43,7 +45,7 @@ int main() {
     }
 
 
-    printf("\nsem repeticao e em ordem crescente.\nvetor[3]: ");
+    //printf("\nsem repeticao e em ordem crescente.\nvetor[3]: ");
     for(i=0; i<tam3; i++) printf("%d ", vetor[i]);
 
     return 0;

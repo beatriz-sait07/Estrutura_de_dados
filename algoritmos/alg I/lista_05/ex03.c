@@ -4,14 +4,17 @@
 
 int main (){
     int m, n, val=0;
-    printf("quantidade de vetor: ");scanf("%d", &m);
-    printf("tamanho do vetor: "); scanf("%d", &n);
+    //printf("quantidade de vetor: ");
+    scanf("%d", &m);
+    //printf("tamanho do vetor: ");
+    scanf("%d", &n);
 
     int vet[m], i, j, maior=0, menor=0, pos_maior, pos_menor;  
 
     for(i=0; i<m; i++){
         for(j=0; j<n; j++){
-            printf("vetor [%d] valor para posicao [%d]: ", i, j);scanf("%d", &val);
+            //printf("vetor [%d] valor para posicao [%d]: ", i, j);
+            scanf("%d", &val);
             vet[j] = val;
             if(j == 0) menor = maior = vet[j];
             if(vet[j] > maior){
@@ -24,9 +27,13 @@ int main (){
                 pos_menor = j;
             }
         }
-        printf("maior: %d na posicao: %d\tmenor: %d na posicao: %d\n", maior, pos_maior, menor, pos_menor);
+        printf("%d %d\t %d %d\n", maior, pos_maior, menor, pos_menor);
         maior = menor  = 0;
     }
-  
+    
+    for(i=0; i<m; i++){
+        
+        printf("\n");
+    }
     return 0;
 }
