@@ -1,19 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ex001.h"
+#include <stdbool.h>
+#include "../include/ex001.h"
 
 typedef struct alunos{
     int matricula;
     char *nome;
     float media;
 } Aluno;
-typedef struct node {
-    Aluno *cad;
-    struct node *left;
-    struct node *right;
+typedef struct noABB {
+    Aluno *info;
+    struct noABB *left;
+    struct noABB *right;
 }Node;
 
-Aluno *ler_aluno(char *nome, int matricula, float media){   // cria os dados de aluno
+typedef struct _tree{
+    Node *root;
+    Node maiorMedia;
+    int aprovados;
+}Tree;
+
+Tree *create_tree()
+{
+    Tree *T = (Tree*)malloc(sizeof(Tree));
+    T->root = NULL;
+    T->aprovados = 0;
+    return T;
+}
+
+Aluno *create_aluno(char *nome, int matricula, float media){   // cria os dados de aluno
     Aluno *aluno = (Aluno*) malloc(sizeof(Aluno));
     aluno->nome = nome;
     aluno->matricula = matricula;
@@ -21,67 +36,57 @@ Aluno *ler_aluno(char *nome, int matricula, float media){   // cria os dados de 
     return aluno;
 }
 
-void imprimir_Aluno(Aluno *aluno){  // imprime o aluno
-    printf("Nome: %s\t", aluno->nome);
-    printf("Matricula: %d\t", aluno->matricula);
-    printf("Media: %.2f\n", aluno->media);
+Node *create_node(char *nome, int matricula, float media){   // cria os dados de aluno
+    Node *node = (Node*) malloc(sizeof(Node));
+    node->info = create_aluno(nome, matricula, media);
+    node->left = NULL;
+    node->right = NULL;
+    return node;
 }
 
-Node *insert_(Node *root, Aluno *aluno){ // inserir elemento na arvore
-    if(root == NULL){
-        Node *aux = malloc(sizeof(Node));
-        aux->cad = aluno;
-        aux->left = NULL;
-        aux->right = NULL;
-        return aux;
-    } else{
-        if(aluno->media < root->cad->media){
-            root->left = insert_(root->left, aluno);
-        } else{
-            root->right = insert_(root->right, aluno);
+void add(Tree *T, Node *node, int matricula, char *nome, float media)
+{
+    Node *n = create_node(nome, matricula, media);
+    if(media > T->root->info->media){       // verifica se a media eh maior que a media do aluno com maior media
+        T->maiorMedia = *n;
+    }
+    if(node->info->matricula > matricula){
+        if(node->left == NULL){
+            node->left = n;
+            return;
         }
-        return root;
+        add(T, node->left, matricula, nome, media);
+    
+    }else if(node->info->matricula < matricula){
+        if(node->right == NULL){
+            node->right = n;
+            return;
+        }
+        add(T, node->right, matricula, nome, media);
+    }else{
+        fprintf(stderr, "Erro em ADD()\n");
+        fprintf(stderr, "Nao eh Possivel Inserir (%d) Numeros Repetidos!\n", matricula);
+    }
+}
+void insert(Tree *T, char *nome, int matricula, float media)
+{
+    if(T->root == NULL){
+        T->root = create_node(nome, matricula, media);
+        T->maiorMedia = *T->root;
+        if(media >= 5.0)T->aprovados++;  // conta aprovados
+        return;
+    }else{
+        if(media >= 5.0)T->aprovados++; // conta aprovados
+        add(T, T->root, matricula, nome, media);
     }
 }
 
-Node *maior(Node *root){ // busca o maior elemento da arvore
-    if(root == NULL) return NULL;
-    if(root->right == NULL) return root;
-    return maior(root->right);
-}
-void imprimir_no(Node *node){ // imprime o maior no quando achar.
-    if(node != NULL){
-        printf("Nome: %s\t", node->cad->nome);
-        printf("Matricula: %d\t", node->cad->matricula);
-        printf("Media: %.2f\n", node->cad->media);
-    }
+void abb_alunoComMaiorMedia(Tree *T){ // retorna aluno com maior media
+    printf("Nome: %s\t", T->maiorMedia.info->nome);
+    printf("Matricula: %d\t", T->maiorMedia.info->matricula);
+    printf("Media: %.2f\n\n", T->maiorMedia.info->media);
 }
 
-Node *busca(Node *root, int media){ // buscando elemento na arvore
-    if(root){
-        if(media == root->cad->media) return root;
-    } else if (media< root->cad->media){
-        return busca(root->left, media);
-    } else {
-        return busca(root->right, media);
-    }
+int abb_contaAprovados(Tree *T){ // retorna quantidade de alunos aprovados
+    return T->aprovados;
 }
-
-void destroy_node(Node *node){
-    if(node == NULL)return;
-    destroy_node(node->left);
-    destroy_node(node->right);
-    free(node);
-    node = NULL;
-}
-
-//impressao da arvore
-void in_order(Node *root){
-    if(root != NULL){
-        in_order(root->left);
-        imprimir_Aluno(root->cad);
-        in_order(root->right);
-    }
-}
-
-
