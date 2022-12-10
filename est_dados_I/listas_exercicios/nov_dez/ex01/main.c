@@ -8,17 +8,16 @@ int main (){
     Node *root = NULL;
     Aluno *aluno = NULL;
 
-    aluno = ler_aluno("Joao", 123, 7.5);root = insert_(root, aluno);
-    aluno = ler_aluno("Maria", 456, 8.5);root = insert_(root, aluno);
-    aluno = ler_aluno("Jose", 789, 9.5);root = insert_(root, aluno);
-    aluno = ler_aluno("Pedro", 101, 10.0);root = insert_(root, aluno);
-    aluno = ler_aluno("Ana", 112, 6.5);root = insert_(root, aluno);
-    aluno = ler_aluno("Paulo", 113, 5.5);root = insert_(root, aluno);
-    aluno = ler_aluno("Joana", 114, 4.5);root = insert_(root, aluno);
-    aluno = ler_aluno("Julia", 115, 3.5);root = insert_(root, aluno);
-    aluno = ler_aluno("Juliana", 116, 2.5);root = insert_(root, aluno);
+    aluno = ler_aluno("lucas", 101, 10.0);root = insert_(root, aluno);
+    aluno = ler_aluno("Maria", 102, 4.9);root = insert_(root, aluno);
+    aluno = ler_aluno("Jose", 103, 9.1);root = insert_(root, aluno);
+    aluno = ler_aluno("beatriz", 104, 3.8);root = insert_(root, aluno);
+    aluno = ler_aluno("Ana", 105, 6.5);root = insert_(root, aluno);
+    aluno = ler_aluno("Paulo", 106, 1.8);root = insert_(root, aluno);
+    aluno = ler_aluno("thalita", 107, 8.7);root = insert_(root, aluno);
+    aluno = ler_aluno("Julia", 108, 3.5);root = insert_(root, aluno);
+    aluno = ler_aluno("taynan", 109, 2.5);root = insert_(root, aluno);
 
-    //imprimir_Aluno(aluno);
     in_order(root);
     destroy_node(root);
     return 0;
