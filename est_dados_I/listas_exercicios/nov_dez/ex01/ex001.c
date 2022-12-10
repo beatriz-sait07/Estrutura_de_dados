@@ -7,15 +7,13 @@ typedef struct alunos{
     char *nome;
     float media;
 } Aluno;
-
-
 typedef struct node {
     Aluno *cad;
     struct node *left;
     struct node *right;
 }Node;
 
-Aluno *ler_aluno(char *nome, int matricula, float media){
+Aluno *ler_aluno(char *nome, int matricula, float media){   // cria os dados de aluno
     Aluno *aluno = (Aluno*) malloc(sizeof(Aluno));
     aluno->nome = nome;
     aluno->matricula = matricula;
@@ -23,13 +21,13 @@ Aluno *ler_aluno(char *nome, int matricula, float media){
     return aluno;
 }
 
-void imprimir_Aluno(Aluno *aluno){
+void imprimir_Aluno(Aluno *aluno){  // imprime o aluno
     printf("Nome: %s\t", aluno->nome);
     printf("Matricula: %d\t", aluno->matricula);
     printf("Media: %.2f\n", aluno->media);
 }
 
-Node *insert_(Node *root, Aluno *aluno){
+Node *insert_(Node *root, Aluno *aluno){ // inserir elemento na arvore
     if(root == NULL){
         Node *aux = malloc(sizeof(Node));
         aux->cad = aluno;
@@ -46,8 +44,20 @@ Node *insert_(Node *root, Aluno *aluno){
     }
 }
 
-//buscar elemento na arvore
-Node *busca(Node *root, int media){
+Node *maior(Node *root){ // busca o maior elemento da arvore
+    if(root == NULL) return NULL;
+    if(root->right == NULL) return root;
+    return maior(root->right);
+}
+void imprimir_no(Node *node){ // imprime o maior no quando achar.
+    if(node != NULL){
+        printf("Nome: %s\t", node->cad->nome);
+        printf("Matricula: %d\t", node->cad->matricula);
+        printf("Media: %.2f\n", node->cad->media);
+    }
+}
+
+Node *busca(Node *root, int media){ // buscando elemento na arvore
     if(root){
         if(media == root->cad->media) return root;
     } else if (media< root->cad->media){
@@ -74,10 +84,4 @@ void in_order(Node *root){
     }
 }
 
-void pos(Node *node){
-    if(node != NULL){
-        pos(node->left); 
-        pos(node->right); 
-        printf("%.2f ", node->cad->media);
-    }
-}
+

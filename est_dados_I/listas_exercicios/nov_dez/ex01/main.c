@@ -18,7 +18,12 @@ int main (){
     aluno = ler_aluno("Julia", 108, 3.5);root = insert_(root, aluno);
     aluno = ler_aluno("taynan", 109, 2.5);root = insert_(root, aluno);
 
+    printf("imprimindo alunos com o modelo 'in order':\n");
     in_order(root);
+
+    printf("aluno com a maior media:\n");
+    imprimir_no(maior(root));
+
     destroy_node(root);
     return 0;
 }
