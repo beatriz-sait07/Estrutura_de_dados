@@ -1,9 +1,6 @@
-// criar um programa em c que salva em um arquivo txt as insfromacoes dos registros que contenha em ordem char, depois o tipo int e pro ultimo os tipos float nessa sequencia e que leia do mesmo arquivo esse registros e imprima na tela
-// Created by vinicius on 10/04/18.
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+
 
 typedef struct {
     char tipo_char[50];
@@ -38,6 +35,21 @@ int main() {
 
     fclose(arquivo);
 
+    arquivo = fopen("arquivo.txt", "r");
+    
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo");
+        return 1;
+    }
+
+    printf("--------------------------------\n");
+    for (i = 0; i < 3; i++) {
+        fscanf(arquivo, "%s %d %f ", dados.tipo_char, &dados.tipo_int, &dados.tipo_float);
+        printf("palavra: %s\ninteiro: %d\nfloat: %.2f", dados.tipo_char, dados.tipo_int, dados.tipo_float);
+        printf("\n--------------------------------\n");
+    }
+
+    fclose(arquivo);
 
     return 0;
 }
