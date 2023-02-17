@@ -1,3 +1,3 @@
-bia 7 7.500000 
-malandramente 8 8.600000 
-quimica 9 9.600000 
+Dados 1: teste 42 3.14
+Dados 2: elephant 123 2.72
+Dados 3: mercury 456 1.62

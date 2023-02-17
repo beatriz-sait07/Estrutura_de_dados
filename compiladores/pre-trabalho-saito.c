@@ -1,17 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-
-typedef struct {
-    char tipo_char[50];
-    int tipo_int;
-    float tipo_float;
-} Dados;
+#include <string.h>
 
 int main() {
+    char tipo_char1[10] = "teste";
+    char tipo_char2[10] = "elephant";
+    char tipo_char3[10] = "mercury";
+    int tipo_int1 = 42, tipo_int2 = 123, tipi_int3 = 456;
+    float tipo_float1 = 3.14, tipo_float2 = 2.718, fipo_float3 = 1.618;
     FILE *arquivo;
-    Dados dados;
-    int i;
 
     arquivo = fopen("arquivo.txt", "w");
 
@@ -20,32 +17,25 @@ int main() {
         return 1;
     }
 
-    printf("escreva 3 registros: \n");
-    for (i = 0; i < 3; i++) {
-        printf("escreva uma palavra: ");
-        scanf("%s", dados.tipo_char);
-        printf("escreva um numero inteiro: ");
-        scanf("%d", &dados.tipo_int);
-        printf("escreva um numero 'float/com virgula': ");
-        scanf("%f", &dados.tipo_float);
-
-        printf("\n");
-        fprintf(arquivo, "%s %d %f \n", dados.tipo_char, dados.tipo_int, dados.tipo_float);
-    }
+    fprintf(arquivo, "Dados 1: %s %d %.2f\n", tipo_char1, tipo_int1, tipo_float1);
+    fprintf(arquivo, "Dados 2: %s %d %.2f\n", tipo_char2, tipo_int2, tipo_float2);
+    fprintf(arquivo, "Dados 3: %s %d %.2f\n", tipo_char3, tipi_int3, fipo_float3);
 
     fclose(arquivo);
-    
-    //leia dos dados de um arquivo e imprima-os na tela
+
+    // leia dados do arquivo e imprima na tela
     arquivo = fopen("arquivo.txt", "r");
+
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo");
         return 1;
     }
-    printf("leitura dos dados do arquivo: \n");
-    while (fscanf(arquivo, "%s %d %f", dados.tipo_char, &dados.tipo_int, &dados.tipo_float) != EOF) {
-        printf("%s %d %f \n", dados.tipo_char, dados.tipo_int, dados.tipo_float);
+
+    char linha[100];
+    while (fgets(linha, 100, arquivo) != NULL) {
+        printf("%s", linha);
     }
     
-
+    fclose(arquivo);
     return 0;
 }
