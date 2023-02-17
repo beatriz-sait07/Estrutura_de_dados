@@ -34,5 +34,18 @@ int main() {
     }
 
     fclose(arquivo);
+    
+    //leia dos dados de um arquivo e imprima-os na tela
+    arquivo = fopen("arquivo.txt", "r");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo");
+        return 1;
+    }
+    printf("leitura dos dados do arquivo: \n");
+    while (fscanf(arquivo, "%s %d %f", dados.tipo_char, &dados.tipo_int, &dados.tipo_float) != EOF) {
+        printf("%s %d %f \n", dados.tipo_char, dados.tipo_int, dados.tipo_float);
+    }
+    
+
     return 0;
 }
