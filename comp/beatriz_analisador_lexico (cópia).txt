@@ -24,7 +24,7 @@ int main (){
     }
 
     lista[0] = create_list();
-
+    
     char aux = fgetc(arq);
     while(aux != EOF){ 
 
