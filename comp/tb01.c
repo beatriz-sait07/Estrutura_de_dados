@@ -10,30 +10,46 @@ bool isNull(const List *l);
 Node *create_node (char caracter);
 List *create_list();
 void insere_dados(List *l, char letra);
+void print(const List *list);
 //void exluir_lista(List **ref_l);
+void validar_token(List *l);
 
 int main (){
     FILE *arq;
     arq = fopen("arq.c", "r");
-
-    List *lista[50];
-
-    int i=0; // contador da lista, cada i vai ser uma palavra
+    
+    List *lista[50]; // lista de palavras
+    int i; // contador da lista, cada i vai ser uma palavra
     
     if (arq == NULL){
         printf("erro ao abrir o arquivo!\n");
         exit(1);
     }
+    
 
     lista[0] = create_list();
-
+    List *list_caracter = create_list();
+    List *list_num = create_list();
     char aux = fgetc(arq);
-    while(aux != EOF){ 
 
+    //percorrendo o arquivo e jogando os caracteres em uma lista
+    while(aux != EOF){ 
         if(aux != ' ' && aux != '\n' && aux != '\t'){
-            printf("%c", aux);
-            insere_dados(lista[i], aux);
-            aux = fgetc(arq);
+            if (!(aux >= 'a' && aux <= 'z' || aux >= 'A' && aux <= 'Z')) { // se nao for letra
+                if (aux < '0' || aux > '9') { // se nao for numero
+                    insere_dados(list_caracter, aux);
+                    aux = fgetc(arq);
+                }
+                else {
+                    insere_dados(list_num, aux);
+                    aux = fgetc(arq);
+                }
+            }
+            else {
+                insere_dados(lista[i], aux);
+                aux = fgetc(arq);
+            }
+            
         }
         else {
             if (aux == '\n') {
@@ -42,11 +58,26 @@ int main (){
                 aux = fgetc(arq);
                 aux = fgetc(arq);
             }
-            i++;
-            lista[i] = create_list();
+            if (aux == ' ') {
+                i++;
+                lista[i] = create_list();
+            }
+            
+            aux = fgetc(arq);
         }
-
     }
+
+    printf("lista de palavras: \n");
+    i=0;
+    while(lista[i] != NULL){
+        print(lista[i]);
+        i++;
+    }
+    printf("\n\nlista de caracteres: \n");
+    print(list_caracter);
+    printf("\n\nlista de numeros: \n");
+    print(list_num);
+
     fclose(arq);
     printf("\n\n");
 
@@ -96,10 +127,29 @@ void insere_dados(List *l, char letra){ // adicionando apenas no final, pq ? pq 
         }
         aux->next = alpha;
     }
-    printf("%c", letra);
+    //printf("%c", letra);
     l->size ++;
 }
-/*
+
+void print(const List *list){
+    Node *p = list->inicio;
+
+    if(list != NULL){
+        printf("INICIO -> ");
+        while(p != NULL){
+            printf(" %c ->", p->letras);
+            p = p->next;
+        }
+        printf("NULL\n");
+    }else{
+        printf("a lista foi totalmete desalocada!\n");
+    }
+}
+
+void validar_token(List *l){
+    
+}
+
 void exluir_lista(List **ref_l){
     List *l = *ref_l;
     Node *pont = l->inicio;
@@ -113,4 +163,4 @@ void exluir_lista(List **ref_l){
     free(l);
     *ref_l = NULL;
     printf("\nlista totalmente desalocada!\n");
-}*/
+}
