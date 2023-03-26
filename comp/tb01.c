@@ -2,6 +2,19 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#define ESTADO_INICIAL 0 // estado inicial
+#define ESTADO_COMENTARIO 1 // comentario
+#define ESTADO_LITERAL 2 // string
+#define ESTADO_IDENTIFICADOR 3 // variavel
+#define ESTADO_NUMERO 4 // numero
+#define ESTADO_OPERADOR_ARITMETICO 5 // operador aritmetico
+#define ESTADO_OPERADOR_RELACIONAL 6 // operador relacional
+#define ESTADO_OPERADOR_ATRIBUICAO 7 // operador de atribuicao
+#define ESTADO_OPERADOR_LOGICO 8 // operador logico
+#define ESTADO_DELIMITADOR 9 // delimitador
+#define ESTADO_ERRO 10 // erro
+#define NUM_ESTADOS 11 // numero de estados
+
 //ideia principal
 
 typedef struct node_dados Node;
@@ -12,8 +25,6 @@ List *create_list();
 void insere_dados(List *l, char letra);
 void print(const List *list);
 //void exluir_lista(List **ref_l);
-void validar_token(List *l);
-
 int main (){
     FILE *arq;
     arq = fopen("arq.c", "r");
@@ -30,13 +41,25 @@ int main (){
     lista[0] = create_list();
     List *list_caracter = create_list();
     List *list_num = create_list();
+    List *frase = create_list();
     char aux = fgetc(arq);
 
     //percorrendo o arquivo e jogando os caracteres em uma lista
     while(aux != EOF){ 
         if(aux != ' ' && aux != '\n' && aux != '\t'){
+            if(aux == '"'){
+                insere_dados(frase, aux);
+                aux = fgetc(arq);
+                while(aux != '"'){
+                    insere_dados(frase, aux);
+                    aux = fgetc(arq);
+                }
+                insere_dados(frase, aux);
+                aux = fgetc(arq);
+            }
             if (!(aux >= 'a' && aux <= 'z' || aux >= 'A' && aux <= 'Z')) { // se nao for letra
                 if (aux < '0' || aux > '9') { // se nao for numero
+
                     insere_dados(list_caracter, aux);
                     aux = fgetc(arq);
                 }
@@ -49,7 +72,6 @@ int main (){
                 insere_dados(lista[i], aux);
                 aux = fgetc(arq);
             }
-            
         }
         else {
             if (aux == '\n') {
@@ -77,6 +99,8 @@ int main (){
     print(list_caracter);
     printf("\n\nlista de numeros: \n");
     print(list_num);
+    printf("\n\nlista de frases: \n");
+    print(frase);
 
     fclose(arq);
     printf("\n\n");
@@ -146,9 +170,16 @@ void print(const List *list){
     }
 }
 
-void validar_token(List *l){
+    /*while != null
+    se lista.palvra == a
+        if lista.palavra == u
+        if palavra == t
+        se palavra == o
+        l.token = "auto"
+
+    se palavra == i*/
+        
     
-}
 
 void exluir_lista(List **ref_l){
     List *l = *ref_l;
