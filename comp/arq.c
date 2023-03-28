@@ -1,4 +1,4 @@
-if main (){
-    printf ("Hello World!");
+float main (){
+    printf("Hello World!");
     return 0;
 }
