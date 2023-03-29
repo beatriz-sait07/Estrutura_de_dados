@@ -98,20 +98,24 @@ int main(){
         printf("erro ao abrir o arquivo!\n");
         exit(1);
     }
-    while(!feof(arq)){
+    while(!feof(arq) && i < 15000){
         fscanf(arq, "%d", &vetor[i]);
         i++;
     }
 
     fclose(arq);
 
-    ordena(vetor, i);
+    
     for(int j = 0; j < i; j++){
         printf("%d ", vetor[j]);
     }
 
     printf("\nmedia: %.2f ",media(vetor, i));
-    printf("\nmediana: %.2f ",mediana(vetor, i));
+    printf("\nmediana: %.2f \n",mediana(vetor, i));
+    ordena(vetor, i);
+    for(int j = 0; j < i; j++){
+        printf("%d ", vetor[j]);
+    }
     printf("\nmediana podada: %.2f ",mediana_podada(vetor, i, 10));
     
 
