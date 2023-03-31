@@ -43,7 +43,7 @@ void add_inicio(Lista *list, int elem)
     else{
         Node_simples *dados = Node_create(elem);
         dados->next = list->inicio; // o elemento criado aponta para o elemento que o 'inicio' está apotando p/ não perder a referancia
-        list->inicio = dados; // agora ele se torna o primeiro elemento sem perder a referencia do antigo 1º elemento
+        list->inicio = dados;
     }
     list->size++;
 }
