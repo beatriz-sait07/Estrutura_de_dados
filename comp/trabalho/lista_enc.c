@@ -17,7 +17,7 @@ Lista *Lista_create(){
     Lista *lista = (Lista *)calloc(1, sizeof(Lista));   //aloca apenas a "cabeca da lista", ou seja, o inicio da lista
     lista->inicio = NULL;
     lista->fim = NULL;
-    lista->token_list = 0;
+    lista->token_list = NULL;
     lista->size = 0;
     return lista;
 }

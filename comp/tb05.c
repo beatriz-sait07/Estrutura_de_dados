@@ -1,3 +1,4 @@
+//comecou a andar...
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -28,12 +29,7 @@ void token(Lista **l){
         aux = fgetc(arq);
 
     }
-
     fclose(arq);
-}
-
-void valida_token(Lista **l_princ, Lista *l_token){
-
 }
 
 
