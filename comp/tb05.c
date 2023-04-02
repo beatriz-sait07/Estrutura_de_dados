@@ -40,6 +40,5 @@ int main (){
         print_List(list[i]);
         printf("\n");
     }
-
     return 0;
 }
