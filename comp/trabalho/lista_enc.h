@@ -1,4 +1,3 @@
-
 #include <stdbool.h>
 
 typedef struct _node_simples{
@@ -10,7 +9,9 @@ typedef struct _lista_simples{
     Node *inicio;
     Node *fim;
     char *token_list;
-    int size;    //obrigatório já que necessia-se saber o tamanho
+    char **identificador;
+    char **erro;
+    int size;
 }Lista;
 bool isNull(const Lista *list);
 Node *Node_create(int val);
