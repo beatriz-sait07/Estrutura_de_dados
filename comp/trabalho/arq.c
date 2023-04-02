@@ -1,3 +1,3 @@
-auto main
-keiko    kim
-teste
+auto main(){
+    printf("Hello World!");
+}
