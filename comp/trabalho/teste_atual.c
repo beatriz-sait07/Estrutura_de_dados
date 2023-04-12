@@ -4,8 +4,6 @@
 #include <string.h>
 #include "lista_enc.h"
 
-#define AUTO
-
 void token(Lista **l) {
     FILE *arq;
     arq = fopen("tokens.txt", "r");
@@ -32,117 +30,66 @@ void token(Lista **l) {
     fclose(arq);
 }
 
-
-char buffer(Lista **l){
+void buffer(Lista **l){
     FILE *arq;
     arq = fopen("arq.c", "r");
+    char atual = fgetc(arq);
+    char next = atual;
 
     if (arq == NULL){
         printf("erro ao abrir o arquivo!\n");
         exit(1);
     }
     char buffer[50];
+
     int i=0;
-    char atual;
-    char proximo;
-    
-
-    /*while(1){
-        int aux = fgetc(arq);
-        if (aux == EOF){
-            break;
-        }
-        if (aux != ' ' && aux != '\n' && aux != '\t' && aux != '\r'){
-            in_word = 1;
-            if(!(aux >= 'a' && aux <= 'z' || aux >= 'A' && aux <= 'Z')){
-
-            }
-                
-            buffer[i] = aux;
-            i++;
-        }
-        else if (in_word){ 
-            in_word = 0;
+    while(atual != EOF){
+        if(next == ' ' || next == '\t' || next == '\r' || next == '\n'){ //se o proximo for um espaço, tab, retorno de linha ou nova linha
             for(int j=0; j<i; j++){
-                printf("%c", buffer[j]);
-            }
-            printf("\n");
-            for(int j=0; j<50; j++){
-                buffer[j] = 0;
-            }
-            i=0;
-        }
-    }*/
-
-    while(1){
-        atual = fgetc(arq);
-        proximo = atual;
-        if (proximo == EOF){
-            break;
-        }
-        if (proximo != ' ' && proximo != '\n' && proximo != '\t' && proximo != '\r'){
-            if(!(proximo >= 'a' && proximo <= 'z' || proximo >= 'A' && proximo <= 'Z')){
-                if(!(proximo < '0' || proximo > '9')){
-                    if(proximo == '"'){
-                        while(proximo != '"'){
-                            buffer[i] = proximo;
-                            i++;
-                            atual = fgetc(arq);
-                            proximo = atual;
-                        }
-                    } else {
-                        buffer[i] = proximo;
-                        i++;
-                        atual = fgetc(arq);
-                        proximo = atual;
-                    }
-                } else {
-                    //vetor recebe numero
-                    buffer[i] = proximo;
-                    i++;
-                    atual = fgetc(arq);
-                    proximo = atual;
-                }
-            } else {
-                buffer[i] = proximo;
-                i++;
                 atual = fgetc(arq);
-                proximo = atual;
+                next = atual;
             }
         }
-        else if (atual){ 
-            for(int j=0; j<i; j++){
-                printf("%c", buffer[j]);
-            }
-            printf("\n");
-            for(int j=0; j<50; j++){
-                buffer[j] = 0;
-            }
-            i=0;
+        else if (next >= 'a' && next <= 'z'){ //se o proximo for uma letra minuscula ele grava no vetor
+            buffer[i] = atual;
+            i++;
+            atual = fgetc(arq);
+            next = atual;
         }
-
+        else if (!(next >= 'a' && next <= 'z') || (next < 0 && next > 9)){ //se o proximo for um caractere especial ele grava no vetor
+            buffer[i] = atual;
+            i++;
+            atual = fgetc(arq);
+            next = atual;
+        }
+        else if (next == '"'){ //se o proximo for uma aspas ele grava no vetor
+            buffer[i] = atual;
+            i++;
+            atual = fgetc(arq);
+            next = atual;
+        }
+        else if (next == EOF){ //se o proximo for o fim do arquivo ele grava no vetor
+            buffer[i] = atual;
+            i++;
+            atual = fgetc(arq);
+            next = atual;
+            buffer[i] = '\0'; // adiciona um caractere nulo para indicar o final da string
+            //printf("Conteúdo do buffer: %s\n", buffer); // imprime o conteúdo do buffer
+        }
+        
+        for(int j=0; j<50; j++){
+            printf("%c", buffer[j]);
+        }
+        printf("\n");
+        for(int j=0; j<50; j++){ // reseta o buffer manualmente
+            buffer[j] = 0;
+        }
     }
-
     fclose(arq);
 }
 
-/*void valida_token(Node *node, char *buffer){
-    if(node == NULL){
-        printf("Token invalido!\n");
-        exit(1);
-    }
-    else{
-        if(strcmp(node->letra, buffer) == 0){
-            printf("Token valido!\n");
-        }
-        else{
-            valida_token(node->next, buffer);
-        }
-    }
-}*/
 
 void valida_token(Node *node, char *buffer){
-    ;
     if(node == NULL){
         printf("%s -> Token invalido!\n", buffer);
         exit(1);
@@ -180,9 +127,9 @@ int main(){
         print_List(list[i]);
         printf("\n");
     }*/
+    
     buffer(list);
 
-    //valida_token(list[0]->inicio, "auto");
     free(list); 
     return 0;
 }

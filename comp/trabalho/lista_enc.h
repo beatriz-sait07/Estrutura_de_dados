@@ -9,6 +9,7 @@ typedef struct _lista_simples{
     Node *inicio;
     Node *fim;
     char *token_list;
+    char *operador;
     char **identificador;
     char **erro;
     int size;
