@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <ctype.h>
 #include "lista_enc.h"
 
 void token(Lista **l) {
@@ -40,51 +41,52 @@ void buffer(Lista **l){
         printf("erro ao abrir o arquivo!\n");
         exit(1);
     }
-    char buffer[50];
 
-    int i=0;
-    while(atual != EOF){
-        if(next == ' ' || next == '\t' || next == '\r' || next == '\n'){ //se o proximo for um espaço, tab, retorno de linha ou nova linha
-            for(int j=0; j<i; j++){
+    char buffer[50];
+    int i = 0;
+    
+    while (next != EOF){
+        if (next != ' ' && next != '\t' && next != '\n') {
+            buffer[i] = atual;
+            i++;
+            atual = fgetc(arq);
+            next = atual;
+            if(next >= 'a' && next <= 'z' || next >= 'A' && next <= 'Z' || next >= '0' && next <= '9' || next == '_'){ // se for letra ou numero ou _ continua
+                continue;
+            }
+            else if (next == '"'){
+                buffer[i] = atual;
+                i++;
+                atual = fgetc(arq);
+                next = atual;
+                while(next != '"'){
+                    buffer[i] = atual;
+                    i++;
+                    atual = fgetc(arq);
+                    next = atual;
+                }
+                buffer[i] = atual;
+                i++;
                 atual = fgetc(arq);
                 next = atual;
             }
+            else{ // se for outro caractere, imprime o buffer e zera ele
+                buffer[i] = '\0';
+                printf("%s\n", buffer);
+                i = 0;
+            }
         }
-        else if (next >= 'a' && next <= 'z'){ //se o proximo for uma letra minuscula ele grava no vetor
-            buffer[i] = atual;
-            i++;
+        else {
+            if (i > 0) {
+                buffer[i] = '\0';
+                printf("%s\n", buffer);
+                i = 0;
+            }
             atual = fgetc(arq);
             next = atual;
-        }
-        else if (!(next >= 'a' && next <= 'z') || (next < 0 && next > 9)){ //se o proximo for um caractere especial ele grava no vetor
-            buffer[i] = atual;
-            i++;
-            atual = fgetc(arq);
-            next = atual;
-        }
-        else if (next == '"'){ //se o proximo for uma aspas ele grava no vetor
-            buffer[i] = atual;
-            i++;
-            atual = fgetc(arq);
-            next = atual;
-        }
-        else if (next == EOF){ //se o proximo for o fim do arquivo ele grava no vetor
-            buffer[i] = atual;
-            i++;
-            atual = fgetc(arq);
-            next = atual;
-            buffer[i] = '\0'; // adiciona um caractere nulo para indicar o final da string
-            //printf("Conteúdo do buffer: %s\n", buffer); // imprime o conteúdo do buffer
-        }
-        
-        for(int j=0; j<50; j++){
-            printf("%c", buffer[j]);
-        }
-        printf("\n");
-        for(int j=0; j<50; j++){ // reseta o buffer manualmente
-            buffer[j] = 0;
         }
     }
+
     fclose(arq);
 }
 
@@ -128,6 +130,7 @@ int main(){
         printf("\n");
     }*/
     
+
     buffer(list);
 
     free(list); 
