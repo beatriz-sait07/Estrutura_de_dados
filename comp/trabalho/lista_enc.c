@@ -19,6 +19,9 @@ Lista *Lista_create(){
     lista->fim = NULL;
     lista->token_list = NULL;
     lista->size = 0;
+    lista->operador = NULL;
+    lista->identificador = NULL;
+    lista->erro = NULL;
     return lista;
 }
 

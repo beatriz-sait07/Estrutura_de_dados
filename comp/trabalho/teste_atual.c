@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include "lista_enc.h"
 
-void token(Lista **l) {
+void token(Lista **l) { // cria a lista de tokens
     FILE *arq;
     arq = fopen("tokens.txt", "r");
 
@@ -31,7 +31,7 @@ void token(Lista **l) {
     fclose(arq);
 }
 
-void buffer(Lista **l){
+void buffer(Lista **l){ // cria o buffer
     FILE *arq;
     arq = fopen("arq.c", "r");
     char atual = fgetc(arq);
@@ -91,6 +91,7 @@ void buffer(Lista **l){
 }
 
 
+//passar no ddd e ver o que esta acontecendo aqui
 void valida_token(Node *node, char *buffer){
     if(node == NULL){
         printf("%s -> Token invalido!\n", buffer);
@@ -125,13 +126,26 @@ int main(){
 
     token(list);
 
-    /*for(int i=0; i<n; i++){
-        print_List(list[i]);
-        printf("\n");
-    }*/
+
+    for(int i=0; i<n; i++){
+        if(list[i] == NULL){
+            printf("Erro ao alocar memoria!\n");
+            exit(1);
+        }
+        valida_token(list[i]->inicio , "auto");
+    }
     
 
-    buffer(list);
+    
+
+    /*printf("lista: \n");
+    for(int i=0; i<n; i++){
+        print_List(list[i]);
+        printf("\n");
+    }
+
+    printf("buffer: \n");
+    buffer(list);*/
 
     free(list); 
     return 0;

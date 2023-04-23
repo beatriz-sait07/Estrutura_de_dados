@@ -9,9 +9,9 @@ typedef struct _lista_simples{
     Node *inicio;
     Node *fim;
     char *token_list;
-    char *operador;
-    char **identificador;
-    char **erro;
+    char *operador; //nao sei se irei usar
+    char **identificador; // nao sei se irei usar
+    char **erro; //nao sei se irei usar
     int size;
 }Lista;
 bool isNull(const Lista *list);
