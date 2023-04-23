@@ -1,4 +1,4 @@
-int main(){
+auto main(){
     printf("Hello World!");
     return 0;
 }
