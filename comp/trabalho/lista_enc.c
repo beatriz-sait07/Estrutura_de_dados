@@ -44,7 +44,7 @@ void add_Last(Lista *l, char val)
 void print_List(Lista *l){
     Node *aux = l->inicio;
     while(aux != NULL){
-        printf("%c ", aux->letra);
+        printf("%c", aux->letra);
         aux = aux->next;
     }
 }
