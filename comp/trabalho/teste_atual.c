@@ -1,3 +1,6 @@
+//a partir daqui irei colocar os tokens fazendo validacao e separando as palavras.
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -13,12 +16,39 @@ void token(Lista **l) { // cria a lista de tokens
         printf("Erro ao abrir o arquivo!\n");
         exit(1);
     }
-
+    char palavra[10];
     int i = 0;
+
+    // while (1) {
+    //     char aux = fgetc(arq);
+
+    //     if (aux == EOF) {
+    //         break;
+    //     } else if (aux == ' ') {
+    //         fgets(palavra, sizeof(palavra), arq);
+    //         int tamanho_palavra = strlen(palavra);
+    //         l[i]->token_list = (char *) calloc(tamanho_palavra + 1, sizeof(char));
+    //         strncpy(l[i]->token_list, palavra, tamanho_palavra);
+    //         i++;
+    //         l[i] = Lista_create();
+    //     } else if (aux == '\n') {
+    //         i++;
+    //         l[i] = Lista_create();
+    //     } else {
+    //         add_Last(l[i], aux);
+    //     }
+    // }
+
     l[i] = Lista_create();
     char aux = fgetc(arq);
 
     while(aux  != EOF){
+        if(aux == ' '){
+            fgets(palavra, sizeof(palavra), arq);
+            int tamanho_palavra = strlen(palavra);
+            l[i]->token_list = (char *) calloc(tamanho_palavra + 1, sizeof(char));
+            strncpy(l[i]->token_list, palavra, tamanho_palavra);
+        }
         if(aux == '\n'){
             aux = fgetc(arq);
             i++;
@@ -116,7 +146,7 @@ void valida_token(Node *node, char *buffer){
 
 
 int main(){
-    int n = 75;
+    int n = 77;
     Lista **list = (Lista **) malloc(n * sizeof(Lista *));
 
     if (list == NULL){
@@ -127,24 +157,24 @@ int main(){
     token(list);
 
 
-    for(int i=0; i<n; i++){
+    /*for(int i=0; i<n; i++){
         if(list[i] == NULL){
             printf("Erro ao alocar memoria!\n");
             exit(1);
         }
         valida_token(list[i]->inicio , "auto");
-    }
+    }*/
     
 
     
 
-    /*printf("lista: \n");
+    printf("lista: \n");
     for(int i=0; i<n; i++){
         print_List(list[i]);
         printf("\n");
     }
 
-    printf("buffer: \n");
+    /*printf("buffer: \n");
     buffer(list);*/
 
     free(list); 
