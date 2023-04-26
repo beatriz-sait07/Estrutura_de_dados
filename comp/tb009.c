@@ -1,48 +1,77 @@
+//ate aqui esta tudo certo
+
+// proximo passo e separar o token e a leitura do arquivo
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "lista_enc.h"
 
-void token(Lista **l) {
+void token(Lista **l){
     FILE *arq;
-    char buffer[256];
+    char palavra[20];
 
     arq = fopen("tokens.txt", "r");
-    if (arq == NULL) {
+
+    if (arq == NULL){
         printf("Erro ao abrir o arquivo!\n");
         exit(1);
     }
 
-    int i = 0;
+
+    int i = 0, vet = 0;
     l[i] = Lista_create();
+    char aux = fgetc(arq);
 
-    while (fgets(buffer, sizeof(buffer), arq) != NULL) {
-        int buffer_len = strlen(buffer);
-        int word_start = 0;
-        for (int j = 0; j < buffer_len; j++) {
-            if (buffer[j] == ' ' || buffer[j] == '\n') {
-                // Adiciona as letras na lista atual
-                for (int k = word_start; k < j; k++) {
-                    add_Last(l[i], buffer[k]);
-                }
-                if (word_start < j) {
-                    l[i]->token_list = (char*) malloc((j - word_start + 1) * sizeof(char));
-                    strncpy(l[i]->token_list, buffer + word_start, j - word_start);
-                    l[i]->token_list[j - word_start] = '\0';
-                    add_Last(l[i], ' '); // Adiciona espaço entre as palavras
-                }
-                word_start = j + 1;
-            }
-            if (buffer[j] == '\n') {
-                i++;
-                l[i] = Lista_create();
-                word_start = 0;
-            }
+
+    while(aux  != EOF){
+        if(aux == '\n'){
+            aux = fgetc(arq);
+            i++;
+            l[i] = Lista_create();
         }
-    }
+        add_Last(l[i], aux);
+        aux = fgetc(arq);
 
+    }
     fclose(arq);
 }
+
+// void token(Lista **l){
+//     FILE *arq;
+//     char palavra[20];
+
+//     arq = fopen("tokens.txt", "r");
+
+//     if (arq == NULL){
+//         printf("Erro ao abrir o arquivo!\n");
+//         exit(1);
+//     }
+
+
+//     int i = 0, vet = 0;
+//     l[i] = Lista_create();
+//     char aux = fgetc(arq);
+
+
+//     while(aux  != EOF){
+//         if(aux == '\n'){
+//             aux = fgetc(arq);
+//             i++;
+//             l[i] = Lista_create();
+//         } else if (aux == ' ') {
+//             memset(palavra, 0, sizeof(palavra)); // Limpa a string
+//             fgets(palavra, 20, arq); // le a palavra
+//             l[i]->token_list = (char*) malloc((strlen(palavra) + 1) * sizeof(char)); // aloca a string
+//             strcpy(l[i]->token_list, palavra);
+//         }
+//         add_Last(l[i], aux);
+//         aux = fgetc(arq);
+
+//     }
+//     fclose(arq);
+// }
 
 
 void buffer(Lista **l){ // cria o buffer
@@ -147,11 +176,6 @@ int main(){
         printf("\n");
     }
 
-    printf("\n\nLista token: \n");
-    for(int i=0; i<n; i++){
-        printf("%s\n", list[i]->token_list);
-
-    }
     free(list); 
     return 0;
 }
