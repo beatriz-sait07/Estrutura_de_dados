@@ -29,18 +29,15 @@ void add_Last(Lista *l, char val)
 {
     Node *new = Node_create(val);
 
-    //Se a lista estiver vazia
-    if(isNull(l)){
+    if(l->fim == NULL){
         l->inicio = l->fim = new;
     }else{
         l->fim->next = new; 
-        l->fim = l->fim->next;
+        l->fim = new;
     }
     l->size++;
 }
 
-
-//imprime a lista
 void print_List(Lista *l){
     Node *aux = l->inicio;
     while(aux != NULL){
