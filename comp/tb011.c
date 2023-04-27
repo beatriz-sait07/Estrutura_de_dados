@@ -1,3 +1,6 @@
+/* 100% funcional, esta separando as listas de tokens e palavras reservadas
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
