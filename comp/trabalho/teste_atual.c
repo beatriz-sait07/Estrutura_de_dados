@@ -37,7 +37,7 @@ void token(Lista **l) {
     fclose(arq);
 }
 
-void buffer(Lista **l){ // cria o buffer
+void buffer(){ // cria o buffer
     FILE *arq;
     arq = fopen("arq.c", "r");
     char atual = fgetc(arq);
@@ -78,16 +78,11 @@ void buffer(Lista **l){ // cria o buffer
             }
             else{ // se for outro caractere, imprime o buffer e zera ele
                 buffer[i] = '\0';
-                printf("%s\n", buffer);
+                printf("%s\n", buffer); // imprime o buffer principal
                 i = 0;
             }
         }
         else {
-            if (i > 0) {
-                buffer[i] = '\0';
-                printf("%s\n", buffer);
-                i = 0;
-            }
             atual = fgetc(arq);
             next = atual;
         }
@@ -96,28 +91,6 @@ void buffer(Lista **l){ // cria o buffer
 }
 
 
-//passar no ddd e ver o que esta acontecendo aqui
-void valida_token(Node *node, char *buffer){
-    if(node == NULL){
-        printf("%s -> Token invalido!\n", buffer);
-        exit(1);
-    }
-    else{
-        int i = 0;
-        while (node->letra != '\0' && buffer[i] != '\0') {
-            if (node->letra != buffer[i]) {
-                valida_token(node->next, buffer);
-                return;
-            }
-            i++;
-        }
-        if (node->letra == '\0' && buffer[i] == '\0') {
-            printf(" %s -> Token valido!\n", buffer);
-        } else {
-            valida_token(node->next, buffer);
-        }
-    }
-}
 
 void print_list_token(Lista **l, int n) {
     for (int i = 0; i < n; i++) {
@@ -143,6 +116,9 @@ int main(){
         printf("\n");
     }
 
+    //valida_token(list, list[0]->inicio);
+
+    buffer();
     free(list); 
     return 0;
 }

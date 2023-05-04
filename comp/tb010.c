@@ -45,7 +45,6 @@ void token(Lista **l) {
             }
         }
     }
-
     fclose(arq);
 }
 
