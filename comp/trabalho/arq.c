@@ -1,4 +1,3 @@
-auto main(){
-    printf("Hello World!");
-    return 0;
+auto main (){
+    printf ("oi");
 }

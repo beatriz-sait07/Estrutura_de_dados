@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -37,7 +38,40 @@ void token(Lista **l) {
     fclose(arq);
 }
 
-void buffer(){ // cria o buffer
+void valida_token(Lista **l, char *buffer){
+    int cont_l=0, cont_b=0;
+    Node *aux = l[cont_l]->inicio;
+    while(aux != NULL || buffer[cont_b] != '\0'){
+        printf("%c -> %c\n", buffer[cont_b], aux->letra);
+        if(aux->letra == buffer[cont_b]){
+            if(aux->next == NULL && buffer[cont_b + 1]){
+                printf("token valido: %s\n", l[cont_l]->token_list);
+            } else if (buffer[cont_b] != '\0' && aux == NULL) {
+                cont_l++;
+                aux= l[cont_l]->inicio;
+                cont_b=0;
+            } else {
+                printf("token invalido!\n");
+            }
+        } else {
+            if(aux->letra != buffer[cont_b]) {
+                cont_b=0;
+                while(aux->letra != buffer[cont_b]){
+                    cont_l++;
+                    aux = l[cont_b]->inicio;
+                    //cont_b = 0;
+                    printf("teste4\n"); //erro aqui
+                }
+            } else {
+                printf("inicial nao encontrada! \n");
+            }
+        }
+        cont_b++;
+        aux = aux->next;
+    } 
+}
+
+void buffer(Lista **l){
     FILE *arq;
     arq = fopen("arq.c", "r");
     char atual = fgetc(arq);
@@ -57,8 +91,8 @@ void buffer(){ // cria o buffer
             i++;
             atual = fgetc(arq);
             next = atual;
-            if(next >= 'a' && next <= 'z' || next >= 'A' && next <= 'Z' || next >= '0' && next <= '9' || next == '_'){ // se for letra ou numero ou _ continua
-                continue;
+            if(next >= 'a' && next <= 'z' || next >= 'A' && next <= 'Z'){
+                continue; 
             }
             else if (next == '"'){
                 buffer[i] = atual;
@@ -76,28 +110,22 @@ void buffer(){ // cria o buffer
                 atual = fgetc(arq);
                 next = atual;
             }
-            else{ // se for outro caractere, imprime o buffer e zera ele
-                buffer[i] = '\0';
-                printf("%s\n", buffer); // imprime o buffer principal
+            else{
+                buffer[i] = '\0'; //era o print aqui
+                valida_token(l, buffer);
                 i = 0;
             }
         }
         else {
+            if (i > 0) {
+                buffer[i] = '\0';
+                i = 0;
+            }
             atual = fgetc(arq);
             next = atual;
         }
     }
-    fclose(arq);
 }
-
-
-
-void print_list_token(Lista **l, int n) {
-    for (int i = 0; i < n; i++) {
-        printf("%s\n", l[i]->token_list ? l[i]->token_list : "(null)"); // Trata caso de token_list ser NULL
-    }
-}
-
 
 int main(){
     int n = 77;
@@ -107,18 +135,8 @@ int main(){
         printf("Erro ao alocar memoria!\n");
         exit(1);
     }
-
     token(list);
-
-    for(int j=0; j<n; j++){
-        printf("|%d|-|%s| = ", j,list[j]->token_list);
-        print_List(list[j]);
-        printf("\n");
-    }
-
-    //valida_token(list, list[0]->inicio);
-
-    buffer();
+    buffer(list);
     free(list); 
     return 0;
 }

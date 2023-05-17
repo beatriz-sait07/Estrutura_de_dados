@@ -51,23 +51,18 @@ char *valida_token(Lista **l, char *buffer) {
         while (l[i] != NULL) {
             aux = l[i]->inicio;
             j = 0;
-
             while (aux != NULL && aux->letra == buffer[j]) {
                 aux = aux->next;
                 j++;
-
                 if (buffer[j] == '\0' && aux == NULL) {
                     printf("Token valido: %s\n", buffer);
                     return buffer;
                 }
             }
-
             i++;
         }
-
         printf("Token invalido!\n");
     }
-
     return buffer;
 }
 
