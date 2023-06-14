@@ -6,8 +6,8 @@
 #include <unistd.h>
 
 int main() {
-    int serial_port = open("/dev/pts/0", O_RDONLY);
-    
+    int serial_port = open("/dev/pts/0", O_WRONLY);
+
     if (serial_port < 0) {
         printf("Erro ao abrir o dispositivo: %s\n", strerror(errno));
         return 1;
@@ -20,6 +20,9 @@ int main() {
         return 1;
     }
     
+    cfsetispeed(&tty, B9600);
+    cfsetospeed(&tty, B9600);
+    
     tty.c_cflag &= ~PARENB;
     tty.c_cflag &= ~CSTOPB;
     tty.c_cflag &= ~CSIZE;
@@ -31,7 +34,12 @@ int main() {
     
     tty.c_iflag &= ~(IXON | IXOFF | IXANY);
     tty.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL);
-
+    
+    tty.c_oflag &= ~OPOST;
+    tty.c_oflag &= ~ONLCR;
+    
+    tty.c_cc[VTIME] = 10;
+    tty.c_cc[VMIN] = 0;
     
     if (tcsetattr(serial_port, TCSANOW, &tty) != 0) {
         printf("Erro ao definir os atributos do terminal: %s\n", strerror(errno));
@@ -39,19 +47,16 @@ int main() {
         return 1;
     }
     
-    char read_buf[256];
-    memset(read_buf, '\0', sizeof(read_buf));
+    unsigned char msg[] = "mensagem do terminal 0";
+    ssize_t bytes_written = write(serial_port, msg, sizeof(msg));
     
-    ssize_t num_bytes = read(serial_port, read_buf, sizeof(read_buf) - 1);
-    
-    if (num_bytes < 0) {
-        printf("Erro ao ler do dispositivo: %s\n", strerror(errno));
+    if (bytes_written < 0) {
+        printf("Erro ao escrever no dispositivo: %s\n", strerror(errno));
         close(serial_port);
         return 1;
     }
     
-    read_buf[num_bytes] = '\0';
-    printf("Mensagem recebida: %s\n", read_buf);
+    printf("Mensagem enviada com sucesso!\n");
     
     close(serial_port);
     
