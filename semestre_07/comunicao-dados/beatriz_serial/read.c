@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 int main() {
-    int serial_port = open("/dev/pts/0", O_RDONLY);
+    int serial_port = open("./saida", O_RDONLY);
     
     if (serial_port < 0) {
         printf("Erro ao abrir o dispositivo: %s\n", strerror(errno));
@@ -50,8 +50,9 @@ int main() {
         return 1;
     }
     
-    read_buf[num_bytes] = '\0';
+    //read_buf[num_bytes] = '\0';
     printf("Mensagem recebida: %s\n", read_buf);
+    
     
     close(serial_port);
     

@@ -5,7 +5,7 @@
 #include <termios.h>
 #include <unistd.h>
 int main () {
-    int serial_port = open("/dev/pts/0", O_RDWR); //o_rdwr abre o arquivo para leitura e escrita
+    int serial_port = open("/dev/pts/2", O_RDWR); //o_rdwr abre o arquivo para leitura e escrita
     struct termios tty;
     
     if (tcgetattr(serial_port, &tty) != 0) { //chamada para obter os atributos atuais do terminal associado ao descritor de arquivo
@@ -36,7 +36,7 @@ int main () {
         printf ( "Error %i from tcsetattr: %s \n ", errno, strerror(errno));
         return 1;
     }
-    unsigned char msg [] = { 'H', 'e', 'l', 'l', 'o', '\r'} ;
+    unsigned char msg [] = { 'H', 'e', 'l', 'l', 'o', '\0'} ;
     write (serial_port, msg, sizeof(msg));
     char read_buf[256];
     memset(&read_buf, '\0', sizeof (read_buf));

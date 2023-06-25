@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 int main() {
-    int serial_port = open("/dev/pts/0", O_WRONLY);
+    int serial_port = open("./entrada", O_WRONLY);
 
     if (serial_port < 0) {
         printf("Erro ao abrir o dispositivo: %s\n", strerror(errno));
@@ -47,7 +47,7 @@ int main() {
         return 1;
     }
     
-    unsigned char msg[] = "mensagem do terminal 0";
+    unsigned char msg[256] = "mensagem do terminal\n";
     ssize_t bytes_written = write(serial_port, msg, sizeof(msg));
     
     if (bytes_written < 0) {
@@ -61,4 +61,5 @@ int main() {
     close(serial_port);
     
     return 0;
+    //socat PTY,link=./entrada,raw,echo=0 PTY,link=./saida,raw,echo=0
 }

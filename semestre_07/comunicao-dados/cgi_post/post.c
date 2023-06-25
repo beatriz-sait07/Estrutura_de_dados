@@ -4,26 +4,22 @@
 
 #define MAXQELEMENTS 16
 
-struct
-  {
+struct {
   char name[128];
   char val[128];
-  } elements[MAXQELEMENTS];
+} elements[MAXQELEMENTS];
 
-void
-splitword(char *out, char *in, char stop)
-  {
+void splitword(char *out, char *in, char stop) {
   int i;
   int j;
 
-  while(*in == ' ')
-    {
+  while(*in == ' ') {
     in++;
-    }
-  for(i = 0; in[i] && (in[i] != stop); i++)
-    {
+  }
+
+  for(i = 0; in[i] && (in[i] != stop); i++) {
     out[i] = in[i];
-    }
+  }
   out[i] = '\0';
   if(in[i])
     {
@@ -37,11 +33,9 @@ splitword(char *out, char *in, char stop)
     {
     in[j++] = in[i++];
     }
-  }
+}
 
-char
-x2c(char *x)
-  {
+char x2c(char *x) {
   register char c;
 
   c = (x[0] >= 'A' ? ((x[0] & 0xdf) - 'A') + 10 : (x[0] - '0'));
@@ -49,11 +43,9 @@ x2c(char *x)
   c += (x[1] >= 'A' ? ((x[1] & 0xdf) - 'A') + 10 : (x[1] - '0'));
 
   return(c);
-  }
+}
 
-void
-unescape_url(char *url)
-  {
+void unescape_url(char *url) {
   register int i, j;
 
   for(i = 0, j = 0; url[j]; ++i, ++j)
@@ -71,9 +63,7 @@ unescape_url(char *url)
   url[i] = '\0';
   }
 
-int
-main()
-  {
+int main() {
   char *ct;
   char *cl;
   int icl;
@@ -118,23 +108,6 @@ main()
   qs[icl] = '\0';
 
   printf("QUERY_STRING = %s\n", qs);
- 
-  /*
-  for(i = 0; *qs && i < MAXQELEMENTS; i++)
-    {
-    splitword(elements[i].val, qs, '&');
-    unescape_url(elements[i].val);
-    splitword(elements[i].name, elements[i].val, '=');
-    printf("%s\n", elements[i].name);
-    }
-
-  printf("Variables:\n\n");
-
-  for(i = 0; elements[i].name[0]; i++)
-    {
-    printf("%s=%s\n", elements[i].name, elements[i].val);
-    }
-  */
 
   return(0);
   }
