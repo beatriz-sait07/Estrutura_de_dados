@@ -6,7 +6,10 @@ typedef struct node {
   int key;
   struct node *left;
   struct node *right;
+  struct node *pred, *succ;
+  struct node *max, *min;
   int height;
+
 } node;
 
 //create_node
@@ -59,7 +62,6 @@ node *left_rotate(node *x) {
 
   x->height = 1 + max(height(x->left), height(x->right));
   y->height = 1 + max(height(y->left), height(y->right));
-
   return y;
 }
 
@@ -80,14 +82,63 @@ node *balance(node *n) {
 }
 
 //trocar
-node *insert(node *x, node *z){
-    if(x == NULL || (x != NULL && x->key == z->key)){
-        return z;
-    }else if(z->key < x->key){
-        x->left = insert(x->left, z);
-    }else{
-        x->right = insert(x->right, z);
+// node *insert(node *x, node *z){
+//     if(x == NULL || (x != NULL && x->key == z->key)){
+//         return z;
+//     }else if(z->key < x->key){
+//         x->left = insert(x->left, z);
+//     }else{
+//         x->right = insert(x->right, z);
+//     }
+//     x->height = 1 + max(height(x->left), height(x->right));
+//     return balance(x);
+// }
+
+node* Successor(node* x) {
+    if(x == NULL) return NULL;
+    return x->succ;
+}
+
+node* Predecessor(node* x) {
+    if(x == NULL) return NULL;
+    return x->pred;
+}
+
+node* minimum(node *no){
+    if(no == NULL) return NULL;
+    printf("Menor valor: %d\n", no->min->key);
+    return no;
+}
+
+node* maximum(node *no){
+    if(no == NULL){
+          return NULL;
     }
+    printf("Maior valor: %d\n", no->max->key);
+    return no;
+}
+
+node* insert(node* x, node* z) {
+    if (x == NULL) {
+        z->succ = NULL;
+        z->pred = NULL;
+        return z;
+    }
+    if (x->key == z->key)
+        return z;
+    if (z->key < x->key) {
+        x->left = insert(x->left, z);
+        x->left->pred = Predecessor(x->left);
+        x->left->succ = x;
+    } else {
+        x->right = insert(x->right, z);
+        x->right->succ = Successor(x->right);
+        x->right->pred = x;
+    }
+
+    if (x->min == NULL ||z->key < x->min->key) x->min = z;
+    if (x->max == NULL ||z->key > x->max->key) x->max = z;
+
     x->height = 1 + max(height(x->left), height(x->right));
     return balance(x);
 }
@@ -162,6 +213,8 @@ node *search_deepest(node *x){
     }
 }
 
+
+
 void desenha_arvore_horiz(node *node, int depth, char *path, int direita)
 {
     // stopping conditiondepth
@@ -232,18 +285,6 @@ void desenho(node *T)
 int main (){
     node *T = NULL;
     int n;
-    /*printf("quantas chaves voce ira usar: ");
-    scanf("%d", &n);
-    for (int i = 0; i < n; i++){
-        int key;
-        printf("Digite a chave: ");
-        scanf("%d", &key);
-        node *z = create_node(key);
-        root = insert(root, z);
-      }
-    printf("Pre order:\n");
-    pre_order(root);*/
-
     node *new = create_node(43);
     T = insert(T, new);
     new = create_node(18);
@@ -272,6 +313,10 @@ int main (){
     printf("\n");
     desenho(T);
     printf("\n");
+
+    maximum(T);
+    minimum(T);
+
     return 0;
 }
 
