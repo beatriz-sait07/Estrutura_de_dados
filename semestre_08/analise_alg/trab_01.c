@@ -12,13 +12,20 @@ int main(){
     }
 
     t = clock() - t;
-    double time_taken = ((double)t)/CLOCKS_PER_SEC;
-    printf("O codigo levou %f segundos para executar\n", time_taken);
+    double time = ((double)t)/CLOCKS_PER_SEC;
+    printf("\nO codigo levou %f segundos para executar\n", time);
     return 0;
 }
 /*
-3 --> t = clock, i=10 e i>=0 o i-- nao está incluso pq o decremento ainda não ocorreu!
-20 pq o i vai ser menor que o 0 10x e vai ser decrementado 10x
+antes:
+5 --> t = clock, i=10 e i>=0 o i-- nao está incluso pq o decremento ainda não ocorreu!
+durante:
+10 pq o i vai ser menor que o 0 10x e vai ser decrementado 10x
+depois:
 10 imprime cada emento do i
 1 --> t = clock - t
+1 --> time = t/CLOCKS_PER_SEC
+1 --> imprime o time
+1 --> return 0
+f(x) = 5 + 20 + 10 + 1 + 1 + 1 + 1 = 39
 */
