@@ -1,6 +1,3 @@
-//faca uma contagem regressiva de 0 a 10 e e calcule o tempo de execução do codigo total
-//usando a funcao clock() da biblioteca time.h
-
 #include <stdio.h>
 #include <time.h>
 
