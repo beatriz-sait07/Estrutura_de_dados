@@ -24,5 +24,5 @@ depois:
 1 --> time = t/CLOCKS_PER_SEC
 1 --> imprime o time
 1 --> return 0
-f(x) = 5 + 20 + 10 + 1 + 1 + 1 + 1 = 39
+f(x) = 5 + 10 + 10 + 1 + 1 + 2 + 1 = 30
 */
