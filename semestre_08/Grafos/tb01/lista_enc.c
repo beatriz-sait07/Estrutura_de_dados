@@ -37,7 +37,6 @@ void insert(struct list *l, char caracter){
         exit(1);
     }
     struct node *n = Node_create(caracter);
-    l->end->next = n;
     
 
 }
