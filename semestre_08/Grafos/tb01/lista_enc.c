@@ -32,11 +32,41 @@ bool isNull (struct list *l) {
 };
 
 void insert(struct list *l, char caracter){
-    if(isNull(l)){
-        fprintf(stderr, "ERRO: lista vazia!\n");
-        exit(1);
-    }
     struct node *n = Node_create(caracter);
-    
+    if(isNull(l)){
+        l->begin = n;
+        l->end = n;
+    }
+    else{
+        struct node *aux = l->begin;
+        while(aux->next != NULL){
+            aux = aux->next;
+        }
+        aux->next = n;
+    }
+    l->size++;
+}
+
+void print(const struct list *l){
+    struct node *aux = l->begin;
+    while(aux != NULL){
+        printf("%c", aux->letra);
+        aux = aux->next;
+    }
+    printf("\n");
+}
+
+void free_l(struct list **l){
+    struct list *lista = *l;
+    struct node *p = lista->begin;
+    struct node *aux = NULL;
+    while(p != NULL){
+        aux = p->next;
+        free(p);
+        p = aux;
+    }
+    free(lista);
+    *l = NULL;
+    printf("Lista liberada com sucesso!\n");
 
 }
