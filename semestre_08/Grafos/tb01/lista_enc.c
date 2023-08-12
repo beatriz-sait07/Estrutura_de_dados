@@ -1,8 +1,7 @@
-#include "lista_enc.h"
+#include "./lista_enc.h"
 #include <stdio.h>
 #include <stdlib.h>
 struct node {
-    //char individuo[20]; // realmente preciso disso ?
     bool mascara;
     bool infectado;
     struct node *next;
@@ -13,10 +12,10 @@ struct list {
     struct node *begin;
 };
 
-struct node *Node_create(char *caracter) {
+struct node *Node_create(bool mask, bool infctd) {
     struct node *Node = (struct node*)calloc(1, sizeof(struct node));
-    Node->mascara = false;
-    Node->infectado = false;
+    Node->mascara = mask;
+    Node->infectado = infctd;
     Node->next = NULL;
     return Node;
 }
@@ -32,8 +31,8 @@ bool isNull(struct list *l) {
     return l->size == 0;
 }
 
-void insert(struct list *l, char caracter) {
-    struct node *n = Node_create(caracter);
+void insert(struct list *l, bool msk, bool infctd) {
+    struct node *n = Node_create(msk, infctd);
     if (isNull(l)) {
         l->begin = n;
     } else {
@@ -46,21 +45,6 @@ void insert(struct list *l, char caracter) {
     l->size++;
 }
 
-void print_list(const struct list *l) {
-    struct node *aux = l->begin;
-    if (aux != NULL) {
-        printf("INICIO -> ");
-        while (aux != NULL) {
-            printf("%s -> ", aux->individuo[20]);
-            aux = aux->next;
-        }
-        printf("NULL\n");
-    } else {
-        printf("A lista está vazia!\n");
-    }
-
-    printf("Tamanho = %ld\n", l->size);
-}
 
 void free_list(struct list **l) {
     struct list *lista = *l;
@@ -75,3 +59,6 @@ void free_list(struct list **l) {
     *l = NULL;
     printf("Lista liberada com sucesso!\n");
 }
+
+
+//pense no caso de inserir os dados como uma tabela verdade e a cada true aumenta 25% de chance de ser infectado
