@@ -84,8 +84,6 @@ void leitura_arq(struct lista **lista){
         lista[i] = List_Create();
     }
 }
-
-
 //-------------------------------------------------MAIN--------------------------------------------//
 int main(){
     
