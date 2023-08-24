@@ -1,126 +1,106 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<stdbool.h>
 
-//-------------------------------------------LISTA--------------------------------------------------------------------------------
-struct node {
-    bool masc, infc;
+
+//-------------------------------LISTA ENCADEADA---------------------------------//
+struct node{
+    char val;
     struct node *next;
 };
-
-struct list {
-    long int size;
-    struct node *begin;    
+struct lista{
+    struct node *begin;
+    struct node *end;
+    char pal[30];
+    int size;
 };
+struct node *Node_Create(char val)
+{
+    struct node *node = (struct node *)calloc(1, sizeof(struct node)); //Alocando o No dinamicamente
+    node->val = val; // Atribuindo o parametro passado 
+    node->next = NULL; // Atribuindo nulo ao proximo elemento de um No recem criado
 
-struct node *Node_create(bool mask, bool infctd) {
-    struct node *Node = (struct node*)calloc(1, sizeof(struct node));
-    Node->masc = mask;
-    Node->infc = infctd;
-    Node->next = NULL;
-    return Node;
+    return node;
 }
+struct lista *List_Create()
+{
+    struct lista *lista = (struct lista*)calloc(1, sizeof(struct lista)); // Alocando a lista dinamicamente
+    lista->begin = NULL; // Atribuindo Nulo ao ponteiro pro inicio de uma lista recem criada
+    lista->end = NULL; // Atribuindo Nulo ao ponteiro pro final de uma lista recem criada
+    lista->size = 0;
 
-struct list *List_create() {
-    struct list *l = (struct list*)calloc(1, sizeof(struct list));
-    l->size = 0;
-    l->begin = NULL;
-    return l;
+    return lista;
 }
-
-bool isNull(struct list *l) {
-    return l->size == 0;
+bool is_Empty(const struct lista *lista)
+{
+    return lista->size == 0;
 }
+void add_Last(struct lista *lista, char val)
+{
+    struct node *new = Node_Create(val);
 
-void insert(struct list *l, bool mask, bool infctd) {
-    struct node *n = Node_create(mask, infctd);
-    if (isNull(l)) {
-        l->begin = n;
-    } else {
-        struct node *aux = l->begin;
-        while (aux->next != NULL) {
-            aux = aux->next;
-        }
-        aux->next = n;
+    //Se a lista estiver vazia
+    if(is_Empty(lista)){
+        lista->begin = lista->end = new;
+    }else{
+        lista->end->next = new; // Proximo elemento do ultimo Node aponta pro novo
+        lista->end = lista->end->next; // O novo Node passa a ser o End
     }
-    l->size++;
+    lista->size++;
 }
-
-void print_list(const struct list *l) {
-    struct node *aux = l->begin;
-    if (aux != NULL) {
-        printf("INICIO -> ");
-        while (aux != NULL) {
-            printf("%c -> ", aux->infc);
-            aux = aux->next;
-        }
-        printf("NULL\n");
-    } else {
-        printf("A lista está vazia!\n");
-    }
-
-    printf("Tamanho = %ld\n", l->size);
-}
-
-
-void free_list(struct list **l) {
-    struct list *lista = *l;
+void print(const struct lista *lista)
+{
     struct node *p = lista->begin;
-    struct node *aux = NULL;
-    while (p != NULL) {
-        aux = p->next;
-        free(p);
-        p = aux;
+    //Enquanto P apontar para um no existente
+    while(p != NULL){
+        printf("|%c|", p->val);
+        p = p->next;
     }
-    free(lista);
-    *l = NULL;
-    printf("Lista liberada com sucesso!\n");
 }
 
-//------------------------------------------LEITURA-----------------------------------------------------------------------------
-void leitura_arq(struct list **lista) {
-    FILE *arq;
-    char caracter;
+//-----------------------------------------LEITURA DO ARQUIVO-----------------------------------------//
+void leitura_arq(struct lista **lista){
+    FILE *file;
+    file = fopen("grafos.csv", "r");
+    if(file == NULL){
+        printf("Erro de abertura do arquivo!");
+        exit(1);
+    }
+
+    char line[50];
     int i = 0;
+    lista[i] = List_Create();
 
-    arq = fopen("infectado.csv", "r");
-
-    if (arq == NULL) {
-        printf("Erro ao abrir o arquivo");
-        exit(1);
+    while (fgets(line, sizeof(line), file)) {
+        char *token = strtok(line, ",");
+        while (token != NULL) {
+            int value;
+            value = token[0];
+            add_Last(lista[i], value);
+            token = strtok(NULL, ",");
+        }
+        i++;
+        lista[i] = List_Create();
     }
-
-    while ((caracter = fgetc(arq)) != EOF) {
-        printf("%c", caracter);
-    }
-
-    fclose(arq);
 }
 
 
-// ------------------------------------------MAIN--------------------------------------------------------------------------------
-int main() {
-    int num_lists = 8;
-    struct list **lista = (struct list **)malloc(num_lists * sizeof(struct list *));
+//-------------------------------------------------MAIN--------------------------------------------//
+int main(){
     
-    // Verifique se a alocação de memória foi bem-sucedida
-    if (lista == NULL) {
-        printf("Erro ao alocar memoria");
-        exit(1);
-    }
+    struct lista **lista = (struct lista**)malloc(8 * sizeof(struct lista*));
     
-    for (int i = 0; i < num_lists; i++) {
-        lista[i] = List_create();  // Inicialize cada lista no array
-    }
-
     leitura_arq(lista);
 
-    // Libere a memória de cada lista
-    /*for (int i = 0; i < num_lists; i++) {
-        free_list(&lista[i]);
-    }*/
-    
-    free(lista);  // Libere o array de ponteiros para listas
+    // CASO QUEIRA IMPRIMIR A LISTA DE ADJACENCIA DE TOKENS DESCOMENTE A FUNCAO ABAIXO
+    for(int j=0; j<8; j++){
+        printf("\n|%d| = ", j);
+        print(lista[j]);
+        printf("_%s", lista[j]->pal);
+    }
 
+    free(lista);
+    printf("\n");
     return 0;
 }
