@@ -84,6 +84,24 @@ void leitura_arq(struct lista **lista){
         lista[i] = List_Create();
     }
 }
+/*
+0000
+0010
+0011
+0001
+
+*/
+//-------------------------------TRANSFORMANDO-----------------------------------//
+bool infectado(struct lista **lista){
+    if(lista[0] == 'c' || lista[0] == 'C'){
+        return true;
+    } else if (lista[0] == 's' || lista[0] == 'S'){
+        return false;
+    } else {
+        printf("Erro: leitura incompativel de dados!\n");
+        exit(1);
+    }
+}
 //-------------------------------------------------MAIN--------------------------------------------//
 int main(){
     
