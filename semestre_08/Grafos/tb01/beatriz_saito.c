@@ -84,39 +84,52 @@ void leitura_arq(struct lista **lista){
         lista[i] = List_Create();
     }
 }
-/*
-0000
-0010
-0011
-0001
+//-------------------------------TRANSFORMANDO EM BOOLEANO-----------------------------------//
+void replace(struct lista **lista) {
+    int i = 0;
+    while (lista[i]->begin != NULL) {
+        struct node *aux = lista[i]->begin;
 
-*/
-//-------------------------------TRANSFORMANDO-----------------------------------//
-bool infectado(struct lista **lista){
-    if(lista[0] == 'c' || lista[0] == 'C'){
-        return true;
-    } else if (lista[0] == 's' || lista[0] == 'S'){
-        return false;
-    } else {
-        printf("Erro: leitura incompativel de dados!\n");
-        exit(1);
+        while (aux != NULL) {
+            if (aux->val == 'C' || aux->val == 'c') {
+                aux->val = '1';
+            } else if (aux->val == 'S' || aux->val == 's') {
+                aux->val = '0';
+            } else {
+                fprintf(stderr, "Erro: Nao foi possivel identificar o estado do vertice %d", i);
+            }
+
+            aux = aux->next;
+        }
+
+        i++;
     }
 }
+
 //-------------------------------------------------MAIN--------------------------------------------//
 int main(){
     
     struct lista **lista = (struct lista**)malloc(8 * sizeof(struct lista*));
-    
     leitura_arq(lista);
 
     // CASO QUEIRA IMPRIMIR A LISTA DE ADJACENCIA DE TOKENS DESCOMENTE A FUNCAO ABAIXO
     for(int j=0; j<8; j++){
         printf("\n|%d| = ", j);
         print(lista[j]);
-        printf("_%s", lista[j]->pal);
+        printf("%s", lista[j]->pal);
     }
+    printf("\ntransformacao da lista para bool\n");
+    replace(lista);
+    for(int j=0; j<8; j++){
+        printf("\n|%d| = ", j);
+        print(lista[j]);
+        printf("%s", lista[j]->pal);
+    }
+
 
     free(lista);
     printf("\n");
     return 0;
 }
+
+
