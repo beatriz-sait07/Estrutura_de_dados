@@ -155,6 +155,7 @@ int percorre(struct lista *lista){
         }
     }
 }
+
 void atribui_Porcent(struct lista **lista){
     for(int i=0; i<TAM; i++){
         int p = percorre(lista[i]);
