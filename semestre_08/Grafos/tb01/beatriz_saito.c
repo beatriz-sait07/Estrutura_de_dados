@@ -164,7 +164,6 @@ void atribui_Porcent(struct lista **lista){
         lista[i]->porcent = p;
     }
 }
-
 //-------------------------------------------------MAIN--------------------------------------------//
 int main(){
     
@@ -181,7 +180,7 @@ int main(){
     replace(lista);
     atribui_Porcent(lista);
 
-    printf("LIsta com booleanos e suas porcentagens de infeccatados: \n");
+    printf("\nLista com booleanos e suas porcentagens de infeccatados: \n");
     for(int j=0; j<TAM; j++){
         printf("\n|%d| = ", j);
         fprintf(file, "%d = ", j);
@@ -192,10 +191,9 @@ int main(){
             fprintf(file, "|%c|", p->val);
             p = p->next;
         }
-    
         print(lista[j]);
         printf(" - %d%%", lista[j]->porcent);
-        fprintf(file, "%d%%\n", lista[j]->porcent);
+        fprintf(file, " -> %d%%\n", lista[j]->porcent);
     }
     printf("\n");
     return 0;
