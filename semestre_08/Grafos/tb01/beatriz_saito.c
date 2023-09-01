@@ -116,7 +116,7 @@ void replace(struct lista **lista) {
     TIPO DE ANALISE :
     esquerda -> direta, logo o individuo da esquerda obrigatoriamente tem que estar saudavel para ser feita a analise como solicitada pelo professor, logo nao foi feito tratamento para o caso de um individuo infectado a esquerda
 
-    VISUALISACAO:
+    VISUALIZACAO:
     com mascara || com infeccao = 1
     sem mascara || sem infeccao = 0
 */
