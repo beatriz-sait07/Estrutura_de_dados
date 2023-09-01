@@ -108,11 +108,18 @@ void replace(struct lista **lista) {
     }
 }
 //-----------------------------------------CHANCE DE INFECCAO---------------------------------------//
-/*   considerando um individuo sem mascara e saudavel (00), com outras quaisquer combinacoes de estado,
-apos irei realizar a chance de um individuo com mascara e saudavel (10), com outras quaisquer combinacoes
-de estado!         */
 
-// 0 -> sem infeccao
+/*
+    CONSIDERA-SE:
+    mascara, infecao, mascara, infecao
+
+    TIPO DE ANALISE :
+    esquerda -> direta, logo o individuo da esquerda obrigatoriamente tem que estar saudavel para ser feita a analise como solicitada pelo professor, logo nao foi feito tratamento para o caso de um individuo infectado a esquerda
+
+    VISUALISACAO:
+    com mascara || com infeccao = 1
+    sem mascara || sem infeccao = 0
+*/
 int percorre(struct lista *lista){
     struct node *aux = lista->begin;
     if(aux->val == '0'){    // 1 coluna
