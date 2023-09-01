@@ -62,6 +62,7 @@ void print(const struct lista *lista)
     }
 }
 
+
 //-----------------------------------------LEITURA DO ARQUIVO-----------------------------------------//
 void leitura_arq(struct lista **lista){
     FILE *file;
@@ -111,6 +112,7 @@ void replace(struct lista **lista) {
 apos irei realizar a chance de um individuo com mascara e saudavel (10), com outras quaisquer combinacoes
 de estado!         */
 
+// 0 -> sem infeccao
 int percorre(struct lista *lista){
     struct node *aux = lista->begin;
     if(aux->val == '0'){    // 1 coluna
@@ -169,6 +171,7 @@ int main(){
     struct lista **lista = (struct lista**)malloc(TAM * sizeof(struct lista*));
     leitura_arq(lista);
 
+    FILE *file = fopen("saida_infectados.txt", "w");
 
     for(int j=0; j<TAM; j++){
         printf("\n|%d| = ", j);
@@ -181,8 +184,18 @@ int main(){
     printf("LIsta com booleanos e suas porcentagens de infeccatados: \n");
     for(int j=0; j<TAM; j++){
         printf("\n|%d| = ", j);
+        fprintf(file, "%d = ", j);
+
+        struct node *p = lista[j]->begin;
+
+        while(p != NULL){
+            fprintf(file, "|%c|", p->val);
+            p = p->next;
+        }
+    
         print(lista[j]);
         printf(" - %d%%", lista[j]->porcent);
+        fprintf(file, "%d%%\n", lista[j]->porcent);
     }
     printf("\n");
     return 0;
