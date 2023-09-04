@@ -31,4 +31,3 @@ btn1.addEventListener("click", function(){//botão próximo
 });
 
 up_img();
-

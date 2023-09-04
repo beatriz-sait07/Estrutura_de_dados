@@ -1,4 +1,3 @@
-
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -114,11 +113,15 @@ void replace(struct lista **lista) {
     mascara, infecao, mascara, infecao
 
     TIPO DE ANALISE :
-    esquerda -> direta, logo o individuo da esquerda obrigatoriamente tem que estar saudavel para ser feita a analise como solicitada pelo professor, logo nao foi feito tratamento para o caso de um individuo infectado a esquerda
+    esquerda -> direta, logo o individuo da esquerda obrigatoriamente tem que estar saudavel para ser feita a analise como solicitada pelo professor, vale dizer que nao foi feito tratamento para o caso de um individuo infectado pois o mesmo necessita estar saudavel para ser analisado.
 
     VISUALIZACAO:
     com mascara || com infeccao = 1
     sem mascara || sem infeccao = 0
+
+    EXEMPLO DE VISUALIZACAO DA SAIDA:
+    0 0 0 0 = 0%
+    sem mascara, sem infeccao, sem mascara, sem infeccao = 0%
 */
 int percorre(struct lista *lista){
     struct node *aux = lista->begin;
@@ -182,7 +185,6 @@ int main(){
     for(int j=0; j<TAM; j++){
         printf("\n|%d| = ", j);
         print(lista[j]);
-        //printf("%s", lista[j]->pal);
     }
     replace(lista);
     atribui_Porcent(lista);
