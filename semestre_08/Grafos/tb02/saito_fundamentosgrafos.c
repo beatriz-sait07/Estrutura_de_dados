@@ -53,26 +53,47 @@ void print(const struct lista *lista)
     struct node *p = lista->begin;
     //Enquanto P apontar para um no existente
     while(p != NULL){
-        printf("|%c|", p->val);
+        printf("%c", p->val);
         p = p->next;
     }
 }
 //-----------------------------------------------------------------------------------------------------------------
 void grafo(struct lista **lista){
-    FILE * file = fopen("grafos.csv", "r");
+    FILE * file = fopen("arquivo.dot", "r");
 
     if(file == NULL){
         printf("ERRO: nao foi possivel abrir o arquivo!\n");
         exit(1);
     }
 
-    while()
+    int i=0;
+    char aux = fgetc(file);
+    while(aux != EOF){
+        aux = fgetc(file);
+        if(aux == '{'){
+            aux = fgetc(file);
+            while(aux != '}'){
+                if(aux != ' ' && aux != '\n' && aux != ';'){
+                    add_Last(lista[i], aux);
+                }
+                aux = fgetc(file);
+            }
+        } else {
+            continue;
+        }
+    }
 }
 
-
-grafo
-    {
-    a -- b;
-    b -- C;
-    c -- d;
+int main (){
+    struct lista *lista[10];
+    for(int i=0; i<10; i++){
+        lista[i] = List_Create();
+    }
+    grafo(lista);
+    for(int i=0; i<10; i++){
+        printf("|%d| ", i);
+        print(lista[i]);
+        printf("\n");
+    }
+    return 0;
 }
