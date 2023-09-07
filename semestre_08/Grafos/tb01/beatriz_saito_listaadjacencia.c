@@ -61,6 +61,18 @@ void print(const struct lista *lista)
     }
 }
 
+//crie uma funcao para desalocar toda a lista
+void free_List(struct lista **lista, int i)
+{
+    struct node *p = lista[i]->begin;
+    struct node *aux = NULL;
+    while(p != NULL){
+        aux = p->next;
+        free(p);
+        p = aux;
+    }
+    free(lista);
+}
 
 //-----------------------------------------LEITURA DO ARQUIVO-----------------------------------------//
 void leitura_arq(struct lista **lista){
@@ -205,5 +217,13 @@ int main(){
         fprintf(file, " -> %d%%\n", lista[j]->porcent);
     }
     printf("\n");
+
+    for (int i = 0; i < TAM; i++)
+    {
+        free_List(lista, i);
+    }
+
+    free(lista);
+    
     return 0;
 }
