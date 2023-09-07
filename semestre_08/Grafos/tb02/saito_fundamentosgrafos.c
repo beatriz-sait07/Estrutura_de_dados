@@ -56,16 +56,15 @@ void print(const struct lista* lista) {
 
 //------------------------------------------LEITURA DO ARQUIVO------------------------------------------//
 void grafo(struct lista** lista) {
-    FILE* file = fopen("arquivo.dot", "r");
+    FILE* file = fopen("completok4.dot", "r");
 
     if (file == NULL) {
         printf("ERRO: não foi possível abrir o arquivo!\n");
         exit(1);
     }
 
-    int i = 0;
+    int i = -1;
     char aux = fgetc(file);
-    lista[i] = List_Create();
 
     while (aux != EOF) {
         if (aux == '{') {
@@ -76,14 +75,14 @@ void grafo(struct lista** lista) {
                     continue;
                 } else if (aux != ' ' && ((aux >= 'a' && aux <= 'z') || (aux >= 'A' && aux <= 'Z'))) {
                     add_Last(lista[i], aux);
-                    aux = fgetc(file); 
+                    aux = fgetc(file);
                     continue;
                 } else if (aux == '\n') {
-                    i++;
+                    i++;               
                     lista[i] = List_Create();
                     aux = fgetc(file); 
                 } else {
-                    aux = fgetc(file); 
+                    aux = fgetc(file);
                 }
             }
         } else {
@@ -93,6 +92,7 @@ void grafo(struct lista** lista) {
 
     fclose(file);
 }
+
 
 
 int main() {
