@@ -5,6 +5,8 @@
 
 #define TAM 8
 
+
+bool memoria_desalocada = false;
 //-------------------------------LISTA ENCADEADA---------------------------------//
 struct node{
     char val;
@@ -62,17 +64,19 @@ void print(const struct lista *lista)
 }
 
 //crie uma funcao para desalocar toda a lista
-void free_List(struct lista **lista, int i)
-{
+void free_List(struct lista **lista, int i) {
     struct node *p = lista[i]->begin;
     struct node *aux = NULL;
-    while(p != NULL){
+    while (p != NULL) {
         aux = p->next;
         free(p);
         p = aux;
     }
-    free(lista);
+    free(lista[i]);
+    lista[i] = NULL; // Define a lista como NULL após a desalocação
+    memoria_desalocada = true;
 }
+
 
 //-----------------------------------------LEITURA DO ARQUIVO-----------------------------------------//
 void leitura_arq(struct lista **lista){
@@ -224,6 +228,13 @@ int main(){
     }
 
     free(lista);
+
+    if (memoria_desalocada) {
+    printf("A memória da lista adjacente foi desalocada com sucesso.\n");
+    } else {
+    printf("A memória da lista adjacente ainda não foi desalocada.\n");
+    }
+
     
     return 0;
 }
