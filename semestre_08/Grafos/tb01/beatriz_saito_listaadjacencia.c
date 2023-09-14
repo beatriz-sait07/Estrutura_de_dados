@@ -132,8 +132,8 @@ void replace(struct lista **lista) {
     esquerda -> direta, logo o individuo da esquerda obrigatoriamente tem que estar saudavel para ser feita a analise como solicitada pelo professor, vale dizer que nao foi feito tratamento para o caso de um individuo infectado pois o mesmo necessita estar saudavel para ser analisado.
 
     VISUALIZACAO:
-    com mascara || com infeccao = 1
-    sem mascara || sem infeccao = 0
+    com  = 1
+    sem  = 0
 
     EXEMPLO DE VISUALIZACAO DA SAIDA:
     0 0 0 0 = 0%
