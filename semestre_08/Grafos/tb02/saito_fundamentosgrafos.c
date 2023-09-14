@@ -56,18 +56,18 @@ void print(const struct lista* lista) {
 }
 
 // Função para adicionar uma aresta a partir de um arquivo .dot
-void addEdge(struct lista** lista, char vertex1, char vertex2) {
-    int index1 = vertex1 - 'a'; // Converte o caractere em um índice
-    int index2 = vertex2 - 'a'; // Converte o caractere em um índice
+void addEdge(struct lista** lista, char vetc1, char vetc2) {
+    int index1 = vetc1 - 'a'; // Converte o caractere em um índice
+    int index2 = vetc2 - 'a'; // Converte o caractere em um índice
 
-    // Adicione vertex2 à lista de vertex1
-    add_Last(lista[index1], vertex2);
-    // Adicione vertex1 à lista de vertex2 (já que é um gráfico não direcionado)
-    add_Last(lista[index2], vertex1);
+    // Adicione vetc2 à lista de vetc1
+    add_Last(lista[index1], vetc2);
+    // Adicione vetc1 à lista de vetc2 (já que é um gráfico não direcionado)
+    add_Last(lista[index2], vetc1);
 }
 
 void grafo(struct lista** lista) {
-    FILE* file = fopen("grafo2.dot", "r");
+    FILE* file = fopen("grafo1.dot", "r");
 
     if (file == NULL) {
         printf("ERRO: não foi possível abrir o arquivo!\n");
@@ -77,16 +77,15 @@ void grafo(struct lista** lista) {
     char line[100]; // Assuma que uma linha do arquivo tem no máximo 100 caracteres
 
     while (fgets(line, sizeof(line), file)) {
-        char vertex1, vertex2;
-        if (sscanf(line, " %c -- %c ;", &vertex1, &vertex2) == 2) {
-            // Se a linha corresponder ao padrão "vertex1 -- vertex2;", adicione a aresta
-            addEdge(lista, vertex1, vertex2);
+        char vetc1, vetc2;
+        if (sscanf(line, " %c -- %c ;", &vetc1, &vetc2) == 2) {
+            // Se a linha corresponder ao padrão "vetc1 -- vetc2;", adicione a aresta
+            addEdge(lista, vetc1, vetc2);
         }
     }
 
     fclose(file);
 }
-
 
 void free_List(struct lista** lista, int i) {
     struct node* p = lista[i]->begin;
@@ -102,19 +101,17 @@ void free_List(struct lista** lista, int i) {
 }
 //------------------------------------- FIM DA LISTA ---------------------------------------
 
-// Função auxiliar DFS para verificar a conexidade do grafo
-
 //01) Verificar se o grafo é conexo
 void DFS(struct lista** lista, int vertex, bool* visited) {
     visited[vertex] = true;
 
-    struct node* current = lista[vertex]->begin;
-    while (current != NULL) {
-        int neighbor = current->val - 'a';
-        if (!visited[neighbor]) {
-            DFS(lista, neighbor, visited);
+    struct node* atual = lista[vertex]->begin;
+    while (atual != NULL) {
+        int aux = atual->val - 'a';
+        if (!visited[aux]) {
+            DFS(lista, aux, visited);
         }
-        current = current->next;
+        atual = atual->next;
     }
 }
 
@@ -127,22 +124,22 @@ bool isConexo(struct lista** lista) {
         visited[i] = false;
     }
 
-    // Encontre o primeiro vértice não nulo (se existir)
-    int startVertex = -1;
+    
+    int p = -1; // Encontre o primeiro vértice não nulo (se existir)
     for (int i = 0; i < numVertices; i++) {
         if (!is_Empty(lista[i])) {
-            startVertex = i;
+            p = i;
             break;
         }
     }
 
     // Se não houver vértices não nulos, o grafo é trivialmente conexo
-    if (startVertex == -1) {
+    if (p == -1) {
         return true;
     }
 
     // Execute uma DFS a partir do primeiro vértice não nulo
-    DFS(lista, startVertex, visited);
+    DFS(lista, p, visited);
 
     // Verifique se todos os vértices foram visitados
     for (int i = 0; i < numVertices; i++) {
@@ -159,12 +156,12 @@ bool loop(struct lista** lista) {
     int numVertices = 26; // Assumindo que há 26 vértices, 'a' a 'z'
 
     for (int i = 0; i < numVertices; i++) {
-        struct node* current = lista[i]->begin;
-        while (current != NULL) {
-            if (current->val == 'a' + i) {
+        struct node* atual = lista[i]->begin;
+        while (atual != NULL) {
+            if (atual->val == 'a' + i) {
                 return true; // Loop encontrado
             }
-            current = current->next;
+            atual = atual->next;
         }
     }
     return false; // Não há loops
@@ -175,18 +172,18 @@ bool ArestasParalelas(struct lista** lista) {
     int numVertices = 26; // Assumindo que há 26 vértices, 'a' a 'z'
 
     for (int i = 0; i < numVertices; i++) {
-        struct node* current = lista[i]->begin;
-        while (current != NULL) {
-            int neighbor = current->val - 'a';
-            struct node* check = current->next; // Comece a verificação a partir do próximo nó
+        struct node* atual = lista[i]->begin;
+        while (atual != NULL) {
+            int aux = atual->val - 'a';
+            struct node* check = atual->next; // Comece a verificação a partir do próximo nó
 
             while (check != NULL) {
-                if (check->val == current->val) {
+                if (check->val == atual->val) {
                     return true; // Aresta paralela encontrada
                 }
                 check = check->next;
             }
-            current = current->next;
+            atual = atual->next;
         }
     }
     return false; // Não há arestas paralelas
@@ -199,10 +196,10 @@ void GrauVertices(struct lista** lista, int grau[]) {
     for (int i = 0; i < numVertices; i++) {
         grau[i] = 0; // Inicialize o grau do vértice como 0
 
-        struct node* current = lista[i]->begin;
-        while (current != NULL) {
+        struct node* atual = lista[i]->begin;
+        while (atual != NULL) {
             grau[i]++; // Incrementa o grau para cada aresta incidente
-            current = current->next;
+            atual = atual->next;
         }
     }
 }
@@ -296,15 +293,15 @@ bool isMultigrafo(struct lista** lista) {
     int numVertices = 26; // Assumindo que há 26 vértices, 'a' a 'z'
 
     for (int i = 0; i < numVertices; i++) {
-        struct node* current = lista[i]->begin;
-        while (current != NULL) {
-            int neighbor = current->val - 'a';
+        struct node* atual = lista[i]->begin;
+        while (atual != NULL) {
+            int aux = atual->val - 'a';
             int count = 0; // Contador para contar as arestas entre o par de vértices
 
             // Percorre novamente a lista para contar as arestas entre o mesmo par de vértices
             struct node* check = lista[i]->begin;
             while (check != NULL) {
-                if (check->val == current->val) {
+                if (check->val == atual->val) {
                     count++;
                 }
                 check = check->next;
@@ -314,7 +311,7 @@ bool isMultigrafo(struct lista** lista) {
                 return true; // Mais de uma aresta entre o mesmo par de vértices
             }
 
-            current = current->next;
+            atual = atual->next;
         }
     }
     return false; // Não há múltiplas arestas entre o mesmo par de vértices
@@ -329,13 +326,13 @@ bool completo(struct lista** lista) {
         for (int j = 0; j < numVertices; j++) {
             if (i != j) {
                 bool arestaExiste = false;
-                struct node* current = lista[i]->begin;
-                while (current != NULL) {
-                    if (current->val == 'a' + j) {
+                struct node* atual = lista[i]->begin;
+                while (atual != NULL) {
+                    if (atual->val == 'a' + j) {
                         arestaExiste = true;
                         break;
                     }
-                    current = current->next;
+                    atual = atual->next;
                 }
 
                 if (!arestaExiste) {
@@ -352,7 +349,7 @@ bool completo(struct lista** lista) {
     return grafoCompleto;
 }
 
-bool isGrafoRegular(struct lista** lista) {
+bool grafo_reg(struct lista** lista) {
     int numVertices = 26; // Assumindo que há 26 vértices, 'a' a 'z'
 
     int grauPadrao = -1; // Grau do primeiro vértice não vazio
@@ -374,27 +371,27 @@ bool isGrafoRegular(struct lista** lista) {
     return true; // O grafo é regular
 }
 
-void generatePasseios(struct lista** lista, char start, bool* visited, char* path, int index, int numVertices) {
-    visited[start - 'a'] = true;
-    path[index++] = start;
+void generatePasseios(struct lista** lista, char go, bool* visited, char* caminho, int index, int numVertices) {
+    visited[go - 'a'] = true; // mantem o controlo dos vértices visitados 
+    caminho[index++] = go; 
 
-    if (index == numVertices) { // Se o passeio estiver completo (5 vértices no total)
+    if (index == numVertices) { 
         for (int i = 0; i < numVertices; i++) {
-            printf("%c ", path[i]);
+            printf("%c ", caminho[i]);
         }
         printf("\n");
     } else {
-        struct node* current = lista[start - 'a']->begin;
-        while (current != NULL) {
-            char nextVertex = current->val;
+        struct node* atual = lista[go - 'a']->begin;
+        while (atual != NULL) {
+            char nextVertex = atual->val;
             if (!visited[nextVertex - 'a']) {
-                generatePasseios(lista, nextVertex, visited, path, index, numVertices);
+                generatePasseios(lista, nextVertex, visited, caminho, index, numVertices);
             }
-            current = current->next;
+            atual = atual->next;
         }
     }
 
-    visited[start - 'a'] = false; // Marcar o vértice como não visitado para outros passeios
+    visited[go - 'a'] = false; // Marcar o vértice como não visitado para outros passeios
 }
 
 //-----------------------------------------MAIN-----------------------------------------
@@ -438,16 +435,16 @@ int main() {
 
     printf("\n09) O grafo %s completo.\n", completo(lista) ? "eh" : "nao eh");
 
-    printf("\n10) O grafo %s regular\n", isGrafoRegular(lista) ? "eh" : "NAO eh");
+    printf("\n10) O grafo %s regular\n", grafo_reg(lista) ? "eh" : "NAO eh");
 
     printf("\n11) Passeios:\n");
     bool visited[26] = { false };
-    char path[26];
+    char caminho[26];
 
     for (int i = 0; i < numVertices; i++) {
         if (!is_Empty(lista[i])) {
             printf("%c:\n", 'a' + i);
-            generatePasseios(lista, 'a' + i, visited, path, 0, numVertices);
+            generatePasseios(lista, 'a' + i, visited, caminho, 0, numVertices);
             printf("\n");
         }
     }
