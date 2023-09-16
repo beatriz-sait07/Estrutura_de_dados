@@ -1,5 +1,6 @@
-graph
-  {
-    a -- b
-    c -- d
-  }
+graph {
+  a -- b;
+  b -- c;
+  b -- b;
+  c -- d;
+}
