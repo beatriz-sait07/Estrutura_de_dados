@@ -5,6 +5,7 @@
 
 bool memoria_desalocada = false;
 
+//----------------------------------- Lista de adjacência ----------------------------------
 struct node {
     char val;
     struct node* next;
@@ -90,6 +91,7 @@ void free_List(struct lista** lista, int i) {
     lista[i] = NULL; // Define a lista como NULL após a desalocação
     memoria_desalocada = true;
 }
+
 //------------------------------------- Leitura do arq ---------------------------------------
 void leitura(struct lista** lista) {
     FILE* file = fopen("grafo3.dot", "r");
@@ -111,7 +113,8 @@ void leitura(struct lista** lista) {
 
     fclose(file);
 }
-//------------------------------FUNCOES-------------------------------
+
+//---------------------------------------- FUNCOES-------------------------------
 //01) Verificar se o grafo é conexo
 void DFS(struct lista** lista, int vertex, bool* visited) {
     visited[vertex] = true;
