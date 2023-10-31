@@ -1,0 +1,30 @@
+select ta.sigla as sigla_aeronave, ta.nome as nome_aeronave from aeronave an
+join tipo_aeronave ta on an.tipo_sigla = ta.sigla limit 10;
+
+--- ligando siglas e aeronaves 
+select ta.sigla as sigla_aeronave, ta.nome as nome_aeronave from voo v
+join aeronave an on an.codigo = v.aeronave
+join tipo_aeronave ta on ta.sigla = an.tipo_sigla limit 10;
+
+--- ligando aeroporto
+select ta.sigla as sigla_aeronave, ta.nome as nome_aeronave, ap.nome from voo v
+join aeronave an on an.codigo = v.aeronave
+join tipo_aeronave ta on ta.sigla = an.tipo_sigla
+join aeroporto ap on ap.sigla = v.aeroporto_decolagem limit 10;
+
+--- ligando cidade decolagem
+select ta.sigla as sigla_aeronave, ta.nome as nome_aeronave, ap.nome as aeroporto_decolagem, c1.nome_cidade as cidade_decolagem from voo v
+join aeronave an on an.codigo = v.aeronave
+join tipo_aeronave ta on ta.sigla = an.tipo_sigla
+join aeroporto ap on ap.sigla = v.aeroporto_decolagem
+join cidade c1 on c1.codigo = ap.cidade_id limit 10;
+
+--- ligando cidade pouso
+select ta.sigla as sigla_aeronave, ta.nome as nome_aeronave, ap.nome as aeroporto_decolagem, c1.nome_cidade as cidade_decolagem, ap1.nome as aeroporto_pouso, c2.nome_cidade as cidade_pouso from voo v
+join aeronave an on an.codigo = v.aeronave
+join tipo_aeronave ta on ta.sigla = an.tipo_sigla
+join aeroporto ap on ap.sigla = v.aeroporto_decolagem
+join cidade c1 on c1.codigo = ap.cidade_id
+join aeroporto ap1 on ap1.sigla = v.aeroporto_pouso
+join cidade c2 on c2.codigo = ap1.cidade_id limit 10;
+
