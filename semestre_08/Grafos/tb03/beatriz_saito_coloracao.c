@@ -157,8 +157,7 @@ int main() {
 
     printf("-------------------------------------\n\n");
     printf("Grafo regular: %s\n\n", grafo_reg(lista) ? "Verdadeiro" : "Falso");
-    printf("Faces externas do grafo:\n");
-    encontrarFacesExternas(lista);
+
     free(lista);
     return 0;
 }
