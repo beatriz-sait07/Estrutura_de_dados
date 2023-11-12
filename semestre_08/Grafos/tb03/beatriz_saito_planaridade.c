@@ -128,7 +128,7 @@ int main(){
     leitura(lista);
     for (int i = 0; i < MAX; i++) {
         if (!is_Empty(lista[i])) {
-            insert1(lista[i], 'a' + i);
+            //insert1(lista[i], 'a' + i);
             print(lista[i]);
             numVertices++;
             printf("\n");
