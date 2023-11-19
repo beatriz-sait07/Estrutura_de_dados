@@ -56,11 +56,11 @@ void insert(struct lista* lista, char val) {
 void insert1(struct lista *L, char val)
 {
     struct node *new = Node_Create(val);
-    new->next = L->begin; // Novo Noh aponta pro Noh de inicio
+    new->next = L->begin;
     if(is_Empty(L)){
         L->end = new;
     }
-    L->begin = new; // Proximo da lista vira o novo Noh
+    L->begin = new; 
     L->size++;
 }
 
@@ -72,14 +72,12 @@ void print(const struct lista* lista) {
     }
 }
 
-// Função para adicionar uma aresta a partir de um arquivo .dot
 void adicio_aresta(struct lista** lista, char vetc1, char vetc2) {
-    int index1 = vetc1 - 'a'; // Converte o caractere em um índice
-    int index2 = vetc2 - 'a'; // Converte o caractere em um índice
+    int index1 = vetc1 - 'a'; 
+    int index2 = vetc2 - 'a'; 
 
-    // Adicione vetc2 à lista de vetc1
+
     insert(lista[index1], vetc2);
-    // Adicione vetc1 à lista de vetc2 (já que é um gráfico não direcionado)
     insert(lista[index2], vetc1);
 }
 
@@ -92,7 +90,7 @@ void free_List(struct lista** lista, int i) {
         p = aux;
     }
     free(lista[i]);
-    lista[i] = NULL; // Define a lista como NULL após a desalocação
+    lista[i] = NULL;
     memoria_desalocada = true;
 }
 
@@ -105,12 +103,11 @@ void leitura(struct lista** lista) {
         exit(1);
     }
 
-    char line[100]; // Assuma que uma linha do arquivo tem no máximo 100 caracteres
+    char line[100];
 
     while (fgets(line, sizeof(line), file)) {
         char vetc1, vetc2;
         if (sscanf(line, " %c -- %c ;", &vetc1, &vetc2) == 2) {
-            // Se a linha corresponder ao padrão "vetc1 -- vetc2;", adicione a aresta
             adicio_aresta(lista, vetc1, vetc2);
         }
     }
@@ -121,32 +118,31 @@ void leitura(struct lista** lista) {
 //-------------------------------COLORACAO---------------------------------//
 void colorirGrafo(struct lista** lista, int numVertices) {
     for (int i = 0; i < numVertices; i++) {
-        cores[i] = -1; // Inicialmente, nenhum vértice tem cor atribuída
+        cores[i] = -1;
     }
 
-    cores[0] = 0; // Atribuir cor 0 ao primeiro vértice
+    cores[0] = 0;
 
     bool disponiveis[MAX];
     for (int i = 0; i < numVertices; i++) {
-        disponiveis[i] = true; // Inicialmente, todas as cores estão disponíveis
+        disponiveis[i] = true; 
     }
 
     for (int u = 1; u < numVertices; u++) {
         struct node* p = lista[u]->begin;
         while (p != NULL) {
             if (cores[p->val - 'a'] != -1) {
-                disponiveis[cores[p->val - 'a']] = false; // A cor já está usada por um vértice adjacente
+                disponiveis[cores[p->val - 'a']] = false; 
             }
             p = p->next;
         }
 
         int cr;
         for (cr = 0; cr < numVertices; cr++) {
-            if (disponiveis[cr]) break; // Encontrar a primeira cor disponível
+            if (disponiveis[cr]) break; 
         }
-        cores[u] = cr; // Atribuir a cor encontrada ao vértice
+        cores[u] = cr; 
 
-        // Resetar valores para o próximo índice
         for (int i = 0; i < numVertices; i++) {
             disponiveis[i] = true;
         }
