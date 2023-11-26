@@ -7,6 +7,9 @@
 
 int cores[MAX];
 
+bool disponiveis[MAX];
+
+
 bool memoria_desalocada = false;
 
 //----------------------------------- Lista de adjacência ----------------------------------
@@ -96,7 +99,7 @@ void free_List(struct lista** lista, int i) {
 
 //-------------------------------ARQUIVO---------------------------------//
 void leitura(struct lista** lista) {
-    FILE* file = fopen("grafo1.dot", "r");
+    FILE* file = fopen("grafo5.dot", "r");
 
     if (file == NULL) {
         printf("ERRO: não foi possível abrir o arquivo!\n");
@@ -116,7 +119,7 @@ void leitura(struct lista** lista) {
 }
 
 //-------------------------------COLORACAO---------------------------------//
-void colorirGrafo(struct lista** lista, int numVertices) {
+/*void colorirGrafo(struct lista** lista, int numVertices) {
     for (int i = 0; i < numVertices; i++) {
         cores[i] = -1;
     }
@@ -147,6 +150,47 @@ void colorirGrafo(struct lista** lista, int numVertices) {
             disponiveis[i] = true;
         }
     }
+}*/
+
+bool isSafe(int v, struct lista** lista, int color[], int c) {
+    struct node* p = lista[v]->begin->next; // Ignora o primeiro nó, pois é o próprio vértice
+    while (p != NULL) {
+        if (color[p->val - 'a'] == c) return false;
+        p = p->next;
+    }
+    return true;
+}
+
+bool graphColoringUtil(struct lista** lista, int m, int color[], int v, int numVertices) {
+    if (v == numVertices) return true; // Todos os vértices estão coloridos
+
+    for (int c = 1; c <= m; c++) {
+        if (isSafe(v, lista, color, c)) {
+            color[v] = c;
+
+            if (graphColoringUtil(lista, m, color, v + 1, numVertices)) return true;
+
+            color[v] = 0; // Backtrack
+        }
+    }
+    return false;
+}
+
+void colorirGrafo(struct lista** lista, int numVertices) {
+    int color[MAX];
+    for (int i = 0; i < numVertices; i++) color[i] = 0;
+
+    int m = numVertices; // Número máximo de cores. Você pode ajustar este valor conforme necessário
+    if (!graphColoringUtil(lista, m, color, 0, numVertices)) {
+        printf("Solução não existe");
+        return;
+    }
+
+    // Print das cores
+    printf("Cores dos vértices:\n");
+    for (int i = 0; i < numVertices; i++) {
+        printf("Vértice %c tem cor %d\n", 'a' + i, color[i]);
+    }
 }
 
 //-------------------------------MAIN---------------------------------//
@@ -168,9 +212,4 @@ int main(){
     }
     
     colorirGrafo(lista, numVertices);
-    
-    printf("Cores dos vértices:\n");
-    for (int i = 0; i < numVertices; i++) {
-        printf("Vértice %c tem cor %d\n", 'a' + i, cores[i]);
-    }
 }
