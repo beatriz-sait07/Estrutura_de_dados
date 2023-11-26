@@ -118,40 +118,6 @@ void leitura(struct lista** lista) {
     fclose(file);
 }
 
-//-------------------------------COLORACAO---------------------------------//
-/*void colorirGrafo(struct lista** lista, int numVertices) {
-    for (int i = 0; i < numVertices; i++) {
-        cores[i] = -1;
-    }
-
-    cores[0] = 0;
-
-    bool disponiveis[MAX];
-    for (int i = 0; i < numVertices; i++) {
-        disponiveis[i] = true; 
-    }
-
-    for (int u = 1; u < numVertices; u++) {
-        struct node* p = lista[u]->begin;
-        while (p != NULL) {
-            if (cores[p->val - 'a'] != -1) {
-                disponiveis[cores[p->val - 'a']] = false; 
-            }
-            p = p->next;
-        }
-
-        int cr;
-        for (cr = 0; cr < numVertices; cr++) {
-            if (disponiveis[cr]) break; 
-        }
-        cores[u] = cr; 
-
-        for (int i = 0; i < numVertices; i++) {
-            disponiveis[i] = true;
-        }
-    }
-}*/
-
 bool isSafe(int v, struct lista** lista, int color[], int c) {
     struct node* p = lista[v]->begin->next; // Ignora o primeiro nó, pois é o próprio vértice
     while (p != NULL) {
@@ -212,4 +178,18 @@ int main(){
     }
     
     colorirGrafo(lista, numVertices);
+
+    //---------------------------Free--------------------------------//
+    for (int i = 0; i < 26; i++) {
+        if (!is_Empty(lista[i])) {
+            free_List(lista, i);
+        } else {
+            free(lista[i]);
+        }
+    }
+    
+    free(lista);
+
+    if(memoria_desalocada == true) return printf("lista totalmente desalocada\n\n");
+    else return printf("erro ao desalocar a memoria!\n\n");
 }

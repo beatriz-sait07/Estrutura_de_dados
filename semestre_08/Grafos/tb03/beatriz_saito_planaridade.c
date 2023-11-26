@@ -123,6 +123,8 @@ bool eh_adj(const struct lista* lista, char val) {
     return false;
 }
 
+
+//-----------------------------PLANARIDADE------------------------------//
 bool k5(struct lista** lista) {
     for (int i = 0; i < MAX - 4; i++) {
         for (int j = i + 1; j < MAX - 3; j++) {
@@ -179,6 +181,7 @@ bool planar(struct lista** lista) {
     return true;
 }
 
+//------------------------------FACES-----------------------------------//
 void encontrar_ciclo(struct lista** lista, int numVertices, bool visitados[], int v, int parent, struct lista* ciclo, bool no_ciclo[]) {
     visitados[v] = true;
     insert(ciclo, 'a' + v);
@@ -240,6 +243,22 @@ int main(){
 
     printf("Lista de vertices da face externa:\n");
     lista_vertices_face_externa(lista, numVertices);
+
+
+//-------------------------------Free------------------------------//
+    for (int i = 0; i < 26; i++) {
+        if (!is_Empty(lista[i])) {
+            free_List(lista, i);
+        } else {
+            free(lista[i]);
+        }
+    }
+    
+
+    free(lista);
+
+    if(memoria_desalocada == true) return printf("lista totalmente desalocada\n\n");
+    else return printf("erro ao desalocar a memoria!\n\n");
 
     return 0;
 }
