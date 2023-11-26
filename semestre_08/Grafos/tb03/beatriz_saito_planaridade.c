@@ -93,7 +93,7 @@ void free_List(struct lista** lista, int i) {
 
 //-------------------------------ARQUIVO---------------------------------//
 void leitura(struct lista** lista) {
-    FILE* file = fopen("grafo3.dot", "r");
+    FILE* file = fopen("grafo.dot", "r");
 
     if (file == NULL) {
         printf("ERRO: não foi possível abrir o arquivo!\n");
@@ -123,54 +123,7 @@ bool eh_adj(const struct lista* lista, char val) {
     return false;
 }
 
-// //metodo kuratowski - kikibutovski
-// bool planar(struct lista** lista) {
-//     int i, j;
-//     for (i = 0; i < MAX; i++) {
-//         if (!is_Empty(lista[i])) {
-//             for (j = 0; j < MAX; j++) {
-//                 if (i != j && !is_Empty(lista[j])) {
-//                     if (!eh_adj(lista[i], 'a' + j)) {
-//                         // Se os vértices 'a' + i e 'a' + j não são adjacentes,
-//                         // verifique se há um vértice 'a' + k tal que nenhum deles
-//                         // seja adjacente a 'a' + k
-//                         int k;
-//                         for (k = 0; k < MAX; k++) {
-//                             if (k != i && k != j) {
-//                                 if (!eh_adj(lista[i], 'a' + k) && !eh_adj(lista[j], 'a' + k)) {
-//                                     return true;
-//                                 }
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-
-//     for (i = 0; i < MAX; i++) {
-//         if (!is_Empty(lista[i])) {
-//             for (j = 0; j < MAX; j++) {
-//                 if (i != j && !eh_adj(lista[j], 'a' + i)) {
-//                     // Se os vértices 'a' + i e 'a' + j não são adjacentes,
-//                     // verifique se há um vértice 'a' + k tal que ambos sejam
-//                     // adjacentes a 'a' + k
-//                     int k;
-//                     for (k = 0; k < MAX; k++) {
-//                         if (k != i && k != j) {
-//                             if (eh_adj(lista[i], 'a' + k) && eh_adj(lista[j], 'a' + k)) {
-//                                 return true;
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-//     return false; 
-// }
-
-bool isK5(struct lista** lista) {
+bool k5(struct lista** lista) {
     for (int i = 0; i < MAX - 4; i++) {
         for (int j = i + 1; j < MAX - 3; j++) {
             if (!eh_adj(lista[i], 'a' + j)) continue;
@@ -191,15 +144,14 @@ bool isK5(struct lista** lista) {
     }
     return false; // Não encontrou um K5
 }
-bool isK33(struct lista** lista) {
-    // Esta é uma implementação muito simplificada e não abrange todos os casos
+
+bool k3(struct lista** lista) {
     for (int i = 0; i < MAX - 5; i++) {
         for (int j = i + 1; j < MAX - 4; j++) {
             if (eh_adj(lista[i], 'a' + j)) continue;
 
             for (int k = j + 1; k < MAX - 3; k++) {
                 if (eh_adj(lista[i], 'a' + k) || eh_adj(lista[j], 'a' + k)) continue;
-
                 // Agora, verifique os outros três vértices para formar o K3,3
                 for (int l = k + 1; l < MAX - 2; l++) {
                     for (int m = l + 1; m < MAX - 1; m++) {
@@ -221,7 +173,7 @@ bool isK33(struct lista** lista) {
 }
 
 bool planar(struct lista** lista) {
-    if (isK5(lista) || isK33(lista)) {
+    if (k5(lista) || k3(lista)) {
         return false;
     }
     return true;
@@ -250,14 +202,14 @@ void lista_vertices_face_externa(struct lista** lista, int numVertices) {
     bool no_ciclo[MAX] = {true};
 
     encontrar_ciclo(lista, numVertices, visitados, 0, -1, ciclo, no_ciclo);
-    print(ciclo);
+    //print(ciclo);
 
     for (int i = 0; i < MAX; i++) {
         if (no_ciclo[i]) {
             printf("%c ", 'a' + i);
         }
     }
-    printf("\n");
+    printf("\n\n");
 }
 
 //-------------------------------MAIN---------------------------------//
@@ -277,13 +229,13 @@ int main(){
             printf("\n");
         }
     }
-
-    if (numVertices < 3) {
-        printf("O grafo é planar (menos de 3 vertices)\n");
+    printf("\n\n");
+    if (numVertices <= 3) {
+        printf("O grafo é planar (menor ou igual a 3 vertices)\n\n");
     } else if (planar(lista)) {
-        printf("O grafo eh planar\n");
+        printf("O grafo eh planar\n\n");
     } else {
-        printf("O grafo nao eh planar\n");
+        printf("O grafo nao eh planar\n\n");
     }
 
     printf("Lista de vertices da face externa:\n");
