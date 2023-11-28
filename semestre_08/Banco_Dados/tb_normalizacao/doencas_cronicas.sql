@@ -1,9 +1,23 @@
-DROP FUNCTION IF EXISTS normalizando();
+DROP FUNCTION IF EXISTS normalizacao() CASCADE;
 
-
-CREATE OR REPLACE FUNCTION normalizacao() RETURNS VIEW AS $$
+CREATE OR REPLACE FUNCTION normalizacao() 
+RETURNS TABLE 
+(
+        pessoa_id INT,
+        dt_obito DATE,
+        dt_nascimento DATE,
+        tempo_de_vida INTERVAL,
+        crypt_sexo TEXT,
+        crypt_rc TEXT,
+        escolaridade VARCHAR,
+        nome TEXT,
+        crypt_cau TEXT,
+        crypt_cap TEXT,
+        crypt_cat TEXT,
+        desc_cid VARCHAR
+    ) 
+AS $$
 BEGIN
-
     DROP VIEW IF EXISTS view_descryp CASCADE;
     DROP TABLE IF EXISTS cids CASCADE;
     DROP TABLE IF EXISTS municipio CASCADE;
@@ -114,7 +128,7 @@ BEGIN
     DROP COLUMN sexo,
     DROP COLUMN raca;
 
-    CREATE OR REPLACE VIEW view_descryp AS
+CREATE OR REPLACE VIEW view_descryp AS
     SELECT 
         p.pessoa_id,
         p.dt_obito,
@@ -137,9 +151,7 @@ BEGIN
     JOIN
         prontuario pr ON p.prontuario_p = pr.prontuario_id;
 
-    RETURN QUERY SELECT * FROM view_descryp;
-END; 
-$$ LANGUAGE plpgsql;
+RETURN QUERY SELECT * FROM view_descryp;
 
-select normalizacao();
 
+END; $$ LANGUAGE plpgsql;

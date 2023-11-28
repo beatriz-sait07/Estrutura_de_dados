@@ -1,9 +1,11 @@
--- Create the function
-CREATE OR REPLACE FUNCTION normalizando_dados()
-RETURNS SETOF view_descryp AS
-$$
+DROP FUNCTION IF EXISTS normalizando();
+
+
+CREATE OR REPLACE FUNCTION normalizacao() RETURNS VIEW AS $$
 BEGIN
 
+    DROP VIEW IF EXISTS view_descryp CASCADE;
+    DROP TABLE IF EXISTS cids CASCADE;
     DROP TABLE IF EXISTS municipio CASCADE;
     DROP TABLE IF EXISTS prontuario CASCADE;
     DROP TABLE IF EXISTS pessoa;
@@ -13,11 +15,11 @@ BEGIN
         dt_obito date,
         dt_nascimento date,
         nu_idade int,
-        sg_sexo varchar(10),
+        sg_sexo char(10),
         tp_raca_cor char(20),
         tp_escolaridade varchar(30),
-        co_municipio_ibge_residencia char(50),
-        co_municipio_ibge_ocorrencia char(50),
+        co_municipio_ibge_residencia varchar(50),
+        co_municipio_ibge_ocorrencia varchar(50),
         co_cid_causa_basica varchar(10),
         desc_cid_causa_basica varchar(50),
         capitulo_cid_causa_basica varchar(50),
@@ -28,7 +30,7 @@ BEGIN
 
     CREATE TABLE municipio (
         municipio_id serial primary key,
-        nome varchar(30)
+        nome text
     );
 
     WITH municipios_dist AS (
@@ -39,16 +41,26 @@ BEGIN
     INSERT INTO municipio (nome)
     SELECT DISTINCT co_residencia FROM municipios_dist;
 
-    CREATE TABLE prontuario (
-        prontuario_id serial primary key,
-        co_cid_causa_basica varchar(100),
-        desc_cid_causa_basica varchar(100),
-        capitulo_cid_causa_basica varchar(100),
-        categoria_cid_causa_basica varchar(100)
+        CREATE TABLE cids (
+        id serial primary key,
+        co_cid varchar(100),
+        desc_cid varchar(100),
+        capitulo_cid varchar(100),
+        categoria_cid varchar(100)
     );
 
-    INSERT INTO prontuario (co_cid_causa_basica, desc_cid_causa_basica, capitulo_cid_causa_basica, categoria_cid_causa_basica)
+    INSERT INTO cids (co_cid, desc_cid, capitulo_cid, categoria_cid)
     SELECT DISTINCT co_cid_causa_basica, desc_cid_causa_basica, capitulo_cid_causa_basica, categoria_cid_causa_basica FROM tabela_principal;
+
+    CREATE TABLE prontuario (
+        prontuario_id serial primary key,
+        cid_id int REFERENCES cids(id)
+    );
+
+    INSERT INTO prontuario (cid_id)
+    SELECT id FROM cids;
+
+
 
     CREATE TABLE pessoa (
         pessoa_id serial primary key,
@@ -56,14 +68,16 @@ BEGIN
         dt_nascimento date,
         sexo char(100),
         raca char(100),
-        residencia int,
-        prontuario_p int
+        escolaridade varchar(30),
+        residencia int REFERENCES municipio(municipio_id),
+        prontuario_p int REFERENCES prontuario(prontuario_id)
     );
 
-    INSERT INTO pessoa (dt_obito, dt_nascimento, sexo, raca, residencia, prontuario_p)
-    SELECT tp.dt_obito, tp.dt_nascimento, tp.sg_sexo, tp.tp_raca_cor, m.municipio_id, pr.prontuario_id FROM tabela_principal tp
+    INSERT INTO pessoa (dt_obito, dt_nascimento, sexo, raca, escolaridade, residencia, prontuario_p)
+    SELECT tp.dt_obito, tp.dt_nascimento, tp.sg_sexo, tp.tp_raca_cor, tp.tp_escolaridade, m.municipio_id, pr.prontuario_id FROM tabela_principal tp
     JOIN municipio m ON m.nome = tp.co_municipio_ibge_residencia
-    JOIN prontuario pr ON pr.co_cid_causa_basica = tp.co_cid_causa_basica;
+    JOIN cids cd ON cd.co_cid = tp.co_cid_causa_basica
+    JOIN prontuario pr ON pr.cid_id = cd.id;
 
     ALTER TABLE pessoa
     ADD CONSTRAINT fk_residencia FOREIGN KEY (residencia) REFERENCES municipio(municipio_id);
@@ -73,20 +87,20 @@ BEGIN
 
     CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
-    ALTER TABLE prontuario
+    ALTER TABLE cids
     ADD COLUMN crypt_cau BYTEA,
     ADD COLUMN crypt_cap BYTEA,
     ADD COLUMN crypt_cat BYTEA;
 
-    UPDATE prontuario
-    SET crypt_cau = pgp_sym_encrypt(co_cid_causa_basica::TEXT, '1245'),
-        crypt_cap = pgp_sym_encrypt(capitulo_cid_causa_basica::TEXT, '1245'),
-        crypt_cat = pgp_sym_encrypt(categoria_cid_causa_basica::TEXT, '1245');
+    UPDATE cids
+    SET crypt_cau = pgp_sym_encrypt(co_cid::TEXT, '1245'),
+        crypt_cap = pgp_sym_encrypt(capitulo_cid::TEXT, '1245'),
+        crypt_cat = pgp_sym_encrypt(categoria_cid::TEXT, '1245');
 
-    ALTER TABLE prontuario
-    DROP COLUMN co_cid_causa_basica,
-    DROP COLUMN capitulo_cid_causa_basica,
-    DROP COLUMN categoria_cid_causa_basica;
+    ALTER TABLE cids
+    DROP COLUMN co_cid,
+    DROP COLUMN capitulo_cid,
+    DROP COLUMN categoria_cid;
 
     ALTER TABLE pessoa
     ADD COLUMN crypt_sexo BYTEA,
@@ -101,28 +115,31 @@ BEGIN
     DROP COLUMN raca;
 
     CREATE OR REPLACE VIEW view_descryp AS
-    SELECT
+    SELECT 
         p.pessoa_id,
         p.dt_obito,
         p.dt_nascimento,
         age(p.dt_obito, p.dt_nascimento) AS tempo_de_vida,
         pgp_sym_decrypt(p.crypt_sexo, '1245') AS sexo,
         pgp_sym_decrypt(p.crypt_rc, '1245') AS raca,
+        p.escolaridade,
         m.nome AS residencia,
-        pgp_sym_decrypt(pr.crypt_cau, '1245') AS desc_cid_causa_basica,
-        pgp_sym_decrypt(pr.crypt_cap, '1245') AS desc_cid_capitulo_basica,
-        pgp_sym_decrypt(pr.crypt_cat, '1245') AS categoria_cid_causa_basica
+        pgp_sym_decrypt(cd.crypt_cau, '1245') AS causa_cid,
+        pgp_sym_decrypt(cd.crypt_cap, '1245') AS capitulo_cid,
+        pgp_sym_decrypt(cd.crypt_cat, '1245') AS categoria_cid,
+        cd.desc_cid AS descricao_cid
     FROM
         pessoa p
     JOIN
         municipio m ON p.residencia = m.municipio_id
     JOIN
+        cids cd ON p.prontuario_p = cd.id
+    JOIN
         prontuario pr ON p.prontuario_p = pr.prontuario_id;
 
     RETURN QUERY SELECT * FROM view_descryp;
-END;
-$$
-LANGUAGE plpgsql;
+END; 
+$$ LANGUAGE plpgsql;
 
-select * from view_descryp;
+select normalizacao();
 
