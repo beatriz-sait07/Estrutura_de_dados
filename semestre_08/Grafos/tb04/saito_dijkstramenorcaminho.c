@@ -73,27 +73,50 @@ void liberar(struct lista **l){
     free(ref);
 }
 //************************************************LEITURA ARQUIVO****************************************
+void add_aresta(struct lista **l, char *ind1, char *ind2, int peso){
+    inserir(*l, ind1, peso);
+    inserir(*l, ind2, peso);
+}
 
+void leitura(struct lista **l){
+    FILE *file = fopen("DijkstraMenorCaminho.dot", "r");
+    
+    if(file == NULL){
+        fprintf(stderr, "ERRO: arquivo nao encontrado!\n");
+        exit(1);
+    }
+    char linha[100];
+
+    while(fgets(linha, sizeof(linha), file)){
+        char ind1, ind2, p;
+
+        //printf("%s", linha);
+        if(sscanf(linha, "%s -> %s;")){
+        }
+    }
+}
 
 int main () {
 
     struct lista **l_main = (struct lista**)malloc(10 * sizeof(struct lista*));
 
-    //criar um laco para criacao da lista de adj
-    for(int i=0; i<2; i++){
-        l_main[i] = cria_lista();
-    }
+    // //criar um laco para criacao da lista de adj
+    // for(int i=0; i<2; i++){
+    //     l_main[i] = cria_lista();
+    // }
     
 
-    inserir(l_main[0], "sp", 132);
-    inserir(l_main[1], "mg", 632);
+    // inserir(l_main[0], "sp", 132);
+    // inserir(l_main[1], "mg", 632);
 
-    for(int i=0; i<2; i++){
-        print(l_main[i]);
-    }
+    // for(int i=0; i<2; i++){
+    //     print(l_main[i]);
+    // }
 
-    for(int i=0; i<2; i++){
-        liberar(&l_main[i]);
-    }
+    leitura(l_main);
+
+    // for(int i=0; i<2; i++){
+    //     liberar(&l_main[i]);
+    // }
     return 0;
 }
