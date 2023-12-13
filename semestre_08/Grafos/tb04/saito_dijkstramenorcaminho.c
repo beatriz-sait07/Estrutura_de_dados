@@ -89,14 +89,12 @@ void leitura(struct lista **l_main, const char *nome_arquivo) {
     fclose(arquivo);
 }
 
-/*----------------------------------------------------*/
-
-const char* indice_para_estado(int indice) {
+char* indice_para_estado(int indice) {
     if (indice < 0 || indice >= TAM) {
         return "Estado inválido"; // Retornar uma mensagem de erro se o índice for inválido
     }
 
-    const char *estados[TAM] = {
+    char *estados[TAM] = {
         "SP", "RJ", "MG", "ES", "BA", "SE", "AL", "PE", "PB", "RN", 
         "CE", "PI", "MA", "PA", "AP", "AM", "RR", "AC", "RO", "MT", 
         "TO", "GO", "MS", "PR", "SC", "RS"
@@ -179,94 +177,11 @@ void dijkstra(struct lista **l_main, int origem, int destino) {
 int main() {
     struct lista **l_main = (struct lista **)malloc(TAM * sizeof(struct lista *));
 
-    for (int i = 0; i < TAM; i++) {
-        l_main[i] = cria_lista();
-        char *estado;
-        switch (i) {
-            case 0:
-                estado = "SP";
-                break;
-            case 1:
-                estado = "RJ";
-                break;
-            case 2:
-                estado = "MG";
-                break;
-            case 3:
-                estado = "ES";
-                break;
-            case 4:
-                estado = "BA";
-                break;
-            case 5:
-                estado = "SE";
-                break;
-            case 6:
-                estado = "AL";
-                break;
-            case 7:
-                estado = "PE";
-                break;
-            case 8:
-                estado = "PB";
-                break;
-            case 9:
-                estado = "RN";
-                break;
-            case 10:
-                estado = "CE";
-                break;
-            case 11:
-                estado = "PI";
-                break;
-            case 12:
-                estado = "MA";
-                break;
-            case 13:
-                estado = "PA";
-                break;
-            case 14:
-                estado = "AP";
-                break;
-            case 15:
-                estado = "AM";
-                break;
-            case 16:
-                estado = "RR";
-                break;
-            case 17:
-                estado = "AC";
-                break;
-            case 18:
-                estado = "RO";
-                break;
-            case 19:
-                estado = "MT";
-                break;
-            case 20:
-                estado = "TO";
-                break;
-            case 21:
-                estado = "GO";
-                break;
-            case 22:
-                estado = "MS";
-                break;
-            case 23:
-                estado = "PR";
-                break;
-            case 24:
-                estado = "SC";
-                break;
-            case 25:
-                estado = "RS";
-                break;
-            default:
-                estado = "ERRO";
-                break;
-        }
-        l_main[i]->inicio = cria_no(estado, 0);
-    }
+for (int i = 0; i < TAM; i++) {
+    l_main[i] = cria_lista();
+    l_main[i]->inicio = cria_no(indice_para_estado(i), 0);
+}
+
 
     leitura(l_main, "entrada.dot");
 
