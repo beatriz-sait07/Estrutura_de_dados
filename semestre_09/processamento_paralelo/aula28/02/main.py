@@ -62,6 +62,11 @@ def exibir_04(vet, intercalacao=4):
     for varredura in vet4:
         print(f"{id_04} -> {varredura}")
 
+    # print(vet1)
+    # print(vet2)
+    # print(vet1)
+    # print(vet2)
+
 
 vetor = [i for i in range(10000000)]
 #exibir_04(vetor)
