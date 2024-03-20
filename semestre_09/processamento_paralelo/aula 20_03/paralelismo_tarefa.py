@@ -23,3 +23,4 @@ while keep_running:
     user_input = input("Pressione 'q' para sair: ")
     if user_input == 'q':
         keep_running = False
+
